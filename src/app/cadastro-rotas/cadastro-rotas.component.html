@@ -1,0 +1,61 @@
+<div class="row section">
+    <div class="col s12">
+      <a (click)="gridRotas()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
+    </div>
+  </div>
+  <div class="row container">
+    <div class="card z-depth-5">
+        <div class="card-content">
+            <span class="card-title">Dados da Rota</span>
+            <div class="row">
+                <div class="input-field col s12 m3 l3 xl3">
+                        <select name="selectedOption" materialize="material_select" [materializeSelectOptions]="selectOptions">
+                                <option value="" disabled selected>Sentido</option>
+                                <option *ngFor="let option of selectOptions" [value]="option.value">{{option.name}}</option>
+                        </select>
+                </div>
+                <div class="input-field col s12 m9 l9 xl9">
+                    <input  id="icon_descr" type="text" class="validate">
+                    <label for="icon_descr">Descrição</label>
+                  </div>              
+            </div>
+            <div class="row">           
+                  <div class="input-field col s12 m6 l6 xl6">
+                    <i class="material-icons prefix">watch_later</i>
+                    <input id="inicio"
+                    materialize="pickatime" 
+                    [materializeActions]="horarioInicio"
+                    [materializeParams]="[{twelvehour: true}]"
+                    placeholder="00:00" class="validate" type="text">
+                    <label for="inicio">Horário de Inicio</label>
+                  </div>
+                  <div class="input-field col s12 m6 l6 xl6">
+                      <i class="material-icons prefix">watch_later</i>
+                      <input id="termino"
+                      materialize="pickatime" 
+                      [materializeActions]="horarioTermino"
+                      [materializeParams]="[{twelvehour: true}]"
+                      placeholder="00:00" class="validate" type="text">
+                      <label for="inicio">Horário de Término</label>
+                    </div>
+            </div>
+            
+          </div>
+    </div>    
+  </div>
+  <div class="row container">
+      <div class="card z-depth-5">
+        <div class="card-content">
+            <span class="card-title">Mapa</span>
+            <div class="row">
+                <agm-map [latitude]="lat" [longitude]="lng">
+                    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                </agm-map>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row container">
+          <a (click)="gridRotas()"class="col s12 m6 btn btn-waves green">Salvar</a>
+          <a (click)="gridRotas()" class="col s12 m6 btn btn-waves red">Cancelar</a>
+      </div>

@@ -1,20 +1,262 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNTAgMjUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojREQwMDMxO30NCgkuc3Qxe2ZpbGw6I0MzMDAyRjt9DQoJLnN0MntmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxnPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTI1LDMwIDEyNSwzMCAxMjUsMzAgMzEuOSw2My4yIDQ2LjEsMTg2LjMgMTI1LDIzMCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAJIi8+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMjUsMzAgMTI1LDUyLjIgMTI1LDUyLjEgMTI1LDE1My40IDEyNSwxNTMuNCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAxMjUsMzAgCSIvPg0KCTxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0xMjUsNTIuMUw2Ni44LDE4Mi42aDBoMjEuN2gwbDExLjctMjkuMmg0OS40bDExLjcsMjkuMmgwaDIxLjdoMEwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMQ0KCQlMMTI1LDUyLjF6IE0xNDIsMTM1LjRIMTA4bDE3LTQwLjlMMTQyLDEzNS40eiIvPg0KPC9nPg0KPC9zdmc+DQo=">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://blog.angular.io//">Angular blog</a></h2>
-  </li>
-</ul>
+<body>
+  <main [ngClass]="{'main': this.logado}">
+    <nav>
+      <div class="nav-wrapper teal darken-3">
 
+        <!-- Navbar do topo -->
+        <ul id="nav-mobile" class="right">
+          <li *ngIf="!this.logado"><a materialize="sideNav" [materializeParams]="navBarLoginParams" [materializeActions]="navBarLogin" data-activates="navLogin" class="white grey-text text-darken-3 waves-effect waves-light btn">Logar</a></li>
+
+        </ul>
+        <a *ngIf="this.logado" class="brand-logo center white-text truncate titulo">{{titulo}}</a>
+        <a [ngClass]="{'right': logado, 'center': !logado}" class="brand-logo right grey-text text-darken-3"> <img class="responsive-img logo" src="https://evwilkin.github.io/images/materializecss.png" > </a>
+        <!-- Navbar Lateral -->
+        <div *ngIf="this.logado">
+          <ul id="navMob" class="side-nav fixed">
+            <li>
+              <div class="user-view">
+                <div class="background blue-grey darken-3">
+                </div>
+                <div class="userImg">
+                  <a class=""><img class="circle responsive-img" src="{{usuario.imagemUsuario}}"></a>
+                </div>
+                <a><span class="white-text name center-align">{{usuario.nome}}</span></a>
+              </div>
+            </li>
+            <li><a  [routerLink]="['main']" (click)="setTitulo('')"><i class="material-icons">home</i>Início</a></li>
+            <li><a [routerLink]="['configUsuario']" (click)="setTitulo('Configurações do Usuário')"><i class="material-icons" >settings</i>Configurações do Usuário</a></li>
+            <li><a  (click)="logOut()"><i class="material-icons">exit_to_app</i>Sair</a></li>
+            <li>
+              <div class="divider"></div>
+            </li>
+
+            <li class="padding-top-1perc">
+              <ul materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="navBarLateralCollapsible">
+                <li><a class="collapsible-header waves-effect waves-teal"><i class="material-icons">domain</i>Empresa</a>
+                  <div class="collapsible-body" style="display: none;">
+                    <ul>
+                      <li><a [routerLink]="['dadosEmpresa']" (click)="setTitulo('Dados da Empresa')">Dados da Empresa</a></li>
+                      <li ><a [routerLink]="['areaAtuacao']" (click)="setTitulo('Áreas de Atuação')">Áreas de Atuação</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li ><a class="collapsible-header waves-effect waves-teal"><i class="material-icons">people</i>Passageiros</a>
+                  <div class="collapsible-body" style="display: none;">
+                    <ul>
+                      <li><a [routerLink]="['gridPassageiro']" (click)="setTitulo('Cadastro de Passageiro')">Cadastro</a></li>
+                      <li><a [routerLink]="['passResp']" (click)="setTitulo('Responsáveis do Passageiro')">Responsáveis</a></li>
+                      <li><a [routerLink]="['passContrato']" (click)="setTitulo('Contrato do Passageiro')">Contrato do Passageiro</a></li>
+                      <li><a [routerLink]="['passMens']" (click)="setTitulo('Mensalidades')">Mensalidades</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li ><a class="collapsible-header waves-effect waves-teal"><i class="material-icons">airport_shuttle</i>Veículos</a>
+                  <div class="collapsible-body" style="display: none;">
+                    <ul>
+                      <li><a [routerLink]="['gridVeiculo']" (click)="setTitulo('Cadastro de Veículo')">Cadastro</a></li>
+                      <!-- <li><a [routerLink]="['veicRevisao']" (click)="setTitulo('Revisões do Veículo')">Revisão</a></li> -->
+                    </ul>
+                  </div>
+                </li>
+                <li ><a class="collapsible-header waves-effect waves-teal"><i class="material-icons">fingerprint</i>Funcionários</a>
+                  <div class="collapsible-body" style="display: none;">
+                    <ul>
+                      <li><a [routerLink]="['gridMotorista']" (click)="setTitulo('Cadastro de Motorista')">Motorista</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li ><a class="collapsible-header waves-effect waves-teal"><i class="material-icons">map</i>Rotas</a>
+                  <div class="collapsible-body" style="display: none;">
+                    <ul>
+                      <li><a [routerLink]="['gridRota']" (click)="setTitulo('Cadastro de Rotas')">Cadastro</a></li>
+                      <li><a [routerLink]="['rotaVincPass']" (click)="setTitulo('Vinculo de Passageiros / Rotas')">Vinculo de Passageiros</a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li ><a (click)="setTitulo('Cadastro Planos de Mensalidade')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridPlanoMens']"><i class="material-icons" >attach_money</i>Planos de Mensalidade</a></li>
+            <li ><a (click)="setTitulo('Cadastro de Modelos de Contrato')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridModeloContrato']"><i class="material-icons">assignment</i>Modelos de Contrato</a></li>
+            <li ><a (click)="setTitulo('Gerenciamento de Usuários')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridUsuario']"><i class="material-icons">person</i>Gerenciamento de Usuários</a></li>
+          </ul>
+          <a href="#navMob" materialize="sideNav" [materializeParams]="[{edge:'left'}]" data-activates="navMob" class="button-collapse white-text"><i class="material-icons">menu</i></a>
+        </div>
+      </div>
+    </nav>
+
+    <router-outlet></router-outlet>
+  </main>
+
+  <div *ngIf="this.logado" >
+    <div class="fixed-action-btn toolbar center-align">
+      <a class="btn-floating btn-large teal darken-3">
+        <i class="large material-icons">bug_report</i>
+      </a>
+      <ul [ngClass]="{'footer': this.logado}">
+        <li class="waves-effect"><a href="#modalContato" (click)="openModalContato()" id="download-button" class="btn-large waves-effect waves-light teal lighten-1 modal-trigger"> <i class="material-icons left">chat</i>Duvidas ou Problemas? Envie-nos uma mensagem!</a></li>     
+      </ul>
+    </div>
+  </div>
+
+  <footer *ngIf="!this.logado" [ngClass]="{'footer': this.logado}" class="page-footer white">
+    <div class="container">
+      <div *ngIf="!this.logado" >
+          <div class="row">
+              <div class="col s12">
+                <h3 class="teal-text text-lighten-2 center-align">VANNZ</h3>
+              </div>
+            </div>
+            <div class="row ">             
+                    <div class="col s12 l6 center-align">
+                        <div class="card meduim">
+                          <div class="icon-block card-content">
+                              <div class="card-title black-text">Desenvolvedor</div>
+                            <img class="responsive-img profileImg circle" src="https://scontent.fmgf1-2.fna.fbcdn.net/v/t1.0-9/12294827_718252928274391_1413862510662339571_n.jpg?oh=87a3c4c6771555c4025ff5e59f90cd9e&oe=5A40E605">
+                            <h5 class="center grey-text text-darken-1">Matheus Malinovski</h5>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12 l6 center-align">
+                      <div class="card meduim">
+                          <div class="icon-block card-content">
+                              <div class="card-title black-text">Desenvolvedor</div>
+                              <img class="responsive-img profileImg circle" src="https://scontent.fmgf1-2.fna.fbcdn.net/v/t1.0-9/15698256_944520919015219_4156586032899435638_n.jpg?oh=80210e67c2005e3b1d3323f77ca5063c&oe=5A4C87C7">
+                              <h5 class="center grey-text text-darken-1">Luiz Henrique Souza</h5>             
+                            </div>
+                      </div>                      
+                    </div>
+            </div>
+      </div>  
+    </div>
+    <div *ngIf="!this.logado" class="footer-copyright teal darken-3">
+      <div class="container center">
+        © 2017 Todos os direitos reservados!
+      </div>
+    </div>
+  </footer>
+</body>
+
+<!-- Modal para login-->
+<div id="login" class="modal" materialize="modal" [materializeParams]="modalLoginParams" [materializeActions]="modalLogin">
+  <div class="modal-content blue-grey lighten-5">
+
+  
+
+</div>
+</div>
+<div id="modalContato" class="modal bottom-sheet" materialize="modal" [materializeParams]="modelContatoParams" [materializeActions]="modalContato">
+    <div class="modal-content">
+      <div class="center">
+          <h4>Mensagem</h4>
+      </div>
+      
+
+      <div class="row">
+          <div class="input-field col s12 m6 l6 xl6">
+              <i class="material-icons prefix">person</i>
+              <input name="nome" [(ngModel)]="contato.nome" id="icon_nome" type="text" class="validate">
+              <label for="icon_nome">Nome</label>
+            </div>
+          <div class="input-field col s12 m6 l6 xl6">
+            <i class="material-icons prefix">email</i>
+            <input name="email" [(ngModel)]="contato.email" id="icon_email" type="email" class="validate">
+            <label for="icon_email" data-error="Inválido" data-success="Válido">Email</label>
+          </div>           
+        </div>
+        <div class="row">
+            <div class="input-field col s12 ">
+                <i class="material-icons prefix">textsms</i>
+                <textarea name="texto" [(ngModel)]="contato.texto" id="icon_texto" class="materialize-textarea"></textarea>
+                <label for="icon_texto">Mensagem</label>
+              </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-green btn-flat" (click)="closeModalContato()">Cancelar</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="enviar()">Enviar</a>
+    </div>
+</div>
+
+
+<div id="navLogin" class="side-nav" >
+    
+          <ul class="tabs tabs-fixed-width tabs-transparent" materialize="tabs">
+            <li class=" tab orange lighten-2 active"><a href="#formLogin" class="white-text">Tenho uma Conta</a></li>
+            <li class=" tab grey lighten-2"><a href="#formCadastroLogin" class="grey-text text-darken-3">Cadastrar-se</a></li>
+          </ul>
+
+  <div class="row valign-wrapper" style="height: 100vh;margin: 0px;">
+   
+
+
+  <!-- login-->
+  <div id="formLogin" class="col s12">
+      <div class="row">
+          <form class="col s12 z-depth-5 card">
+            <div class="row card-content">
+                <span class="truncate card-title center-align">Dados para Logar</span>
+              <div class="row">
+                <div class="input-field col s12 m6 l6 xl6">
+                  <i class="material-icons prefix">email</i>
+                  <input name="email" [(ngModel)]="emailLogin" id="icon_email" type="email" class="validate">
+                  <label for="icon_email" data-error="Inválido" data-success="Válido">Email</label>
+                </div>
+                <div class="input-field col s12 m6 l6 xl6">
+                  <i class="material-icons prefix">security</i>
+                  <input name="senha" [(ngModel)]="senhaLogin" id="icon_password" type="password" class="validate">
+                  <label for="icon_password">Senha</label>
+                </div>
+              </div>
+              <div class="row center">
+                <div class="col s12 m6 l6">
+                    <a (click)="loginEmailSenha()" class=" waves-effect waves-light btn btn-flat"><i class="material-icons right">input</i>Logar</a>
+                </div>
+                <div class="col s12 m6 l6">
+                    <a (click)="closeNavBarLogin()" class="waves-effect waves-light btn btn-flat "><i class="material-icons right">close</i>Sair</a>
+                </div>
+                 
+              </div>
+              <div class="row divider grey-text text-darken-3"></div>
+              <div class="row">            
+                  <a [routerLink]="['main']" (click)="loginProvider(1)" class="truncate col s12 m6 l6 center-align waves-effect waves-light btn red">Logar com Gmail</a>
+                  <a [routerLink]="['main']" (click)="loginProvider(2)" class="truncate col s12 m6 l6 center-align waves-effect waves-light btn blue ">Logar com Facebook</a>
+              </div>
+            </div>         
+          </form>
+        </div>
+  </div>
+
+  <!-- Cadastro de Login -->
+  <div id="formCadastroLogin" class="col s12">
+    <div class="row">
+      <form class="col s12 z-depth-5 card">
+        <div class="row card-content">
+            <span class="truncate card-title center-align">Dados do Usuário</span>
+          <div class="row">
+            <div class="input-field col s12 m6 l6 xl6">
+              <i class="material-icons prefix">email</i>
+              <input name="email" [(ngModel)]="emailLogin" id="icon_email" type="email" class="validate">
+              <label for="icon_email" data-error="Inválido" data-success="Válido">Email</label>
+            </div>
+            <div class="input-field col s12 m6 l6 xl6">
+              <i class="material-icons prefix">security</i>
+              <input name="senha" [(ngModel)]="senhaLogin" id="icon_password" type="password" class="validate">
+              <label for="icon_password">Senha</label>
+            </div>
+          </div>
+          <div class="row center">
+            <div class="col s12 m6 l6">
+                <a (click)="cadastraUsuario()" class="waves-effect waves-light btn btn-flat"><i class="material-icons right">add</i>Cadastrar</a>
+            </div>
+            <div class="col s12 m6 l6">
+                <a (click)="closeNavBarLogin()" class="waves-effect waves-light btn btn-flat "><i class="material-icons right">close</i>Sair</a>
+            </div>
+          </div>
+        </div>         
+      </form>
+    </div>
+  </div>
+</div>
+</div>

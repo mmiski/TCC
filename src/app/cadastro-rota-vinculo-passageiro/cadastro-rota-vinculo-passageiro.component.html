@@ -1,0 +1,45 @@
+<div class="row section">
+    <div class="col s12">
+      <a (click)="gridRotaVincPass()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
+    </div>
+  </div>
+  <div class="row container">
+    <div class="card z-depth-5">
+        <div class="card-content">
+            <span class="card-title">Dados do Passageiro/Rota</span>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" name="autoComplete" materialize="autocomplete" [materializeParams]="[autocompleteInit]" >
+                    <label for="autoComplete">Procure o Passageiro</label>
+                  </div>            
+            </div>
+            <div class="row">           
+                <div class="col s12 m4 l2 center">
+                    <span>Ordem na Fila</span>
+                </div>
+                <div class="col s12 m8 l10">
+                    <p class="range-field">
+                      <input type="range" id="test5" min="1" max="10" />
+                    </p>
+                  </div>
+            </div>
+            
+          </div>
+    </div>    
+  </div>
+  <div class="row container">
+      <div class="card z-depth-5">
+        <div class="card-content">
+            <span class="card-title">Mapa</span>
+            <div class="row">
+                <agm-map [latitude]="lat" [longitude]="lng">
+                    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                </agm-map>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row container">
+          <a (click)="gridRotaVincPass()"class="col s12 m6 btn btn-waves green">Salvar</a>
+          <a (click)="gridRotaVincPass()" class="col s12 m6 btn btn-waves red">Cancelar</a>
+      </div>

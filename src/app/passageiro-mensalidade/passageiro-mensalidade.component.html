@@ -1,0 +1,124 @@
+
+<div class="row section">
+  <div class="col s12">
+    <div class="card grey lighten-4 z-depth-4">
+      <div class="card-content grey lighten-4">
+        <ul materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="lstPassageirosCollapsible">
+          <li>
+            <div class="collapsible-header row" style="margin-bottom: 0px;">
+              <div class="col s10  grey-text text-darken-4">
+                <h6>Maria Cândida</h6>
+              </div>
+              <div class="col s2 btn btn-flat waves-effect center" href="#modalDoc" (click)="cadPassageiroMensalidade() ">
+                  <i class="material-icons">add</i>
+              </div>
+            </div>
+              <div class="collapsible-body" style="display: none;">
+              <ul>
+                  <li class="card">
+                      <div class="card-content">
+                        <div class="row">
+                            <div class="col s12 m4 l3 center">
+                                <h6>Mensalidade Padrão</h6>
+                            </div>
+                            <div class="col s12 m4 l3 truncate center">
+                                <h6>R$110,00</h6>
+                            </div>
+                            <div class="col s12 m4 l4 center">
+                                <h6>Vencimento: 01/01/2018</h6>
+                            </div>
+                            <div class="col s12 m6 l1 btn btn-flat waves-effect" (click)="cadPassageiroMensalidade()">
+                                <i class="material-icons">edit</i>
+                            </div>
+                            <div class="col s12 m6 l1 btn btn-flat waves-effect">
+                                <i class="material-icons">delete</i>
+                            </div>  
+                        </div>
+                        <div class="divider">
+
+                        </div>
+                        <div class="row">
+                          <div class="col s12 center">
+                              <h5>Meses Pagos</h5>
+                          </div>
+                          <div class="col s12 left">
+                            <label>Dia máximo para pagamento: 10</label>
+                          </div>
+                        </div>
+                        <div class="row grey lighten-4" style="margin-bottom: 0px;">
+                          <div class="col s12 m3 l2">
+                            <input type="checkbox" id="1"/>
+                            <label for="1">Janeiro</label>
+                          </div>
+                          <div class="col s12 m3 l2">
+                            <input type="checkbox" id="2"/>
+                            <label for="2">Fevereiro</label>
+                          </div>
+                          <div class="col s12 m3 l2">
+                            <input type="checkbox" id="3"/>
+                            <label for="3">Março</label>
+                          </div>
+                          <div class="col s12 m3 l2">
+                            <input type="checkbox" id="4"/>
+                            <label for="4">Abril</label>
+                          </div>
+                          <div class="col s12 m3 l2">
+                            <input type="checkbox" id="5"/>
+                            <label for="5">Maio</label>
+                          </div>
+                          <div class="col s12 m3 l2">
+                            <input type="checkbox" id="6"/>
+                            <label for="6">Junho</label>
+                          </div>
+                          <div class="col s12 m3 l2">
+                            <input type="checkbox" id="7"/>
+                            <label for="7">Julho</label>
+                          </div>
+                          <div class="col s12 m3 l2">
+                            <input type="checkbox" id="8"/>
+                            <label for="8">Agosto</label>
+                          </div>
+                          <div class="col s12 m3 l2">
+                            <input type="checkbox" id="9"/>
+                            <label for="9">Setembro</label>
+                          </div>
+                          <div class="col s12 m3 l2">
+                            <input type="checkbox" id="10"/>
+                            <label for="10">Outubro</label>
+                          </div>
+                          <div class="col s12 m3 l2">
+                            <input type="checkbox" id="11"/>
+                            <label for="11">Novembro</label>
+                          </div>
+                          <div class="col s12 m3 l2">
+                            <input type="checkbox" id="12"/>
+                            <label for="12">Dezembro</label>
+                          </div>
+                        </div>
+                      </div>
+                  </li>
+              </ul>
+              </div>
+          </li>
+          <li>
+              <div class="collapsible-header row" style="margin-bottom: 0px;">
+                <div class="col s10  grey-text text-darken-4">
+                  <h6>José pega no meu pé</h6>
+                </div>
+                <div class="col s2 btn btn-flat waves-effect center" href="#modalDoc" (click)="cadPassageiroMensalidade()">
+                    <i class="material-icons">add</i>
+                </div>
+              </div>
+                <div class="collapsible-body" style="display: none;">
+                <ul>
+                    <li class="center-aligns">
+                        <label>Nenhuma Mensalidade Vinculada</label>
+                    </li>
+                </ul>
+                </div>
+            </li>
+      </ul>
+      </div>
+    </div>
+  </div>   
+</div>

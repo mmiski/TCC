@@ -1,0 +1,128 @@
+
+  
+  <div id="index-banner"  class="parallax-container">
+      <div class="section no-pad-bot">
+        <div class="container">
+          <br><br>
+          <h1 class="header center teal-text text-lighten-2">VANNZ</h1>
+          <div class="row center">
+            <h5 class="header col s12 light">Sistema para gerenciamento e automatização de VANS escolares</h5>
+          </div>
+          <div class="row center">
+            <a href="#modalContato" (click)="openModalContato()" id="download-button" class="btn-large waves-effect waves-light teal lighten-1 modal-trigger">Entre em contato</a>
+          </div>
+          <br><br>
+  
+        </div>
+      </div>
+      <div class="parallax" materialize="parallax"><img src="http://wallup.net/wp-content/uploads/2017/03/28/319113-photography-urban-city-street-road-sunset-trees.jpg" alt="Unsplashed background img 1"></div>
+    </div>
+  
+  
+    <div class="container">
+      <div class="section">
+  
+        <!--   Icon Section   -->
+        <div class="row">
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center brown-text"><i class="material-icons">access_time</i></h2>
+              <h5 class="center">Agilidade</h5>
+  
+              <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+            </div>
+          </div>
+  
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center brown-text"><i class="material-icons">network_wifi</i></h2>
+              <h5 class="center">Conectividade</h5>
+  
+              <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+            </div>
+          </div>
+  
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center brown-text"><i class="material-icons">phonelink_setup</i></h2>
+              <h5 class="center">Fácil de Usar</h5>
+  
+              <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  
+  
+    <div  class="parallax-container valign-wrapper">
+      <div class="section no-pad-bot">
+        <div class="container">
+          <div class="row center">
+            <h5 class="header col s12 light">Facilite sua jornada, ganhe mais tempo</h5>
+          </div>
+        </div>
+      </div>
+      <div class="parallax" materialize="parallax"><img src="http://wallpaperbackgrounds.com/Content/wallpapers/photography/city/213865-41209.jpg" alt="Unsplashed background img 2"></div>
+    </div>
+  
+    <div class="container">
+      <div class="section">
+  
+        <div class="row">
+          <div class="col s12 center">
+            <h3><i class="mdi-content-send brown-text"></i></h3>
+            <h4>Contact Us</h4>
+            <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  
+  
+    <div class="parallax-container valign-wrapper">
+      <div class="section no-pad-bot">
+        <div class="container">
+          <div class="row center">
+            <h5 class="header col s12 light">Tudo no seu celular</h5>
+          </div>
+        </div>
+      </div>
+      <div class="parallax" materialize="parallax"><img src="https://boygeniusreport.files.wordpress.com/2015/06/google-maps-iphone-ios.jpg?quality=98&strip=all" alt="Unsplashed background img 3"></div>
+    </div>
+
+    <div class="espaco30px"></div>
+    <div class="espaco10px teal darken-3"></div>
+    <div class="espaco30px"></div>
+
+    <div id="modalContato" class="modal bottom-sheet" materialize="modal" [materializeParams]="modelContatoParams" [materializeActions]="modalContato">
+        <div class="modal-content">
+          <h4>Envie-nos um E-mail</h4>
+
+          <div class="row">
+              <div class="input-field col s12 m6 l6 xl6">
+                  <i class="material-icons prefix">person</i>
+                  <input name="nome" [(ngModel)]="contato.nome" id="icon_nome" type="text" class="validate">
+                  <label for="icon_nome">Nome</label>
+                </div>
+              <div class="input-field col s12 m6 l6 xl6">
+                <i class="material-icons prefix">email</i>
+                <input name="email" [(ngModel)]="contato.email" id="icon_email" type="email" class="validate">
+                <label for="icon_email" data-error="Inválido" data-success="Válido">Email</label>
+              </div>           
+            </div>
+            <div class="row">
+                <div class="input-field col s12 ">
+                    <i class="material-icons">textsms</i>
+                    <textarea name="texto" [(ngModel)]="contato.texto" id="icon_texto" class="materialize-textarea"></textarea>
+                  </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <a class="waves-effect waves-green btn-flat" (click)="closeModalContato()">Cancelar</a>
+          <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="enviar()">Enviar</a>
+        </div>
+    </div>

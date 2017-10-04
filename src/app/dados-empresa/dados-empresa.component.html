@@ -1,0 +1,46 @@
+<div class="row">  
+    <div class="col s12">
+        <div class="card z-depth-5">
+            <div class=" card-content">       
+                <div class="row">
+                        <div class="input-field col s12">
+                                <i class="material-icons prefix">person</i>
+                                <input name="nome" [(ngModel)]="cliente.nome" id="icon_nome" type="text" class="validate">
+                                <label class="active" for="icon_nome">Nome Completo</label>
+                              </div>
+                              <div class="input-field col s12">
+                                  <i class="material-icons prefix">dehaze</i>
+                                  <input name="razaosocial" [(ngModel)]="cliente.razaoSocial" id="icon_rs" type="text" class="validate">
+                                  <label class="active" for="icon_rs">Razão social ou nome do responsável</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">dehaze</i>
+                                    <input name="nomefantasia" [(ngModel)]="cliente.nomeFantasia" id="icon_nf" type="text" class="validate">
+                                    <label class="active" for="icon_nf">Nome fantasia ou nome do responsável</label>
+                                  </div>
+                              <div class="input-field col s12">
+                                <i class="material-icons prefix">info</i>
+                                <input name="cnpjCpf" [(ngModel)]="cliente.cnpjCpf" id="cnpjCpf" type="text" class="validate">
+                                <label class="active" for="cnpjCpf">CNPJ ou CPF</label>
+                              </div>
+                              <div class="input-field col s12 m6 l6 xl6">
+                                  <i class="material-icons prefix">phone</i>
+                                  <input name="telefoneContato" [(ngModel)]="cliente.telefone" id="icon_tel" type="text" class="validate">
+                                  <label class="active" for="icon_tel">Telefone para Contato</label>
+                                </div>
+                                <div class="input-field col s12 m6 l6 xl6">
+                                    <i class="material-icons prefix">email</i>
+                                    <input name="emailContato" [(ngModel)]="cliente.email" id="icon_email" type="email" class="validate">
+                                    <label class="active" for="icon_email" data-error="Inválido" data-success="Válido">Email para contato</label>
+                                  </div>         
+                </div>             
+               
+            </div>
+            <div class="card-action">
+                <div class="center">
+                  <a (click)="salvar()" class=" waves-effect waves-light btn green">Salvar Alterações</a>
+              </div>
+              </div>
+        </div>
+      </div>
+</div>

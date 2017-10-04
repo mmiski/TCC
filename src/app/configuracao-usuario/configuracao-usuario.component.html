@@ -1,0 +1,42 @@
+<div class="row">  
+    <div class="col s12 m3 l3">
+            <ul materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="vinculoCollapsible">
+                    <li><a class="collapsible-header waves-effect waves-teal grey-text text-darken-4"><i class="material-icons">link</i>Vincular Conta</a>
+                        <div class="collapsible-body center-align" style="display: none;">
+                        <div class="row">
+                            <a class="col s12" (click)="vincularConta(1)" class=" btn btn-flat">Gmail</a>
+                            <a class="col s12" (click)="vincularConta(0)" class=" btn btn-flat">Facebook</a>
+                        </div>
+                        </div>
+                    </li>
+                </ul>
+    </div>
+    <div class="col s12 m9 l9">
+        <div class="card z-depth-5">
+            <div class="card-content">          
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">person</i>
+                        <input name="nome" placeholder="Nome" [(ngModel)]="usuario.nome" id="icon_nome" type="text" class="validate">
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">email</i>
+                        <input disabled name="email" placeholder="Email" [(ngModel)]="usuario.email" id="icon_email" type="text" class="validate">
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">photo_camera</i>
+                        <input name="imagemUsuario" placeholder="Foto de Perfil" [(ngModel)]="usuario.imagemUsuario" id="icon_img" type="text" class="validate">
+                    </div>      
+                </div>          
+                <div class="row">
+                    <div class="">
+                        <a (click)="salvar()" class="col s12 m6 l6 waves-effect waves-light btn green">Salvar Alterações</a>
+                    </div>
+                    <div class="">
+                        <a (click)="deletarUsuario()" class="col s12 m6 l6 waves-effect waves-light btn red">Deletar Usuário</a>
+                    </div>  
+                </div>                     
+                </div>    
+            </div>
+        </div>
+</div>

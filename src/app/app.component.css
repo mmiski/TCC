@@ -1,0 +1,66 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+.header, .main, .footer {
+    padding-left: 300px;
+  }
+
+  @media only screen and (max-width : 992px) {
+.header, .main, .footer {
+      padding-left: 0;
+    }
+  }
+
+.userImg{
+    margin-left: 30%;
+}
+
+.profileImg{
+  height: 300px;
+}
+
+.name{
+    padding-bottom:14px; 
+}
+
+.padding-top-1perc{
+    padding-top: 1%;
+}
+
+.logo{
+  height: 65px;
+  width: 65px;
+}
+
+@media only screen and (max-width : 992px){
+.titulo{
+  font-size: 20px;
+}
+}
+
+@media only screen and (max-width : 600px){
+  .logo{
+    height: 50px;
+    width: 50px;
+  }
+  }
+
+@media only screen and (max-width : 410px){
+  .logo{
+    height: 45px;
+    width: 45px;
+  }
+  }
+
+  @media only screen and (max-width : 410px){
+    .titulo{
+      font-size: 15px;
+    }
+    }

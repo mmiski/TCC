@@ -1,0 +1,47 @@
+<div class="row section">
+    <div class="col s12">
+      <a (click)="gridVeiculo()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
+    </div>
+  </div>
+  <div class="row container">
+    <div class="card z-depth-5">
+        <div class="card-content">
+            <span class="card-title">Dados do Veículo</span>
+            <div class="row">
+                <div class="input-field col s12 m6 l6">
+                    <i class="material-icons prefix">directions_bus</i>
+                    <input  id="icon_placa" type="text" class="validate">
+                    <label for="icon_placa">Placa</label>
+                  </div>
+                  <div class="input-field col s12 m6 l6">
+                        <i class="material-icons prefix">date_range</i>
+                        <input  id="icon_ano" type="text" class="validate">
+                        <label for="icon_ano">Ano</label>
+                      </div>
+            </div>
+            <div class="row">           
+                  <div class="input-field col s12 m6 l6 xl6">
+                    <i class="material-icons prefix">info</i>
+                    <input  id="icon_modelo" type="text" class="validate">
+                    <label for="icon_modelo">Modelo</label>
+                  </div>
+                  <div class="input-field col s12 m6 l6 xl6">
+                        <i class="material-icons prefix">info</i>
+                        <input  id="icon_fabricante" type="text" class="validate">
+                        <label for="icon_fabricante  ">Fabricante</label>
+                      </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 ">
+                    <i class="material-icons prefix">priority_high</i>
+                    <input  id="icon_rena" type="text" class="validate">
+                    <label for="icon_rena">RENAVAM</label>
+                </div>
+            </div>
+          </div>
+    </div>
+  </div>
+    <div class="row container">
+          <a (click)="gridVeiculo()"class="col s12 m6 btn btn-waves green">Salvar</a>
+          <a (click)="gridVeiculo()" class="col s12 m6 btn btn-waves red">Cancelar</a>
+      </div>

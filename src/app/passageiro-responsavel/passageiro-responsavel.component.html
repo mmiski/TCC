@@ -1,0 +1,97 @@
+
+<div class="row section">
+    <div class="col s12">
+      <div class="card grey lighten-4 z-depth-4">
+        <div class="card-content grey lighten-4">
+          <ul materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="lstPassageirosCollapsible">
+            <li>
+              <div class="collapsible-header row" style="margin-bottom: 0px;">
+                <div class="col s10  grey-text text-darken-4">
+                  <h6>Maria Cândida</h6>
+                </div>
+                <div class="col s2 btn btn-flat waves-effect center" href="#modalDoc" (click)="openModalResponsavel() ">
+                    <i class="material-icons">add</i>
+                </div>
+              </div>
+                <div class="collapsible-body" style="display: none;">
+                <ul>
+                    <li class="card">
+                        <div class="card-content">
+                          <div class="row center">
+                              <div class="col s12 m5 l5 truncate">
+                                  <h6>Mamai</h6>
+                              </div>
+                              <div class="col s12 m5 l5truncate">
+                                  <h6>46 99123128</h6>
+                              </div>
+                              <div class="col s6 m1 l1 btn btn-flat waves-effect" (click)="openModalResponsavel() ">
+                                  <i class="material-icons">edit</i>
+                              </div>
+                              <div class="col s6 m1 l1 btn btn-flat waves-effect">
+                                  <i class="material-icons">delete</i>
+                              </div>  
+                          </div>
+                          <div class="row center grey lighten-4">
+                            <span class="card-title">Acesso Mobile</span>
+                            <div class="col s12 m5 l5">
+                              <h6>Email: asiae@aiefjoiaef.com</h6>
+                            </div>
+                            <div class="col s12 m5 l5">
+                                <h6>Chave: IAOJAEF787134BHAS</h6>
+                            </div>
+                                <a class="col s12 m2 l2 btn btn-flat waves-effect">Gerar Chave</a>
+                          </div>
+                        </div>
+                    </li>
+                </ul>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header row" style="margin-bottom: 0px;">
+                  <div class="col s10  grey-text text-darken-4">
+                    <h6>José pega no meu pé</h6>
+                  </div>
+                  <div class="col s2 btn btn-flat waves-effect center" href="#modalDoc" (click)="openModalResponsavel() ">
+                      <i class="material-icons">add</i>
+                  </div>
+                </div>
+                  <div class="collapsible-body" style="display: none;">
+                  <ul>
+                      <li class="center-aligns">
+                          <label>Nenhum Responsável Vinculado</label>
+                      </li>
+                  </ul>
+                  </div>
+              </li>
+        </ul>
+        </div>
+      </div>
+    </div>   
+ </div>
+ <div id="modalDoc" class="modal bottom-sheet" materialize="modal" [materializeParams]="modalResponsavelParams" [materializeActions]="modalResponsavel">
+    <div class="modal-content">
+      <div class="center">
+          <h4>Responsável</h4>
+      </div>
+      <div class="row">
+          <div class="input-field col s12 ">
+              <i class="material-icons prefix">person</i>
+              <input  id="icon_nome" type="text" class="validate">
+              <label for="icon_nome">Nome</label>
+            </div>
+            <div class="input-field col s12 m6 l6 ">
+                <i class="material-icons prefix">email</i>
+                <input id="email" type="email" class="validate">
+                <label for="email" data-error="Inválido" data-success="Válido">Email</label>
+            </div>
+            <div class="input-field col s12 m6 l6 ">
+                <i class="material-icons prefix">phone</i>
+                <input  id="icon_phone" type="text" class="validate">
+                <label for="icon_phone">Telefone para Contato</label>
+            </div>  
+
+            <a class="col s12 btn btn-flat waves-effect" (click)="closeModalResponsavel()">Salvar</a>
+  
+        </div>
+    </div>
+</div>
