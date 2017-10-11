@@ -22,11 +22,11 @@ export class AuthService{
         return this.afAuth.auth.signInWithEmailAndPassword(email, senha);
     }
 
-    cadastroUsuarioEmailSenha(email: string, senha: string ){
+    cadastroUsuarioEmailSenha(email: string, senha: string, nome: string ){
         debugger;
         return this.afAuth.auth.createUserWithEmailAndPassword(email, senha).then((dados) => {
             debugger;
-            this.cadastraUsuarioDataBase(dados.email, dados.uid, dados.providerId);
+            this.cadastraUsuarioDataBase(dados.email, dados.uid, nome);
         });
     }
 
@@ -35,7 +35,6 @@ export class AuthService{
         cadUsuario.nome = usuario.displayName;
         cadUsuario.email = usuario.email;
         cadUsuario.imagemUsuario = usuario.photoURL;
-        cadUsuario.provider = usuario.providerId;
         cadUsuario.uid = usuario.uid;
         cadUsuario.vinculado = false;
        
@@ -53,11 +52,11 @@ export class AuthService{
         return this.afAuth.auth.signOut();
     }
 
-    private cadastraUsuarioDataBase(email:string, uid: string, provider: string){
+    private cadastraUsuarioDataBase(email:string, uid: string, nome: string){
         let cadUsuario = new Usuario();
         cadUsuario.email = email;
         cadUsuario.uid = uid;
-        cadUsuario.provider = provider;
+        cadUsuario.nome = nome;
         cadUsuario.imagemUsuario = 'http://icons.iconarchive.com/icons/double-j-design/origami-colored-pencil/256/blue-user-icon.png';     
         debugger;
         return this.afDataBase.list('/Usuarios').push(cadUsuario).then((dadosU) => {
@@ -95,7 +94,6 @@ export class AuthService{
                     retornoUsuario.email = dados[0].email;
                     retornoUsuario.imagemUsuario = dados[0].imagemUsuario;
                     retornoUsuario.identificacaoCliente = dados[0].identificacaoCliente;
-                    retornoUsuario.provider = dados[0].provider;
                     retornoUsuario.uid = dados[0].uid;
                     retornoUsuario.vinculado = dados[0].vinculado;
                     retornoUsuario.keyDuplicadoUsuario = dados[0].keyDuplicadoUsuario;

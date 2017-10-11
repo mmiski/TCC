@@ -9,7 +9,7 @@
             <h5 class="header col s12 light">Sistema para gerenciamento e automatização de VANS escolares</h5>
           </div>
           <div class="row center">
-            <a href="#modalContato" (click)="openModalContato()" id="download-button" class="btn-large waves-effect waves-light teal lighten-1 modal-trigger">Entre em contato</a>
+            <a  (click)="pagContato()" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Entre em contato</a>
           </div>
           <br><br>
   
@@ -96,33 +96,3 @@
     <div class="espaco30px"></div>
     <div class="espaco10px teal darken-3"></div>
     <div class="espaco30px"></div>
-
-    <div id="modalContato" class="modal bottom-sheet" materialize="modal" [materializeParams]="modelContatoParams" [materializeActions]="modalContato">
-        <div class="modal-content">
-          <h4>Envie-nos um E-mail</h4>
-
-          <div class="row">
-              <div class="input-field col s12 m6 l6 xl6">
-                  <i class="material-icons prefix">person</i>
-                  <input name="nome" [(ngModel)]="contato.nome" id="icon_nome" type="text" class="validate">
-                  <label for="icon_nome">Nome</label>
-                </div>
-              <div class="input-field col s12 m6 l6 xl6">
-                <i class="material-icons prefix">email</i>
-                <input name="email" [(ngModel)]="contato.email" id="icon_email" type="email" class="validate">
-                <label for="icon_email" data-error="Inválido" data-success="Válido">Email</label>
-              </div>           
-            </div>
-            <div class="row">
-                <div class="input-field col s12 ">
-                    <i class="material-icons">textsms</i>
-                    <textarea name="texto" [(ngModel)]="contato.texto" id="icon_texto" class="materialize-textarea"></textarea>
-                  </div>
-            </div>
-
-        </div>
-        <div class="modal-footer">
-          <a class="waves-effect waves-green btn-flat" (click)="closeModalContato()">Cancelar</a>
-          <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="enviar()">Enviar</a>
-        </div>
-    </div>

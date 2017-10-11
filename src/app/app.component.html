@@ -89,11 +89,11 @@
 
   <div *ngIf="this.logado" >
     <div class="fixed-action-btn toolbar center-align">
-      <a class="btn-floating btn-large teal darken-3">
+      <a materialize="tooltip" class="btn-floating btn-large teal darken-3 tooltipped" data-position="top" data-delay="20" data-tooltip="Erro/Ajuda">
         <i class="large material-icons">bug_report</i>
       </a>
       <ul [ngClass]="{'footer': this.logado}">
-        <li class="waves-effect"><a href="#modalContato" (click)="openModalContato()" id="download-button" class="btn-large waves-effect waves-light teal lighten-1 modal-trigger"> <i class="material-icons left">chat</i>Duvidas ou Problemas? Envie-nos uma mensagem!</a></li>     
+        <li class="waves-effect"><a (click)="openModaUsuarioMensagem()" class="btn-large waves-effect waves-light teal lighten-1 modal-trigger"> <i class="material-icons left">chat</i>Duvidas ou Problemas? Envie-nos uma mensagem!</a></li>     
       </ul>
     </div>
   </div>
@@ -137,49 +137,75 @@
   </footer>
 </body>
 
-<!-- Modal para login-->
-<div id="login" class="modal" materialize="modal" [materializeParams]="modalLoginParams" [materializeActions]="modalLogin">
-  <div class="modal-content blue-grey lighten-5">
 
-  
-
-</div>
-</div>
-<div id="modalContato" class="modal bottom-sheet" materialize="modal" [materializeParams]="modelContatoParams" [materializeActions]="modalContato">
-    <div class="modal-content">
-      <div class="center">
-          <h4>Mensagem</h4>
-      </div>
-      
-
-      <div class="row">
-          <div class="input-field col s12 m6 l6 xl6">
-              <i class="material-icons prefix">person</i>
-              <input name="nome" [(ngModel)]="contato.nome" id="icon_nome" type="text" class="validate">
-              <label for="icon_nome">Nome</label>
-            </div>
-          <div class="input-field col s12 m6 l6 xl6">
-            <i class="material-icons prefix">email</i>
-            <input name="email" [(ngModel)]="contato.email" id="icon_email" type="email" class="validate">
-            <label for="icon_email" data-error="Inválido" data-success="Válido">Email</label>
-          </div>           
-        </div>
+<div id="mensagemUsuarioModal" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="usuarioMensagemparams" [materializeActions]="usuarioMensagemAction">
+  <form #usuarioMensagemForm="ngForm">
+      <div class="modal-content form-group">       
+        <div class="card">
+          <div class="card-content">      
+              <span class="card-title center">Mensagem</span>      
         <div class="row">
-            <div class="input-field col s12 ">
-                <i class="material-icons prefix">textsms</i>
-                <textarea name="texto" [(ngModel)]="contato.texto" id="icon_texto" class="materialize-textarea"></textarea>
-                <label for="icon_texto">Mensagem</label>
-              </div>
-        </div>
-
+            <div class="col s12">
+                <div *ngIf="tipoUM.errors && (tipoUM.dirty || tipoUM.touched)">
+                    <label [hidden]="!tipoUM.errors.required" class="red-text erro">
+                        Selecione um Titulo!
+                    </label>
+                </div>            
+              <div class="input-field">             
+                  <select name="tipo" materialize="material_select" [materializeSelectOptions]="selectTipos" [(ngModel)]="usuarioMensagem.tipo" required #tipoUM="ngModel">
+                      <option value="" disabled selected>Selecione o titulo da mesagem</option>
+                      <option *ngFor="let option of selectTipos" [value]="option.value">{{option.name}}</option>
+                  </select>
+              </div>            
+            </div>
+  
+            <div class="col s12 m6 l6">
+                <div *ngIf="emailUM.errors && (emailUM.dirty || emailUM.touched)">
+                    <label [hidden]="!emailUM.errors.required" class="red-text erro">
+                        Informe um email para contato!
+                    </label>
+                </div>          
+              <div class="input-field">             
+                  <i class="material-icons prefix">email</i>
+                  <input placeholder="Email" name="email" id="email" type="email" class="validate" [(ngModel)]="usuarioMensagem.email" required #emailUM="ngModel">                 
+              </div>            
+            </div>
+            <div class="col s12 m6 l6">
+                <div *ngIf="telUM.errors && (telUM.dirty || telUM.touched)">
+                    <label [hidden]="!telUM.errors.required" class="red-text erro">
+                        Informe um telefone para contato!
+                    </label>
+                </div>          
+              <div class="input-field">        
+                  <i class="material-icons prefix">phone</i>
+                  <input name="telefone"  id="icon_phone" type="text" class="validate" [(ngModel)]="usuarioMensagem.telefone" required #telUM="ngModel">
+                  <label for="icon_phone">Telefone para Contato</label>                  
+              </div>            
+            </div>
+            <div class="col s12">
+                <div *ngIf="textoUM.errors && (textoUM.dirty || textoUM.touched)">
+                    <label [hidden]="!textoUM.errors.required" class="red-text erro">
+                        Preencha o campo!
+                    </label>
+                </div>          
+              <div class="input-field">      
+                  <i class="material-icons prefix">description</i>
+                  <textarea placeholder="Mensagem" name="texto" id="textarea1" class="materialize-textarea validate" [(ngModel)]="usuarioMensagem.texto" required #textoUM="ngModel"></textarea>                 
+              </div>            
+            </div>  
+        </div> 
+          </div>
+        </div> 
     </div>
     <div class="modal-footer">
-      <a class="waves-effect waves-green btn-flat" (click)="closeModalContato()">Cancelar</a>
-      <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="enviar()">Enviar</a>
+      <button [disabled]="!usuarioMensagemForm.form.valid"  class="waves-effect waves-green btn green lighten-1" (click)="enviar()">Enviar</button> 
+      <a (click)="closeModaUsuarioMensagem()" class="waves-effect waves-light btn red "><i class="material-icons left">close</i>Sair</a>
     </div>
+  </form>   
 </div>
 
 
+<!-- Modal para login-->
 <div id="navLogin" class="side-nav" >
     
           <ul class="tabs tabs-fixed-width tabs-transparent" materialize="tabs">
@@ -194,27 +220,43 @@
   <!-- login-->
   <div id="formLogin" class="col s12">
       <div class="row">
-          <form class="col s12 z-depth-5 card">
+          <form #login="ngForm" class="col s12 z-depth-5 card">
             <div class="row card-content">
                 <span class="truncate card-title center-align">Dados para Logar</span>
               <div class="row">
-                <div class="input-field col s12 m6 l6 xl6">
-                  <i class="material-icons prefix">email</i>
-                  <input name="email" [(ngModel)]="emailLogin" id="icon_email" type="email" class="validate">
-                  <label for="icon_email" data-error="Inválido" data-success="Válido">Email</label>
-                </div>
-                <div class="input-field col s12 m6 l6 xl6">
-                  <i class="material-icons prefix">security</i>
-                  <input name="senha" [(ngModel)]="senhaLogin" id="icon_password" type="password" class="validate">
-                  <label for="icon_password">Senha</label>
-                </div>
+                  <div class="col s12 m6 l6 xl6">
+                      <div *ngIf="emailLog.errors && (emailLog.dirty || emailLog.touched)">
+                          <label [hidden]="!emailLog.errors.required" class="red-text erro">
+                            Digite seu Email!
+                          </label>
+                      </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">email</i>
+                        <input name="email" [(ngModel)]="emailLogin" id="icon_email" type="email" class="validate" required #emailLog="ngModel">
+                        <label for="icon_email" data-error="Email Inválido">Email</label>
+                    </div>            
+                  </div>
+      
+      
+                  <div class="col s12 m6 l6 xl6">
+                      <div *ngIf="senhaLog.errors && (senhaLog.dirty || senhaLog.touched)">
+                          <label [hidden]="!senhaLog.errors.required" class="red-text erro">
+                            Digite a Senha!
+                          </label>
+                      </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">security</i>
+                        <input name="senha" [(ngModel)]="senhaLogin" id="icon_password" type="password" class="validate" required #senhaLog="ngModel">
+                        <label for="icon_password">Senha</label>
+                    </div>
+                  </div>
               </div>
               <div class="row center">
                 <div class="col s12 m6 l6">
-                    <a (click)="loginEmailSenha()" class=" waves-effect waves-light btn btn-flat"><i class="material-icons right">input</i>Logar</a>
+                    <button [disabled]="!login.form.valid" (click)="loginEmailSenha()" class=" waves-effect waves-light btn btn-flat"><i class="material-icons left">input</i>Logar</button>
                 </div>
                 <div class="col s12 m6 l6">
-                    <a (click)="closeNavBarLogin()" class="waves-effect waves-light btn btn-flat "><i class="material-icons right">close</i>Sair</a>
+                    <a (click)="closeNavBarLogin()" class="waves-effect waves-light btn btn-flat "><i class="material-icons left">close</i>Sair</a>
                 </div>
                  
               </div>
@@ -231,27 +273,57 @@
   <!-- Cadastro de Login -->
   <div id="formCadastroLogin" class="col s12">
     <div class="row">
-      <form class="col s12 z-depth-5 card">
-        <div class="row card-content">
+      <form #loginCad="ngForm" class="col s12 z-depth-5 card">
+        <div class="form-group row card-content">
             <span class="truncate card-title center-align">Dados do Usuário</span>
           <div class="row">
-            <div class="input-field col s12 m6 l6 xl6">
-              <i class="material-icons prefix">email</i>
-              <input name="email" [(ngModel)]="emailLogin" id="icon_email" type="email" class="validate">
-              <label for="icon_email" data-error="Inválido" data-success="Válido">Email</label>
+
+              <div class="col s12">
+                  <div *ngIf="nome.errors && (nome.dirty || nome.touched)">
+                      <label [hidden]="!nome.errors.required" class="red-text erro">
+                        Digite seu Nome!
+                      </label>
+                  </div>
+                  <div class="input-field ">
+                      <i class="material-icons prefix">person</i>
+                      <input name="nome" [(ngModel)]="nomeLoginCad" id="nome" type="text" class="validate" required #nome="ngModel">
+                      <label for="nome" >Nome</label>
+                  </div>
+              </div>
+
+            <div class="col s12 m6 l6 xl6">
+                <div *ngIf="emailCad.errors && (emailCad.dirty || emailCad.touched)">
+                    <label [hidden]="!emailCad.errors.required" class="red-text erro">
+                      Digite seu Email!
+                    </label>
+                </div>
+              <div class="input-field">
+                  <i class="material-icons prefix">email</i>
+                  <input name="email" [(ngModel)]="emailLoginCad" id="icon_email" type="email" class="validate" required #emailCad="ngModel">
+                  <label for="icon_email" data-error="Email Inválido">Email</label>
+              </div>            
             </div>
-            <div class="input-field col s12 m6 l6 xl6">
-              <i class="material-icons prefix">security</i>
-              <input name="senha" [(ngModel)]="senhaLogin" id="icon_password" type="password" class="validate">
-              <label for="icon_password">Senha</label>
+
+
+            <div class="col s12 m6 l6 xl6">
+                <div *ngIf="senhaCad.errors && (senhaCad.dirty || senhaCad.touched)">
+                    <label [hidden]="!senhaCad.errors.required" class="red-text erro">
+                      Digite a Senha!
+                    </label>
+                </div>
+              <div class="input-field">
+                  <i class="material-icons prefix">security</i>
+                  <input name="senha" [(ngModel)]="senhaLoginCad" id="icon_password" type="password" class="validate" required #senhaCad="ngModel">
+                  <label for="icon_password">Senha</label>
+              </div>
             </div>
           </div>
           <div class="row center">
             <div class="col s12 m6 l6">
-                <a (click)="cadastraUsuario()" class="waves-effect waves-light btn btn-flat"><i class="material-icons right">add</i>Cadastrar</a>
+                <button [disabled]="!loginCad.form.valid" (click)="cadastraUsuario()" class="waves-effect waves-light btn btn-flat"><i class="material-icons left">add</i>Cadastrar</button>
             </div>
             <div class="col s12 m6 l6">
-                <a (click)="closeNavBarLogin()" class="waves-effect waves-light btn btn-flat "><i class="material-icons right">close</i>Sair</a>
+                <a (click)="closeNavBarLogin()" class="waves-effect waves-light btn red "><i class="material-icons left">close</i>Sair</a>
             </div>
           </div>
         </div>         
@@ -259,4 +331,98 @@
     </div>
   </div>
 </div>
+</div>
+
+
+<!-- Modal LOADING -->
+<div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
+  <div class="modal-content center">
+      <h4 style="padding-bottom:1%;">Carregando</h4>
+      <div  class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+
+<!-- Modal ALERT -->
+<div id="alert" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="alert">
+  <div class="modal-content center no-padding">
+      <div class="row orange lighten-2 white-text title-alert">
+      <h4>{{msgTitulo}}</h4>
+  </div>
+  <div class="row">
+      <p>{{msgCorpo}}</p>
+  </div>
+</div>
+<div class="modal-footer">
+  <a class="waves-effect waves-green btn orange lighten-1" (click)="close('ALERT')">OK</a> 
+</div>
+</div>
+
+<!-- Modal SUCCESS -->
+<div id="success" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="success">
+  <div class="modal-content center no-padding">
+    <div class="row green lighten-2 white-text title-alert">
+          <h4>{{msgTitulo}}</h4>
+      </div>
+      <div class="row">
+          <p>{{msgCorpo}}</p>
+      </div>
+  </div>
+  <div class="modal-footer center">
+    <a class="waves-effect waves-green btn green lighten-1" (click)="close('SUCCESS')">OK</a> 
+  </div>
+</div>
+
+<!-- Modal DANGER -->
+<div id="danger" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="danger">
+      <div class="modal-content center no-padding">
+      <div class="row red lighten-2 white-text title-alert">
+          <h4>{{msgTitulo}}</h4>
+      </div>
+      <div class="row">
+          <p>{{msgCorpo}}</p>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">OK</a> 
+  </div>
 </div>

@@ -64,3 +64,15 @@ body {
       font-size: 15px;
     }
     }
+
+  .erro{
+      margin-left: 3%;
+  }
+  
+  .no-padding{
+      padding: 0px;
+  }
+  
+  .title-alert{
+      padding: 1%;
+  }

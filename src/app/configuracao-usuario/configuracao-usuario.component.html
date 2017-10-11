@@ -12,31 +12,149 @@
                 </ul>
     </div>
     <div class="col s12 m9 l9">
-        <div class="card z-depth-5">
-            <div class="card-content">          
+        <form #form="ngForm" class="card z-depth-5">
+            <div class="card-content form-group">          
                 <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">person</i>
-                        <input name="nome" placeholder="Nome" [(ngModel)]="usuario.nome" id="icon_nome" type="text" class="validate">
+                    <div class="col s12">
+                        <div *ngIf="nome.errors && (nome.dirty || nome.touched)">
+                                <label [hidden]="!nome.errors.required" class="red-text erro">
+                                    Digite seu Nome!
+                                </label>
+                        </div>
+                        <div class="input-field">
+                                <i class="material-icons prefix">person</i>
+                                <input name="nome" placeholder="Nome" [(ngModel)]="usuario.nome" id="icon_nome" type="text" class="validate" required #nome="ngModel">
+                        </div>                   
                     </div>
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">email</i>
-                        <input disabled name="email" placeholder="Email" [(ngModel)]="usuario.email" id="icon_email" type="text" class="validate">
-                    </div>
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">photo_camera</i>
-                        <input name="imagemUsuario" placeholder="Foto de Perfil" [(ngModel)]="usuario.imagemUsuario" id="icon_img" type="text" class="validate">
-                    </div>      
+
+                    <div class="col s12">
+                            <div *ngIf="email.errors && (email.dirty || email.touched)">
+                                <label [hidden]="!email.errors.required" class="red-text erro">
+                                  Digite seu Email!
+                                </label>
+                            </div>
+                            <div class="input-field ">
+                                <i class="material-icons prefix">email</i>
+                                <input name="email" placeholder="Email" [(ngModel)]="usuario.email" id="email" type="email" class="validate" required #email="ngModel">
+                            </div>
+                    </div> 
+
+                    <div class="col s12">
+                            <div *ngIf="urlImg.errors && (urlImg.dirty || urlImg.touched)">
+                                <label [hidden]="!urlImg.errors.required" class="red-text erro">
+                                 Insira uma url de imagem da WEB!
+                                </label>
+                            </div>
+                            <div class="input-field ">
+                                    <i class="material-icons prefix">photo_camera</i>
+                                <input name="imagemUsuario" placeholder="URL de uma imagem" [(ngModel)]="usuario.imagemUsuario" id="imagemUsuario" type="text" class="validate" required #urlImg="ngModel">
+                            </div>
+                    </div>     
                 </div>          
                 <div class="row">
                     <div class="">
-                        <a (click)="salvar()" class="col s12 m6 l6 waves-effect waves-light btn green">Salvar Alterações</a>
+                        <button [disabled]="!form.form.valid" (click)="salvar()" class="col s12 m6 l6 waves-effect waves-light btn green">Salvar Alterações</button>
                     </div>
                     <div class="">
-                        <a (click)="deletarUsuario()" class="col s12 m6 l6 waves-effect waves-light btn red">Deletar Usuário</a>
+                        <a (click)="show('DANGER')" class="col s12 m6 l6 waves-effect waves-light btn red">Deletar Usuário</a>
                     </div>  
                 </div>                     
-                </div>    
+            </div>    
+        </form>
+    </div>
+</div>
+
+<!-- Modal LOADING -->
+<div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
+        <div class="modal-content center">
+            <h4 style="padding-bottom:1%;">Carregando</h4>
+            <div  class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-red">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-yellow">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-green">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+        </div>
+      </div>
+    
+      <!-- Modal ALERT -->
+    <div id="alert" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="alert">
+        <div class="modal-content center no-padding">
+            <div class="row orange lighten-2 white-text title-alert">
+            <h4>{{msgTitulo}}</h4>
+        </div>
+        <div class="row">
+            <p>{{msgCorpo}}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a class="waves-effect waves-green btn orange lighten-1" (click)="close('ALERT')">OK</a> 
+      </div>
+    </div>
+    
+      <!-- Modal SUCCESS -->
+      <div id="success" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="success">
+        <div class="modal-content center no-padding">
+          <div class="row green lighten-2 white-text title-alert">
+                <h4>{{msgTitulo}}</h4>
+            </div>
+            <div class="row">
+                <p>{{msgCorpo}}</p>
             </div>
         </div>
-</div>
+        <div class="modal-footer center">
+          <a class="waves-effect waves-green btn green lighten-1" (click)="close('SUCCESS')">OK</a> 
+        </div>
+      </div>
+    
+      <!-- Modal DANGER -->
+    <div id="danger" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="danger">
+            <div class="modal-content center no-padding">
+            <div class="row red lighten-2 white-text title-alert">
+                <h4>Exclusão de Usuário</h4>
+            </div>
+            <div class="row">
+                <p>Confirmando o usuário será excluido junto com todos os seus dados, deseja continuar?</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <a class="waves-effect waves-green btn btn-flat" (click)="deletarUsuario()">Sim</a> 
+          <a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">Não</a>
+        </div>
+      </div>
+    

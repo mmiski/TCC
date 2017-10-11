@@ -1,7 +1,5 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { MaterializeAction } from 'angular2-materialize';
-import { Contato } from '../classes/Contato';
-import { ContatoService } from '../services/contato.service';
+import { Component} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-site',
@@ -10,34 +8,13 @@ import { ContatoService } from '../services/contato.service';
 })
 export class SiteComponent  {
 
-  modalContato = new EventEmitter<string|MaterializeAction>();
-  contato: Contato;
+  constructor(public router: Router) { 
 
-  modelContatoParams = [
-    {
-      dismissible: true,
-      complete: () => {
-        this.contato = new Contato();
-      }
-    }
-  ]
-
-  constructor(public _serviceContato: ContatoService) { 
-    this.contato = new Contato();
   }
 
-  openModalContato() {
-    this.modalContato.emit({action:"modal",params:['open']});
-  }
 
-  closeModalContato() {
-    this.modalContato.emit({action:"modal",params:['close']});
-  }
-
-  enviar(){
-    this._serviceContato.enviar(this.contato).then(() => {
-      this.closeModalContato();
-    });
+  pagContato(){
+    this.router.navigate(['contato']);
   }
 
 }

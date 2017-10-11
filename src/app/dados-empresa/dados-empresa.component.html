@@ -1,46 +1,184 @@
 <div class="row">  
     <div class="col s12">
         <div class="card z-depth-5">
-            <div class=" card-content">       
-                <div class="row">
-                        <div class="input-field col s12">
+            <form #form="ngForm" class="card-content">       
+                <div class="row form-group ">
+
+                        <div class="col s12">
+                            <div *ngIf="nome.errors && (nome.dirty || nome.touched)">
+                                    <label [hidden]="!nome.errors.required" class="red-text erro">
+                                        Insira o nome do Responsável!
+                                    </label>
+                            </div>
+                            <div class="input-field">
                                 <i class="material-icons prefix">person</i>
-                                <input name="nome" [(ngModel)]="cliente.nome" id="icon_nome" type="text" class="validate">
-                                <label class="active" for="icon_nome">Nome Completo</label>
-                              </div>
-                              <div class="input-field col s12">
-                                  <i class="material-icons prefix">dehaze</i>
-                                  <input name="razaosocial" [(ngModel)]="cliente.razaoSocial" id="icon_rs" type="text" class="validate">
-                                  <label class="active" for="icon_rs">Razão social ou nome do responsável</label>
+                                <input name="nome" placeholder="Nome do Responsável" [(ngModel)]="cliente.nome" id="icon_nome" type="text" class="validate" required #nome="ngModel">
+                            </div>                              
+                        </div>
+
+                        <div class="col s12">
+                                <div *ngIf="razsoc.errors && (razsoc.dirty || razsoc.touched)">
+                                        <label [hidden]="!razsoc.errors.required" class="red-text erro">
+                                            Insira a Razão Social/Responsável!
+                                        </label>
                                 </div>
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">dehaze</i>
-                                    <input name="nomefantasia" [(ngModel)]="cliente.nomeFantasia" id="icon_nf" type="text" class="validate">
-                                    <label class="active" for="icon_nf">Nome fantasia ou nome do responsável</label>
-                                  </div>
-                              <div class="input-field col s12">
-                                <i class="material-icons prefix">info</i>
-                                <input name="cnpjCpf" [(ngModel)]="cliente.cnpjCpf" id="cnpjCpf" type="text" class="validate">
-                                <label class="active" for="cnpjCpf">CNPJ ou CPF</label>
-                              </div>
-                              <div class="input-field col s12 m6 l6 xl6">
-                                  <i class="material-icons prefix">phone</i>
-                                  <input name="telefoneContato" [(ngModel)]="cliente.telefone" id="icon_tel" type="text" class="validate">
-                                  <label class="active" for="icon_tel">Telefone para Contato</label>
+                                <div class="input-field">
+                                        <i class="material-icons prefix">dehaze</i>
+                                        <input name="razaosocial" placeholder="Razão Social/Responsável"  [(ngModel)]="cliente.razaoSocial" id="icon_rs" type="text" class="validate" required #razsoc="ngModel">
+                                </div>                              
+                        </div>                    
+
+                        <div class="col s12">
+                                <div *ngIf="nfan.errors && (nfan.dirty || nfan.touched)">
+                                        <label [hidden]="!nfan.errors.required" class="red-text erro">
+                                            Insira o Nome Fantasia/Responsável!
+                                        </label>
                                 </div>
-                                <div class="input-field col s12 m6 l6 xl6">
-                                    <i class="material-icons prefix">email</i>
-                                    <input name="emailContato" [(ngModel)]="cliente.email" id="icon_email" type="email" class="validate">
-                                    <label class="active" for="icon_email" data-error="Inválido" data-success="Válido">Email para contato</label>
-                                  </div>         
+                                <div class="input-field">
+                                        <i class="material-icons prefix">dehaze</i>
+                                        <input name="nomefantasia" placeholder="Nome Fantasia/Responsável"  [(ngModel)]="cliente.nomeFantasia" id="icon_nf" type="text" class="validate" required #nfan="ngModel">
+                                </div>                              
+                        </div> 
+
+                        <div class="col s12">
+                                <div *ngIf="cpfcnpj.errors && (cpfcnpj.dirty || cpfcnpj.touched)">
+                                        <label [hidden]="!cpfcnpj.errors.required" class="red-text erro">
+                                            Insira o CPF/CNPJ!
+                                        </label>
+                                </div>
+                                <div class="input-field">
+                                        <i class="material-icons prefix">info</i>
+                                        <input name="cnpjCpf" placeholder="CPF/CNPJ" [(ngModel)]="cliente.cnpjCpf" id="cnpjCpf" type="text" class="validate" required #cpfcnpj="ngModel">
+
+                                </div>                              
+                        </div> 
+
+                        <div class="col s12 m6 l6 xl6">
+                                <div *ngIf="tel.errors && (tel.dirty || tel.touched)">
+                                        <label [hidden]="!tel.errors.required" class="red-text erro">
+                                            Insira o Telefone para Contato!
+                                        </label>
+                                </div>
+                                <div class="input-field">
+                                        <i class="material-icons prefix">phone</i>
+                                        <input name="telefoneContato" [(ngModel)]="cliente.telefone" id="icon_tel" class="validate" required #tel="ngModel">
+                                        <label class="active" for="icon_tel">Telefone para Contato</label>
+                                </div>                              
+                        </div> 
+                        <div class="col s12 m6 l6 xl6">
+                                <div *ngIf="email.errors && (email.dirty || email.touched)">
+                                        <label [hidden]="!email.errors.required" class="red-text erro">
+                                            Insira o Email para Contato!
+                                        </label>
+                                </div>
+                                <div class="input-field">
+                                        <i class="material-icons prefix">email</i>
+                                        <input name="emailContato" [(ngModel)]="cliente.email" id="icon_email" class="validate" required #email="ngModel">
+                                        <label class="active" for="icon_email" data-error="Inválido" >Email para contato</label>
+                                </div>                              
+                        </div>       
                 </div>             
                
-            </div>
+            </form>
             <div class="card-action">
                 <div class="center">
                   <a (click)="salvar()" class=" waves-effect waves-light btn green">Salvar Alterações</a>
-              </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal LOADING -->
+<div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
+        <div class="modal-content center">
+            <h4 style="padding-bottom:1%;">Carregando</h4>
+            <div  class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-red">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-yellow">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-green">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
               </div>
         </div>
       </div>
-</div>
+    
+      <!-- Modal ALERT -->
+    <div id="alert" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="alert">
+        <div class="modal-content center no-padding">
+            <div class="row orange lighten-2 white-text title-alert">
+            <h4>{{msgTitulo}}</h4>
+        </div>
+        <div class="row">
+            <p>{{msgCorpo}}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a class="waves-effect waves-green btn orange lighten-1" (click)="close('ALERT')">OK</a> 
+      </div>
+    </div>
+    
+      <!-- Modal SUCCESS -->
+      <div id="success" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="success">
+        <div class="modal-content center no-padding">
+          <div class="row green lighten-2 white-text title-alert">
+                <h4>{{msgTitulo}}</h4>
+            </div>
+            <div class="row">
+                <p>{{msgCorpo}}</p>
+            </div>
+        </div>
+        <div class="modal-footer center">
+          <a class="waves-effect waves-green btn green lighten-1" (click)="close('SUCCESS')">OK</a> 
+        </div>
+      </div>
+    
+      <!-- Modal DANGER -->
+    <div id="danger" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="danger">
+            <div class="modal-content center no-padding">
+            <div class="row red lighten-2 white-text title-alert">
+                <h4>{{msgTitulo}}</h4>
+            </div>
+            <div class="row">
+                <p>{{msgCorpo}}</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">OK</a> 
+        </div>
+      </div>
+    

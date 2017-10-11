@@ -26,6 +26,7 @@ import { GridVeiculoComponent } from './grid-veiculo/grid-veiculo.component';
 import { GridRotasComponent } from './grid-rotas/grid-rotas.component';
 import { CadastroPassageiroMensalidadeComponent } from './cadastro-passageiro-mensalidade/cadastro-passageiro-mensalidade.component';
 import { CadastroRotaVinculoPassageiroComponent } from './cadastro-rota-vinculo-passageiro/cadastro-rota-vinculo-passageiro.component';
+import { ContatoComponent } from './contato/contato.component';
 
 const appRoutes: Routes  = [
   { path: 'site', component: SiteComponent },
@@ -55,6 +56,7 @@ const appRoutes: Routes  = [
   { path: 'gridModeloContrato', component: GridModeloContratoComponent },
   { path: 'cadUsuario', component: CadastroUsuarioComponent },
   { path: 'gridUsuario', component: GridUsuarioComponent },
+  { path: 'contato', component: ContatoComponent },
   { path: '**', redirectTo: 'site'}
 ];
 

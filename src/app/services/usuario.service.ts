@@ -12,7 +12,6 @@ export class UsuarioService{
     }
 
     salvaUsuario(usuario: Usuario){
-      debugger;
-      this.afDataBase.list('/Usuarios').update(usuario.keyDuplicadoUsuario, usuario);
+     return this.afDataBase.list('/Usuarios').update(usuario.keyDuplicadoUsuario, usuario);
     }
 }

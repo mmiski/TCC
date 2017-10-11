@@ -41,15 +41,18 @@ import { GridRotasComponent } from './grid-rotas/grid-rotas.component';
 import { AgmCoreModule } from '@agm/core';
 import { CadastroPassageiroMensalidadeComponent } from './cadastro-passageiro-mensalidade/cadastro-passageiro-mensalidade.component';
 import { CadastroRotaVinculoPassageiroComponent } from './cadastro-rota-vinculo-passageiro/cadastro-rota-vinculo-passageiro.component';
+import { ContatoComponent } from './contato/contato.component';
+import { UsuarioMensagemService } from './services/usuario-mensagem.service';
+import { AreaAtuacaoService } from './services/area-atuacao.service';
 
 
 const  config = {
-  apiKey: "AIzaSyBnkGekSvqNawSBkOtM_fu28RSc2KQ0v8g",
-  authDomain: "tcc-godblessyou.firebaseapp.com",
-  databaseURL: "https://tcc-godblessyou.firebaseio.com",
-  projectId: "tcc-godblessyou",
-  storageBucket: "tcc-godblessyou.appspot.com",
-  messagingSenderId: "635299290870"
+  apiKey: "AIzaSyAXt5Jj-1uUdU_hy-jLnttbZFdTTVadWsE",
+  authDomain: "web-vannz.firebaseapp.com",
+  databaseURL: "https://web-vannz.firebaseio.com",
+  projectId: "web-vannz",
+  storageBucket: "web-vannz.appspot.com",
+  messagingSenderId: "1018773332855"
 };
 
 
@@ -84,6 +87,7 @@ const  config = {
     GridRotasComponent,
     CadastroPassageiroMensalidadeComponent,
     CadastroRotaVinculoPassageiroComponent,
+    ContatoComponent
     
   ],
   imports: [
@@ -98,7 +102,8 @@ const  config = {
       apiKey: 'AIzaSyA2t1tgd1Pj83TH_PAqfRuyR4kHOQ1rJnI'
     })
   ],
-  providers: [AngularFireDatabase, AuthService, UsuarioService, ClienteService, ContatoService],
+  providers: [AngularFireDatabase, AuthService, UsuarioService, ClienteService, ContatoService, UsuarioMensagemService,
+              AreaAtuacaoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

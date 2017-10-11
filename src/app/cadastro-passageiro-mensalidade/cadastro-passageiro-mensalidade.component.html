@@ -10,7 +10,7 @@
           <div class="row">
             <div class="input-field col s12">
               <select name="selectedOption" materialize="material_select" [materializeSelectOptions]="selectOptions">
-                      <option value="" disabled selected>Selecione uma mensalidade Mensalidade</option>
+                      <option value="" disabled selected>Selecione uma mensalidade</option>
                       <option *ngFor="let option of selectOptions" [value]="option.value">{{option.name}}</option>
               </select>
             </div>
