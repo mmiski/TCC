@@ -92,11 +92,12 @@ selectTipos = [
 params = [
   {
     onOpen: (el) => {
-      console.log("Collapsible open", el);
+     
     },
     onClose: (el) => {
-      console.log("Collapsible close", el);
-    }
+      
+    },
+    closeOnClick: true
   }
 ];
 
