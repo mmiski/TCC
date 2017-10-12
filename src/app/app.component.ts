@@ -212,7 +212,7 @@ constructor(public router: Router, public  _service: AuthService, public _servic
 
   cadastraUsuario(){
     this.show('LOADING');
-    this._service.cadastroUsuarioEmailSenha(this.emailLogin, this.senhaLogin, this.nomeLoginCad).then(() => {   
+    this._service.cadastroUsuarioEmailSenha(this.emailLoginCad, this.senhaLoginCad, this.nomeLoginCad).then(() => {   
       this.close('LOADING');
       this.loginEmailSenha();
     }).catch(err => {
