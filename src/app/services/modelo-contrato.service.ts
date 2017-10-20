@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularFire2/database';
 import { AuthService } from './auth.service';
+import { ModeloContrato } from '../classes/ModeloContrato';
 import { Usuario } from '../classes/Usuario';
-import { AreaAtuacao } from '../classes/AreaAtuacao';
 
 @Injectable()
-export class AreaAtuacaoService {
+export class ModeloContratoService {
 
+  modeloContrato: ModeloContrato;
   usuario: Usuario;
   caminho: string = "";
   lista: FirebaseListObservable<any>;
 
   constructor(public afDataBase: AngularFireDatabase, private _serviceUser: AuthService ) { 
     this.usuario = this._serviceUser.getDadosUsuarioDataBase(0);
-    this.caminho = '/Clientes/'+this.usuario.identificacaoCliente+'/AreasAtuacao';
+    this.caminho = '/Clientes/'+this.usuario.identificacaoCliente+'/ModelosContrato';
     this.lista = this.afDataBase.list(this.caminho);
   }
 
@@ -22,14 +23,14 @@ export class AreaAtuacaoService {
   }
 
   
-  alterar(key: string, areaAtuacao: AreaAtuacao){
+  alterar(key: string, modeloContrato: ModeloContrato){
 
-        return this.lista.update(key, areaAtuacao);
+        return this.lista.update(key, modeloContrato);
   }
 
-  novo(areaAtuacao: AreaAtuacao){
+  novo(modeloContrato: ModeloContrato){
     debugger;
-    return this.lista.push(areaAtuacao);
+    return this.lista.push(modeloContrato);
   }
   
   deleta(key: string){
@@ -42,13 +43,13 @@ export class AreaAtuacaoService {
 
       this.afDataBase.list(this.caminho, {
         query: {
-          orderByChild: 'descricao',
+          orderByChild: 'titulo',
           equalTo: valor
         }
       }).subscribe((dados) => {
         debugger;
         if (dados.length > 0) {
-          reject(new Error("Área de Atuação já cadastrada. Por favor, altere a descrição!")); 
+          reject(new Error("Contrato já cadastrado. Por favor, altere o título!")); 
         }else{
           resolve();
         }

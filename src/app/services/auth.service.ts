@@ -36,7 +36,7 @@ export class AuthService{
         cadUsuario.email = usuario.email;
         cadUsuario.imagemUsuario = usuario.photoURL;
         cadUsuario.uid = usuario.uid;
-        cadUsuario.vinculado = false;
+        cadUsuario.bloqueado = false;
        
         return this.afDataBase.list('/Usuarios').push(cadUsuario).then((dadosU) => {
             this._serviceCliente.criarClienteNovo().then((dadosC) => {
@@ -95,7 +95,7 @@ export class AuthService{
                     retornoUsuario.imagemUsuario = dados[0].imagemUsuario;
                     retornoUsuario.identificacaoCliente = dados[0].identificacaoCliente;
                     retornoUsuario.uid = dados[0].uid;
-                    retornoUsuario.vinculado = dados[0].vinculado;
+                    retornoUsuario.bloqueado = dados[0].vinculado;
                     retornoUsuario.keyDuplicadoUsuario = dados[0].keyDuplicadoUsuario;
                     console.log('Retorno do método getDadosUsuarioDataBase: '+ dados.toString());     
                     }               

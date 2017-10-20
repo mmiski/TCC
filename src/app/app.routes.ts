@@ -34,6 +34,7 @@ const appRoutes: Routes  = [
   { path: 'configUsuario', component: ConfiguracaoUsuarioComponent },
   { path: 'dadosEmpresa', component: DadosEmpresaComponent },
   { path: 'areaAtuacao', component: AreaAtuacaoComponent },
+  { path: 'cadAreaAtuacao/:key', component: CadastroAreaAtuacaoComponent },
   { path: 'cadAreaAtuacao', component: CadastroAreaAtuacaoComponent },
   { path: 'cadPassageiro', component: CadastroPassageiroComponent },
   { path: 'gridPassageiro', component: GridPassageiroComponent },

@@ -1,8 +1,9 @@
 export class AreaAtuacao{
     
         constructor(public cep: string = "", 
-                    public isMatutino: boolean = false,
-                    public isVespertino: boolean =false,
-                    public isNoturno: boolean = false,
+                    public descricao = "",
+                    public isMatutino: boolean = true,
+                    public isVespertino: boolean = true,
+                    public isNoturno: boolean = true,
                     public locais: string = ""){}
     }

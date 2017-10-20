@@ -12,7 +12,8 @@
                             </div>
                             <div class="input-field">
                                 <i class="material-icons prefix">person</i>
-                                <input name="nome" placeholder="Nome do Responsável" [(ngModel)]="cliente.nome" id="icon_nome" type="text" class="validate" required #nome="ngModel">
+                                <input name="nome" placeholder="" [(ngModel)]="cliente.nome" id="icon_nome" type="text" class="validate" required #nome="ngModel">
+                                <label class="active" for="icon_nome">Nome do Responsável</label>
                             </div>                              
                         </div>
 
@@ -24,7 +25,8 @@
                                 </div>
                                 <div class="input-field">
                                         <i class="material-icons prefix">dehaze</i>
-                                        <input name="razaosocial" placeholder="Razão Social/Responsável"  [(ngModel)]="cliente.razaoSocial" id="icon_rs" type="text" class="validate" required #razsoc="ngModel">
+                                        <input name="razaosocial" placeholder="" [(ngModel)]="cliente.razaoSocial" id="icon_rs" type="text" class="validate" required #razsoc="ngModel">
+                                        <label class="active" for="icon_rs">Razão Social/Responsável</label>
                                 </div>                              
                         </div>                    
 
@@ -36,7 +38,8 @@
                                 </div>
                                 <div class="input-field">
                                         <i class="material-icons prefix">dehaze</i>
-                                        <input name="nomefantasia" placeholder="Nome Fantasia/Responsável"  [(ngModel)]="cliente.nomeFantasia" id="icon_nf" type="text" class="validate" required #nfan="ngModel">
+                                        <input name="nomefantasia" placeholder="" [(ngModel)]="cliente.nomeFantasia" id="icon_nf" type="text" class="validate" required #nfan="ngModel">
+                                        <label class="active" for="icon_nf">Nome Fantasia/Responsável</label>
                                 </div>                              
                         </div> 
 
@@ -48,8 +51,8 @@
                                 </div>
                                 <div class="input-field">
                                         <i class="material-icons prefix">info</i>
-                                        <input name="cnpjCpf" placeholder="CPF/CNPJ" [(ngModel)]="cliente.cnpjCpf" id="cnpjCpf" type="text" class="validate" required #cpfcnpj="ngModel">
-
+                                        <input name="cnpjCpf"  placeholder="" [(ngModel)]="cliente.cnpjCpf" id="cnpj_Cpf" type="text" class="validate" required #cpfcnpj="ngModel">
+                                        <label class="active" for="cnpj_Cpf">CPF/CNPJ</label>
                                 </div>                              
                         </div> 
 
@@ -82,7 +85,7 @@
             </form>
             <div class="card-action">
                 <div class="center">
-                  <a (click)="salvar()" class=" waves-effect waves-light btn green">Salvar Alterações</a>
+                  <button [disabled]="!form.form.valid" (click)="salvar()" class=" waves-effect waves-light btn green">Salvar Alterações</button>
                 </div>
             </div>
         </div>
