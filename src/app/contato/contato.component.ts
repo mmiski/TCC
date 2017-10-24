@@ -18,8 +18,6 @@ import {
 export class ContatoComponent implements OnInit {
   
 
-  contato: Contato;
-
   alert = new EventEmitter<string|MaterializeAction>();
   success = new EventEmitter<string|MaterializeAction>();
   danger = new EventEmitter<string|MaterializeAction>();  
@@ -44,16 +42,15 @@ export class ContatoComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, 
               public _serviceContato: ContatoService, 
               public router: Router) { 
-    this.contato = new Contato();
     
   }
 
   ngOnInit(){
     this.formulario = this.formBuilder.group({
-      nome: [this.contato.nome, Validators.required],
-      email: [this.contato.email, [Validators.required, Validators.email]],
-      telefone: [this.contato.telefone, Validators.required],
-      texto: [this.contato.texto, Validators.required], 
+      nome: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
+      telefone: [null, Validators.required],
+      texto: [null, Validators.required], 
     });
   }
 
@@ -75,7 +72,7 @@ export class ContatoComponent implements OnInit {
   enviar(){
    this.show('LOADING');
 
-  this._serviceContato.enviar(this.contato).then(() => {
+  this._serviceContato.enviar(this.formulario.value).then(() => {
     this.close('LOADING');
 
     this.titulo = "Mensagem Enviada";
