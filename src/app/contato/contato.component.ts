@@ -50,14 +50,10 @@ export class ContatoComponent implements OnInit {
 
   ngOnInit(){
     this.formulario = this.formBuilder.group({
-      // nome: [this.contato.nome, Validators.required],
-      // email: [this.contato.email, [Validators.required, Validators.email]],
-      // telefone: [this.contato.telefone, Validators.required],
-      // texto: [this.contato.texto, Validators.required], 
-      nome: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
-      telefone: [null, Validators.required],
-      texto: [null, Validators.required], 
+      nome: [this.contato.nome, Validators.required],
+      email: [this.contato.email, [Validators.required, Validators.email]],
+      telefone: [this.contato.telefone, Validators.required],
+      texto: [this.contato.texto, Validators.required], 
     });
   }
 

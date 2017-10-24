@@ -10,7 +10,7 @@
           <div class="row form-group" style="margin-bottom: 0px;">
 
             <div class="col s12 m6 l6 xl6">
-              <label-error mostrarErro="verificaValidTouched('nome')" mensagemErro="Nome é Obrigatório" ></label-error>
+              <label-error [mostrarErro]="verificaValidTouched('nome')" mensagemErro="Nome é Obrigatório" ></label-error>
 
               <div class="input-field ">                
                   <i class="material-icons prefix">person</i>
@@ -21,7 +21,7 @@
              
             <div class="col s12 m6 l6 xl6">
  
-                <label-error mostrarErro="verificaValidTouched('telefone')" mensagemErro="Telefone é Obrigatório" ></label-error>
+                <label-error [mostrarErro]="verificaValidTouched('telefone')" mensagemErro="Telefone é Obrigatório" ></label-error>
 
                 <div class="input-field ">
                     <i class="material-icons prefix">phone</i>
@@ -32,8 +32,7 @@
 
 
             <div class="col s12">
-                <label-error mostrarErro="verificaValidTouched('email')" mensagemErro="Email é Obrigatório" ></label-error>
-                <label-error mostrarErro="verificaEmailInvalido()" mensagemErro="Email inválido" ></label-error>
+                <label-error [mostrarErro]="verificaEmailInvalido()" mensagemErro="Email inválido" ></label-error>
 
                 <div class="input-field ">
                     <i class="material-icons prefix">email</i>
@@ -46,7 +45,7 @@
           <div class="row form-group" style="margin-bottom: 0px;">
               <div class="col s12">
  
-                  <label-error mostrarErro="verificaValidTouched('texto')" mensagemErro="Mensagem é Obrigatória" ></label-error>
+                  <label-error [mostrarErro]="verificaValidTouched('texto')" mensagemErro="Mensagem é Obrigatória" ></label-error>
 
                   <div serveiv class="input-field ">
                       <i class="material-icons prefix">textsms</i>
