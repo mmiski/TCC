@@ -44,6 +44,7 @@ import { CadastroRotaVinculoPassageiroComponent } from './cadastro-rota-vinculo-
 import { ContatoComponent } from './contato/contato.component';
 import { UsuarioMensagemService } from './services/usuario-mensagem.service';
 import { AreaAtuacaoService } from './services/area-atuacao.service';
+import { LabelErrorComponent } from './label-error/label-error.component';
 
 
 const  config = {
@@ -87,8 +88,8 @@ const  config = {
     GridRotasComponent,
     CadastroPassageiroMensalidadeComponent,
     CadastroRotaVinculoPassageiroComponent,
-    ContatoComponent
-    
+    ContatoComponent,
+    LabelErrorComponent
   ],
   imports: [
     BrowserModule,

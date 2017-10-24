@@ -4,73 +4,63 @@
   </div>
 </div>
 <div class="row container">
-  <form #form="ngForm" class="card z-depth-5" (submit)="enviar()" >
+  <form [formGroup]="formulario" class="card z-depth-5 form-horizontal" (submit)="enviar()" >
       <div class="card-content">
           <span class="card-title center teal lighten-2 white-text">Informações</span>
           <div class="row form-group" style="margin-bottom: 0px;">
 
             <div class="col s12 m6 l6 xl6">
-              <div *ngIf="nome.errors && (nome.dirty || nome.touched)">
-                  <label [hidden]="!nome.errors.required" class="red-text erro">
-                    Digite seu Nome!
-                  </label>
-              </div>
-              <div class="input-field ">
+              <label-error mostrarErro="verificaValidTouched('nome')" mensagemErro="Nome é Obrigatório" ></label-error>
+
+              <div class="input-field ">                
                   <i class="material-icons prefix">person</i>
-                  <input name="nome" [(ngModel)]="contato.nome" id="nome" type="text" class="validate" required #nome="ngModel">
+                  <input type="text" class="form-control" formControlName="nome" id="nome">
                   <label for="nome" >Nome</label>
               </div>
             </div>
              
             <div class="col s12 m6 l6 xl6">
-                <div *ngIf="phone.errors && (phone.dirty || phone.touched)">
-                    <label [hidden]="!phone.errors.required" class="red-text erro">
-                      Digite seu Telefone!
-                    </label>
-                </div>
+ 
+                <label-error mostrarErro="verificaValidTouched('telefone')" mensagemErro="Telefone é Obrigatório" ></label-error>
+
                 <div class="input-field ">
                     <i class="material-icons prefix">phone</i>
-                    <input name="phone" [(ngModel)]="contato.telefone" id="phone" type="text" class="validate" required #phone="ngModel">
+                    <input id="phone" type="text" class="form-control" formControlName="telefone">
                     <label for="phone">Telefone</label>
                 </div>
             </div>
 
 
             <div class="col s12">
-                <div *ngIf="email.errors && (email.dirty || email.touched)">
-                    <label [hidden]="!email.errors.required" class="red-text erro">
-                      Digite seu Email!
-                    </label>
-                </div>
+                <label-error mostrarErro="verificaValidTouched('email')" mensagemErro="Email é Obrigatório" ></label-error>
+                <label-error mostrarErro="verificaEmailInvalido()" mensagemErro="Email inválido" ></label-error>
+
                 <div class="input-field ">
                     <i class="material-icons prefix">email</i>
-                    <input name="email" [(ngModel)]="contato.email" id="email" type="email" class="validate" required #email="ngModel">
-                    <label for="email" data-error="Email Inválido">Email</label>
+                    <input id="email" type="email" class="form-control" formControlName="email">
+                    <label for="email">Email</label>
                 </div>
             </div>        
           </div>
 
           <div class="row form-group" style="margin-bottom: 0px;">
               <div class="col s12">
-                  <div *ngIf="texto.errors && (texto.dirty || texto.touched)">
-                      <label [hidden]="!texto.errors.required" class="red-text erro">
-                        Digite uma Mensagem!
-                      </label>
-                  </div>
-                  <div class="input-field ">
+ 
+                  <label-error mostrarErro="verificaValidTouched('texto')" mensagemErro="Mensagem é Obrigatória" ></label-error>
+
+                  <div serveiv class="input-field ">
                       <i class="material-icons prefix">textsms</i>
-                      <input name="texto" [(ngModel)]="contato.texto" id="texto" type="text" class="validate" required #texto="ngModel">
+                      <input id="texto" type="text" class="form-control" formControlName="texto">
                       <label for="texto">Mensagem</label>
                   </div>
               </div>
           </div>
         </div>
         <div class="card-action center">
-          <button [disabled]="!form.form.valid" type="submit" name="action" class=" btn btn-waves" ><i class="material-icons right">send</i>Enviar Mensagem</button >
+          <button [disabled]="!formulario.valid" type="submit" name="action" class=" btn btn-waves" ><i class="material-icons right">send</i>Enviar Mensagem</button >
         </div>
       </form>
 </div>
-
 <!-- Modal LOADING -->
 <div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="params" [materializeActions]="loading">
     <div class="modal-content center">

@@ -1,15 +1,22 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Contato } from '../classes/Contato';
 import { ContatoService } from '../services/contato.service';
 import { Router } from '@angular/router';
 import { MaterializeAction } from 'angular2-materialize';
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validators
+} from '@angular/forms';
 
 @Component({
   selector: 'app-contato',
   templateUrl: './contato.component.html',
   styleUrls: ['./contato.component.css']
 })
-export class ContatoComponent {
+export class ContatoComponent implements OnInit {
+  
 
   contato: Contato;
 
@@ -30,9 +37,43 @@ export class ContatoComponent {
   titulo: string = "";
   mensagem: string = "";
 
+  formulario: FormGroup;
+
+
   
-  constructor(public _serviceContato: ContatoService, public router: Router) { 
+  constructor(private formBuilder: FormBuilder, 
+              public _serviceContato: ContatoService, 
+              public router: Router) { 
     this.contato = new Contato();
+    
+  }
+
+  ngOnInit(){
+    this.formulario = this.formBuilder.group({
+      // nome: [this.contato.nome, Validators.required],
+      // email: [this.contato.email, [Validators.required, Validators.email]],
+      // telefone: [this.contato.telefone, Validators.required],
+      // texto: [this.contato.texto, Validators.required], 
+      nome: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
+      telefone: [null, Validators.required],
+      texto: [null, Validators.required], 
+    });
+  }
+
+  
+  verificaValidTouched(campo: string) {
+    return (
+      !this.formulario.get(campo).valid &&
+      (this.formulario.get(campo).touched || this.formulario.get(campo).dirty)
+    );
+  }
+
+  verificaEmailInvalido() {
+    const campoEmail = this.formulario.get('email');
+    if (campoEmail.errors) {
+      return campoEmail.errors['email'] && campoEmail.touched;
+    }
   }
 
   enviar(){

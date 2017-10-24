@@ -115,12 +115,13 @@ msgParams = [
 //Método construtor
 constructor(public router: Router, public  _service: AuthService, public _serviceUsuarioMensagem: UsuarioMensagemService){
   this.usuarioMensagem = new UsuarioMensagem();
-  this.router.navigate(['site']);
+  // this.router.navigate(['site']);
+  this.router.navigate(['contato']);
 
   // //Pra não precisar ficar logando
-  this.emailLogin = "1@1.com";
-  this.senhaLogin = "111111";
-  this.loginEmailSenha();
+  // this.emailLogin = "1@1.com";
+  // this.senhaLogin = "111111";
+  // this.loginEmailSenha();
 }
 
 

@@ -11,7 +11,7 @@ export class ContatoService {
   }
 
   enviar(contato: Contato){
-    return this.afDataBase.list('/Contatos').push(contato);
+    return this.afDataBase.list('/PedidosDeContato').push(contato);
   }
 
 }
