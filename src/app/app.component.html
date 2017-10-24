@@ -220,40 +220,32 @@
   <!-- login-->
   <div id="formLogin" class="col s12">
       <div class="row">
-          <form #login="ngForm" class="col s12 z-depth-5 card">
+          <form [formGroup]="formularioLogin" class="col s12 z-depth-5 card form-horizontal">
             <div class="row card-content">
                 <span class="truncate card-title center-align">Dados para Logar</span>
               <div class="row">
                   <div class="col s12 m6 l6 xl6">
-                      <div *ngIf="emailLog.errors && (emailLog.dirty || emailLog.touched)">
-                          <label [hidden]="!emailLog.errors.required" class="red-text erro">
-                            Digite seu Email!
-                          </label>
-                      </div>
-                    <div class="input-field">
-                        <i class="material-icons prefix">email</i>
-                        <input name="email" [(ngModel)]="emailLogin" id="icon_email" type="email" class="validate" required #emailLog="ngModel">
-                        <label for="icon_email" data-error="Email Inválido">Email</label>
-                    </div>            
+                      <label-error [mostrarErro]="verificaEmailInvalido(formularioLogin)" mensagemErro="Email inválido" ></label-error>
+                      <div class="input-field">
+                          <i class="material-icons prefix">email</i>
+                          <input id="icon_email" type="email"  class="form-control" formControlName="email">
+                          <label for="icon_email">Email</label>
+                      </div>         
                   </div>
       
       
                   <div class="col s12 m6 l6 xl6">
-                      <div *ngIf="senhaLog.errors && (senhaLog.dirty || senhaLog.touched)">
-                          <label [hidden]="!senhaLog.errors.required" class="red-text erro">
-                            Digite a Senha!
-                          </label>
-                      </div>
+                    <label-error [mostrarErro]="verificaValidTouched('senha',formularioLogin)" mensagemErro="Insira a Senha"></label-error>
                     <div class="input-field">
                         <i class="material-icons prefix">security</i>
-                        <input name="senha" [(ngModel)]="senhaLogin" id="icon_password" type="password" class="validate" required #senhaLog="ngModel">
+                        <input id="icon_password" type="password" class="form-control" formControlName="senha">
                         <label for="icon_password">Senha</label>
                     </div>
                   </div>
               </div>
               <div class="row center">
                 <div class="col s12 m6 l6">
-                    <button [disabled]="!login.form.valid" (click)="loginEmailSenha()" class=" waves-effect waves-light btn btn-flat"><i class="material-icons left">input</i>Logar</button>
+                    <button [disabled]="!formularioLogin.valid" (click)="loginEmailSenha()" class=" waves-effect waves-light btn btn-flat"><i class="material-icons left">input</i>Logar</button>
                 </div>
                 <div class="col s12 m6 l6">
                     <a (click)="closeNavBarLogin()" class="waves-effect waves-light btn btn-flat "><i class="material-icons left">close</i>Sair</a>
@@ -273,54 +265,42 @@
   <!-- Cadastro de Login -->
   <div id="formCadastroLogin" class="col s12">
     <div class="row">
-      <form #loginCad="ngForm" class="col s12 z-depth-5 card">
+      <form [formGroup]="formularioCadastroLogin" class="col s12 z-depth-5 card form-horizontal">
         <div class="form-group row card-content">
             <span class="truncate card-title center-align">Dados do Usuário</span>
           <div class="row">
 
               <div class="col s12">
-                  <div *ngIf="nome.errors && (nome.dirty || nome.touched)">
-                      <label [hidden]="!nome.errors.required" class="red-text erro">
-                        Digite seu Nome!
-                      </label>
-                  </div>
+                  <label-error [mostrarErro]="verificaValidTouched('nome',formularioCadastroLogin)" mensagemErro="Nome é Obrigatório" ></label-error>
                   <div class="input-field ">
                       <i class="material-icons prefix">person</i>
-                      <input name="nome" [(ngModel)]="nomeLoginCad" id="nome" type="text" class="validate" required #nome="ngModel">
+                      <input id="nome" type="text" class="form-control" formControlName="nome">
                       <label for="nome" >Nome</label>
                   </div>
               </div>
 
             <div class="col s12 m6 l6 xl6">
-                <div *ngIf="emailCad.errors && (emailCad.dirty || emailCad.touched)">
-                    <label [hidden]="!emailCad.errors.required" class="red-text erro">
-                      Digite seu Email!
-                    </label>
-                </div>
+                <label-error [mostrarErro]="verificaEmailInvalido(formularioCadastroLogin)" mensagemErro="Email inválido" ></label-error>
               <div class="input-field">
                   <i class="material-icons prefix">email</i>
-                  <input name="email" [(ngModel)]="emailLoginCad" id="icon_email" type="email" class="validate" required #emailCad="ngModel">
-                  <label for="icon_email" data-error="Email Inválido">Email</label>
+                  <input id="icon_email" type="email"  class="form-control" formControlName="email">
+                  <label for="icon_email">Email</label>
               </div>            
             </div>
 
 
             <div class="col s12 m6 l6 xl6">
-                <div *ngIf="senhaCad.errors && (senhaCad.dirty || senhaCad.touched)">
-                    <label [hidden]="!senhaCad.errors.required" class="red-text erro">
-                      Digite a Senha!
-                    </label>
-                </div>
+              <label-error [mostrarErro]="verificaValidTouched('senha',formularioCadastroLogin)" mensagemErro="Insira a Senha" ></label-error>
               <div class="input-field">
                   <i class="material-icons prefix">security</i>
-                  <input name="senha" [(ngModel)]="senhaLoginCad" id="icon_password" type="password" class="validate" required #senhaCad="ngModel">
+                  <input id="icon_password" type="password" class="form-control" formControlName="senha">
                   <label for="icon_password">Senha</label>
               </div>
             </div>
           </div>
           <div class="row center">
             <div class="col s12 m6 l6">
-                <button [disabled]="!loginCad.form.valid" (click)="cadastraUsuario()" class="waves-effect waves-light btn btn-flat"><i class="material-icons left">add</i>Cadastrar</button>
+                <button [disabled]="!formularioCadastroLogin.valid" (click)="cadastraUsuario()" class="waves-effect waves-light btn btn-flat"><i class="material-icons left">add</i>Cadastrar</button>
             </div>
             <div class="col s12 m6 l6">
                 <a (click)="closeNavBarLogin()" class="waves-effect waves-light btn red "><i class="material-icons left">close</i>Sair</a>

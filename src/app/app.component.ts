@@ -9,6 +9,7 @@ import { AuthService } from "./services/auth.service";
 import { Usuario } from './classes/Usuario';
 import { UsuarioMensagem } from './classes/UsuarioMensagem';
 import { UsuarioMensagemService } from './services/usuario-mensagem.service';
+import { FormGroup, FormControl,FormBuilder,Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,10 @@ import { UsuarioMensagemService } from './services/usuario-mensagem.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+
+
+  formularioLogin: FormGroup;
+  formularioCadastroLogin: FormGroup;
 
 
   // Ações dos componentes do materialize
@@ -28,16 +33,6 @@ alert = new EventEmitter<string|MaterializeAction>();
 success = new EventEmitter<string|MaterializeAction>();
 danger = new EventEmitter<string|MaterializeAction>();  
 loading = new EventEmitter<string|MaterializeAction>();
-
-
-//Login
-emailLogin: string = "";
-senhaLogin: string = "";
-
-//cadastro Login
-emailLoginCad: string = "";
-senhaLoginCad: string = "";
-nomeLoginCad: string = "";
 
 //Titulo da navbar
 titulo: string = "";
@@ -53,6 +48,7 @@ msgTitulo: string = "";
 msgCorpo: string = "";
 
 //Inicio dos parametros dos compoentes materialize
+
 
 navBarLoginParams = [
   {
@@ -113,7 +109,7 @@ msgParams = [
 
 
 //Método construtor
-constructor(public router: Router, public  _service: AuthService, public _serviceUsuarioMensagem: UsuarioMensagemService){
+constructor(private formBuilder: FormBuilder, public router: Router, public  _service: AuthService, public _serviceUsuarioMensagem: UsuarioMensagemService){
   this.usuarioMensagem = new UsuarioMensagem();
   // this.router.navigate(['site']);
   this.router.navigate(['contato']);
@@ -124,8 +120,36 @@ constructor(public router: Router, public  _service: AuthService, public _servic
   // this.loginEmailSenha();
 }
 
+ngOnInit(){
+  this.formularioLogin = this.formBuilder.group({
+    email: [null, [Validators.required, Validators.email]],
+    senha: [null, Validators.required]
+  });
 
+  this.formularioCadastroLogin= this.formBuilder.group({
+    nome: [null, Validators.required],
+    email: [null, [Validators.required, Validators.email]],
+    senha: [null, Validators.required]
+  });
+}
 //Inicio dos métodos
+
+
+verificaValidTouched(campo: string, formulario: FormGroup) {
+  return (
+    !formulario.get(campo).valid &&
+    (formulario.get(campo).touched || formulario.get(campo).dirty)
+  );
+}
+
+verificaEmailInvalido(formulario: FormGroup) {
+  const campoEmail = formulario.get('email');
+  if (campoEmail.errors) {
+    return campoEmail.errors['email'] && campoEmail.touched;
+  }
+}
+
+
   openModaUsuarioMensagem() {
     this.usuarioMensagem.email = this.usuario.email;
     this.usuarioMensagemAction.emit({action:"modal",params:['open']});
@@ -140,6 +164,7 @@ constructor(public router: Router, public  _service: AuthService, public _servic
   }
   closeModalLogin() {
     this.modalLogin.emit({action:"modal",params:['close']});
+    this.limpaCamposLogin();
   }
 
   openNavBarLogin(){
@@ -148,6 +173,7 @@ constructor(public router: Router, public  _service: AuthService, public _servic
 
   closeNavBarLogin(){
     this.navBarLogin.emit({action:"sideNav",params:['hide']});
+    this.limpaCamposLogin();
   }
 
   setTitulo(titulo: string = ""){
@@ -175,7 +201,7 @@ constructor(public router: Router, public  _service: AuthService, public _servic
 
   loginEmailSenha(){
     this.show('LOADING');
-    this._service.loginEmailSenha(this.emailLogin, this.senhaLogin).then(() => { 
+    this._service.loginEmailSenha(this.formularioLogin.get('email').value,this.formularioLogin.get('senha').value).then(() => { 
       this.closeModalLogin();
       this.router.navigate(['main']);     
       this.setTitulo('');
@@ -214,7 +240,9 @@ constructor(public router: Router, public  _service: AuthService, public _servic
 
   cadastraUsuario(){
     this.show('LOADING');
-    this._service.cadastroUsuarioEmailSenha(this.emailLoginCad, this.senhaLoginCad, this.nomeLoginCad).then(() => {   
+    this._service.cadastroUsuarioEmailSenha(this.formularioCadastroLogin.get('email').value, 
+                                            this.formularioCadastroLogin.get('senha').value, 
+                                            this.formularioCadastroLogin.get('nome').value).then(() => {   
       this.close('LOADING');
       this.loginEmailSenha();
     }).catch(err => {
@@ -246,11 +274,8 @@ constructor(public router: Router, public  _service: AuthService, public _servic
   }
 
   limpaCamposLogin(){
-    this.emailLogin = "";
-    this.senhaLogin = "";
-    this.emailLoginCad = "";
-    this.senhaLoginCad = "";
-    this.nomeLoginCad = "";
+    this.formularioCadastroLogin.reset();
+    this.formularioLogin.reset();
   }
 
   show(tipo: string){

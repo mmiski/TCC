@@ -3,12 +3,7 @@ import { Contato } from '../classes/Contato';
 import { ContatoService } from '../services/contato.service';
 import { Router } from '@angular/router';
 import { MaterializeAction } from 'angular2-materialize';
-import {
-  FormGroup,
-  FormControl,
-  FormBuilder,
-  Validators
-} from '@angular/forms';
+import { FormGroup, FormControl,FormBuilder,Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-contato',
