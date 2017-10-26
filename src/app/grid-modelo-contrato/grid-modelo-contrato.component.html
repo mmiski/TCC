@@ -25,7 +25,7 @@
                 </a>             
               </li>               
           </ul>
-          <div *ngIf="this.listaModelosContrato.length == 0" class="center-align">
+          <div *ngIf="(listaModelosContrato | async)?.length == 0" class="center-align">
               <label>Nenhum registro encontrado.</label>
           </div>
         </div>
