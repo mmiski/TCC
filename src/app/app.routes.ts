@@ -42,6 +42,7 @@ const appRoutes: Routes  = [
   { path: 'passMens', component: PassageiroMensalidadeComponent },
   { path: 'cadPassMensalidade', component: CadastroPassageiroMensalidadeComponent },
   { path: 'passContrato', component: PassageiroContratoComponent },
+  { path: 'cadVeiculo/:key', component: CadastroVeiculoComponent },
   { path: 'cadVeiculo', component: CadastroVeiculoComponent },
   { path: 'gridVeiculo', component: GridVeiculoComponent },
   { path: 'veicRevisao', component: VeiculoRevisaoComponent },

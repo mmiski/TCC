@@ -3,6 +3,7 @@
       <a (click)="gridVeiculo()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
     </div>
   </div>
+<form #form="ngForm">
   <div class="row container">
     <div class="card z-depth-5">
         <div class="card-content">
@@ -10,38 +11,134 @@
             <div class="row">
                 <div class="input-field col s12 m6 l6">
                     <i class="material-icons prefix">directions_bus</i>
-                    <input  id="icon_placa" type="text" class="validate">
-                    <label for="icon_placa">Placa</label>
+                    <input name="placa" [(ngModel)]="veiculo.placa" placeholder="" id="placa" type="text" class="validate" required #placa="ngModel">
+                    <label for="placa">Placa</label>
                   </div>
                   <div class="input-field col s12 m6 l6">
                         <i class="material-icons prefix">date_range</i>
-                        <input  id="icon_ano" type="text" class="validate">
-                        <label for="icon_ano">Ano</label>
+                        <input name="ano" [(ngModel)]="veiculo.ano" placeholder="" id="ano" type="number" class="validate" required #ano="ngModel">
+                        <label for="ano">Ano</label>
                       </div>
             </div>
             <div class="row">           
                   <div class="input-field col s12 m6 l6 xl6">
                     <i class="material-icons prefix">info</i>
-                    <input  id="icon_modelo" type="text" class="validate">
-                    <label for="icon_modelo">Modelo</label>
+                    <input name="modelo" [(ngModel)]="veiculo.modelo" placeholder="" id="modelo" type="text" class="validate" required #modelo="ngModel">
+                    <label for="modelo">Modelo</label>
                   </div>
                   <div class="input-field col s12 m6 l6 xl6">
                         <i class="material-icons prefix">info</i>
-                        <input  id="icon_fabricante" type="text" class="validate">
-                        <label for="icon_fabricante  ">Fabricante</label>
+                        <input name="fabricante" [(ngModel)]="veiculo.fabricante" placeholder="" id="fabricante" type="text" class="validate" required #fabricante="ngModel">
+                        <label for="fabricante  ">Fabricante</label>
                       </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 ">
                     <i class="material-icons prefix">priority_high</i>
-                    <input  id="icon_rena" type="text" class="validate">
-                    <label for="icon_rena">RENAVAM</label>
+                    <input name="renavam" [(ngModel)]="veiculo.renavam" placeholder="" id="renavam" type="number" class="validate" required #renavam="ngModel">
+                    <label for="renavam">RENAVAM</label>
                 </div>
             </div>
           </div>
     </div>
   </div>
     <div class="row container">
-          <a (click)="gridVeiculo()"class="col s12 m6 btn btn-waves green">Salvar</a>
-          <a (click)="gridVeiculo()" class="col s12 m6 btn btn-waves red">Cancelar</a>
+      <button [disabled]="!form.form.valid" (click)="salvar()"class="col s12 m6 btn btn-waves green">Salvar</button>
+      <a (click)="gridAreaAtuacao()" class="col s12 m6 btn btn-waves red">Cancelar</a>
       </div>
+    </form>
+
+
+<!-- Modal LOADING -->
+<div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
+  <div class="modal-content center">
+      <h4 style="padding-bottom:1%;">Carregando</h4>
+      <div  class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+
+<!-- Modal ALERT -->
+<div id="alert" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="alert">
+  <div class="modal-content center no-padding">
+      <div class="row orange lighten-2 white-text title-alert">
+      <h4>{{msgTitulo}}</h4>
+  </div>
+  <div class="row">
+      <p>{{msgCorpo}}</p>
+  </div>
+</div>
+<div class="modal-footer">
+  <a class="waves-effect waves-green btn orange lighten-1" (click)="close('ALERT')">OK</a> 
+</div>
+</div>
+
+<!-- Modal SUCCESS -->
+<div id="success" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="success">
+  <div class="modal-content center no-padding">
+    <div class="row green lighten-2 white-text title-alert">
+          <h4>{{msgTitulo}}</h4>
+      </div>
+      <div class="row">
+          <p>{{msgCorpo}}</p>
+      </div>
+  </div>
+  <div class="modal-footer center">
+    <a class="waves-effect waves-green btn green lighten-1" (click)="close('SUCCESS')">OK</a> 
+  </div>
+</div>
+
+ <!-- Modal DANGER -->
+ <div id="danger" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="danger">
+  <div class="modal-content center no-padding">
+  <div class="row red lighten-2 white-text title-alert">
+      <h4>{{msgTitulo}}</h4>
+  </div>
+  <div class="row">
+      <p>{{msgCorpo}}</p>
+  </div>
+</div>
+<div class="modal-footer">
+<a class="waves-effect waves-green btn btn-flat" (click)="close('DANGER')">Sim</a> 
+<a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">Não</a>
+</div>
+</div>
