@@ -111,19 +111,14 @@ msgParams = [
 //Método construtor
 constructor(private formBuilder: FormBuilder, public router: Router, public  _service: AuthService, public _serviceUsuarioMensagem: UsuarioMensagemService){
   this.usuarioMensagem = new UsuarioMensagem();
-  // this.router.navigate(['site']);
-  this.router.navigate(['contato']);
-
-  // //Pra não precisar ficar logando
-  // this.emailLogin = "1@1.com";
-  // this.senhaLogin = "111111";
-  // this.loginEmailSenha();
+  this.router.navigate(['site']);
+ 
 }
 
 ngOnInit(){
   this.formularioLogin = this.formBuilder.group({
-    email: [null, [Validators.required, Validators.email]],
-    senha: [null, Validators.required]
+    email: ['1@1.com', [Validators.required, Validators.email]],
+    senha: ['111111', Validators.required]
   });
 
   this.formularioCadastroLogin= this.formBuilder.group({
@@ -131,6 +126,8 @@ ngOnInit(){
     email: [null, [Validators.required, Validators.email]],
     senha: [null, Validators.required]
   });
+
+  this.loginEmailSenha();
 }
 //Inicio dos métodos
 

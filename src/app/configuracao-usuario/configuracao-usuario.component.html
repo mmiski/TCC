@@ -16,38 +16,26 @@
             <div class="card-content form-group">          
                 <div class="row">
                     <div class="col s12">
-                        <div *ngIf="nome.errors && (nome.dirty || nome.touched)">
-                                <label [hidden]="!nome.errors.required" class="red-text erro">
-                                    Digite seu Nome!
-                                </label>
-                        </div>
                         <div class="input-field">
                                 <i class="material-icons prefix">person</i>
                                 <input name="nome" placeholder="Nome" [(ngModel)]="usuario.nome" id="icon_nome" type="text" class="validate" required #nome="ngModel">
+                                <label for="icon_nome">Nome</label>
                         </div>                   
                     </div>
 
                     <div class="col s12">
-                            <div *ngIf="email.errors && (email.dirty || email.touched)">
-                                <label [hidden]="!email.errors.required" class="red-text erro">
-                                  Digite seu Email!
-                                </label>
-                            </div>
                             <div class="input-field ">
                                 <i class="material-icons prefix">email</i>
-                                <input name="email" placeholder="Email" [(ngModel)]="usuario.email" id="email" type="email" class="validate" required #email="ngModel">
+                                <input name="email" disabled placeholder="Email" [(ngModel)]="usuario.email" id="email" type="email" class="validate" required #email="ngModel">
+                                <label for="email">Email/Login</label>
                             </div>
                     </div> 
 
                     <div class="col s12">
-                            <div *ngIf="urlImg.errors && (urlImg.dirty || urlImg.touched)">
-                                <label [hidden]="!urlImg.errors.required" class="red-text erro">
-                                 Insira uma url de imagem da WEB!
-                                </label>
-                            </div>
                             <div class="input-field ">
-                                    <i class="material-icons prefix">photo_camera</i>
+                                <i class="material-icons prefix">photo_camera</i>
                                 <input name="imagemUsuario" placeholder="URL de uma imagem" [(ngModel)]="usuario.imagemUsuario" id="imagemUsuario" type="text" class="validate" required #urlImg="ngModel">
+                                <label for="imagemUsuario">URL de uma imagem para perfil</label>
                             </div>
                     </div>     
                 </div>          

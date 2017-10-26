@@ -10,11 +10,6 @@
             <span class="card-title">Dados da Área de Atuação</span>
             <div class="row">
               <div class="col s12">
-                  <div *ngIf="cep.errors && (cep.dirty || cep.touched)">
-                      <label [hidden]="!cep.errors.required" class="red-text erro">
-                          Informe a cidade, estado e país!
-                      </label>
-                </div>
                 <div class="input-field">
                     <i class="material-icons prefix">info</i>
                     <input name="cep" [(ngModel)]="areaAtuacao.cep" placeholder="" id="icon_cep" type="text" class="validate" required #cep="ngModel">
@@ -22,11 +17,6 @@
                 </div>
               </div>
               <div class="col s12">
-                <div *ngIf="descricao.errors && (descricao.dirty || descricao.touched)">
-                    <label [hidden]="!descricao.errors.required" class="red-text erro">
-                        Informe uma descrição para identificar essa Área de Atuação!
-                    </label>
-              </div>
               <div class="input-field">
                   <i class="material-icons prefix">info</i>
                   <input name="descricao" [(ngModel)]="areaAtuacao.descricao" placeholder="" id="icon_descricao" type="text" class="validate" required #descricao="ngModel">
@@ -51,14 +41,9 @@
             </div>
             <div class="row">
               <div class="col s12">
-                <div *ngIf="locais.errors && (locais.dirty || locais.touched)">
-                      <label [hidden]="!locais.errors.required" class="red-text erro">
-                          Informe a cidade, estado e país!
-                      </label>
-                </div>
                 <div class="input-field">
                     <i class="material-icons prefix">description</i>
-                    <textarea id="textarea1" placeholder="" class="materialize-textarea" name="locais"  [(ngModel)]="areaAtuacao.locais" required #locais="ngModel"></textarea>
+                    <textarea id="textarea1" placeholder="" class="materialize-textarea validate" type="text" name="locais"  [(ngModel)]="areaAtuacao.locais" required #locais="ngModel"></textarea>
                     <label for="textarea1">Locais</label>
                 </div>
               </div>   

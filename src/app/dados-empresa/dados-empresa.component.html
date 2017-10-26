@@ -5,79 +5,49 @@
                 <div class="row form-group ">
 
                         <div class="col s12">
-                            <div *ngIf="nome.errors && (nome.dirty || nome.touched)">
-                                    <label [hidden]="!nome.errors.required" class="red-text erro">
-                                        Insira o nome do Responsável!
-                                    </label>
-                            </div>
                             <div class="input-field">
                                 <i class="material-icons prefix">person</i>
                                 <input name="nome" placeholder="" [(ngModel)]="cliente.nome" id="icon_nome" type="text" class="validate" required #nome="ngModel">
-                                <label class="active" for="icon_nome">Nome do Responsável</label>
+                                <label for="icon_nome">Nome do Responsável</label>
                             </div>                              
                         </div>
 
                         <div class="col s12">
-                                <div *ngIf="razsoc.errors && (razsoc.dirty || razsoc.touched)">
-                                        <label [hidden]="!razsoc.errors.required" class="red-text erro">
-                                            Insira a Razão Social/Responsável!
-                                        </label>
-                                </div>
                                 <div class="input-field">
                                         <i class="material-icons prefix">dehaze</i>
                                         <input name="razaosocial" placeholder="" [(ngModel)]="cliente.razaoSocial" id="icon_rs" type="text" class="validate" required #razsoc="ngModel">
-                                        <label class="active" for="icon_rs">Razão Social/Responsável</label>
+                                        <label for="icon_rs">Razão Social/Responsável</label>
                                 </div>                              
                         </div>                    
 
                         <div class="col s12">
-                                <div *ngIf="nfan.errors && (nfan.dirty || nfan.touched)">
-                                        <label [hidden]="!nfan.errors.required" class="red-text erro">
-                                            Insira o Nome Fantasia/Responsável!
-                                        </label>
-                                </div>
                                 <div class="input-field">
                                         <i class="material-icons prefix">dehaze</i>
                                         <input name="nomefantasia" placeholder="" [(ngModel)]="cliente.nomeFantasia" id="icon_nf" type="text" class="validate" required #nfan="ngModel">
-                                        <label class="active" for="icon_nf">Nome Fantasia/Responsável</label>
+                                        <label  for="icon_nf">Nome Fantasia/Responsável</label>
                                 </div>                              
                         </div> 
 
                         <div class="col s12">
-                                <div *ngIf="cpfcnpj.errors && (cpfcnpj.dirty || cpfcnpj.touched)">
-                                        <label [hidden]="!cpfcnpj.errors.required" class="red-text erro">
-                                            Insira o CPF/CNPJ!
-                                        </label>
-                                </div>
                                 <div class="input-field">
                                         <i class="material-icons prefix">info</i>
                                         <input name="cnpjCpf"  placeholder="" [(ngModel)]="cliente.cnpjCpf" id="cnpj_Cpf" type="text" class="validate" required #cpfcnpj="ngModel">
-                                        <label class="active" for="cnpj_Cpf">CPF/CNPJ</label>
+                                        <label for="cnpj_Cpf">CPF/CNPJ</label>
                                 </div>                              
                         </div> 
 
                         <div class="col s12 m6 l6 xl6">
-                                <div *ngIf="tel.errors && (tel.dirty || tel.touched)">
-                                        <label [hidden]="!tel.errors.required" class="red-text erro">
-                                            Insira o Telefone para Contato!
-                                        </label>
-                                </div>
                                 <div class="input-field">
                                         <i class="material-icons prefix">phone</i>
-                                        <input name="telefoneContato" [(ngModel)]="cliente.telefone" id="icon_tel" class="validate" required #tel="ngModel">
-                                        <label class="active" for="icon_tel">Telefone para Contato</label>
+                                        <input name="telefoneContato" placeholder="" [(ngModel)]="cliente.telefone" id="icon_tel" type="text" class="validate" required #tel="ngModel">
+                                        <label for="icon_tel">Telefone para Contato</label>
                                 </div>                              
                         </div> 
                         <div class="col s12 m6 l6 xl6">
-                                <div *ngIf="email.errors && (email.dirty || email.touched)">
-                                        <label [hidden]="!email.errors.required" class="red-text erro">
-                                            Insira o Email para Contato!
-                                        </label>
-                                </div>
                                 <div class="input-field">
                                         <i class="material-icons prefix">email</i>
-                                        <input name="emailContato" [(ngModel)]="cliente.email" id="icon_email" class="validate" required #email="ngModel">
-                                        <label class="active" for="icon_email" data-error="Inválido" >Email para contato</label>
+                                        <input name="emailContato" placeholder="" [(ngModel)]="cliente.email" id="icon_email" type="email" class="validate" required #email="ngModel">
+                                        <label for="icon_email" >Email para contato</label>
                                 </div>                              
                         </div>       
                 </div>             

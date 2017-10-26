@@ -29,7 +29,6 @@ export class ModeloContratoService {
   }
 
   novo(modeloContrato: ModeloContrato){
-    debugger;
     return this.lista.push(modeloContrato);
   }
   

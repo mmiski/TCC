@@ -45,6 +45,8 @@ import { ContatoComponent } from './contato/contato.component';
 import { UsuarioMensagemService } from './services/usuario-mensagem.service';
 import { AreaAtuacaoService } from './services/area-atuacao.service';
 import { LabelErrorComponent } from './label-error/label-error.component';
+import { ModeloContratoService } from './services/modelo-contrato.service';
+import { PlanoMensalidadeService } from './services/plano-mensalidade.service';
 
 
 const  config = {
@@ -104,7 +106,7 @@ const  config = {
     })
   ],
   providers: [AngularFireDatabase, AuthService, UsuarioService, ClienteService, ContatoService, UsuarioMensagemService,
-              AreaAtuacaoService],
+              AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -75,7 +75,7 @@
                 </li>
               </ul>
             </li>
-            <li ><a (click)="setTitulo('Cadastro Planos de Mensalidade')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridPlanoMens']"><i class="material-icons" >attach_money</i>Planos de Mensalidade</a></li>
+            <li ><a (click)="setTitulo('Cadastro Planos de Mensalidade')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridPlanoMensalidade']"><i class="material-icons" >attach_money</i>Planos de Mensalidade</a></li>
             <li ><a (click)="setTitulo('Cadastro de Modelos de Contrato')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridModeloContrato']"><i class="material-icons">assignment</i>Modelos de Contrato</a></li>
             <li ><a (click)="setTitulo('Gerenciamento de Usuários')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridUsuario']"><i class="material-icons">person</i>Gerenciamento de Usuários</a></li>
           </ul>
@@ -145,12 +145,7 @@
           <div class="card-content">      
               <span class="card-title center">Mensagem</span>      
         <div class="row">
-            <div class="col s12">
-                <div *ngIf="tipoUM.errors && (tipoUM.dirty || tipoUM.touched)">
-                    <label [hidden]="!tipoUM.errors.required" class="red-text erro">
-                        Selecione um Titulo!
-                    </label>
-                </div>            
+            <div class="col s12">     
               <div class="input-field">             
                   <select name="tipo" materialize="material_select" [materializeSelectOptions]="selectTipos" [(ngModel)]="usuarioMensagem.tipo" required #tipoUM="ngModel">
                       <option value="" disabled selected>Selecione o titulo da mesagem</option>
@@ -159,38 +154,25 @@
               </div>            
             </div>
   
-            <div class="col s12 m6 l6">
-                <div *ngIf="emailUM.errors && (emailUM.dirty || emailUM.touched)">
-                    <label [hidden]="!emailUM.errors.required" class="red-text erro">
-                        Informe um email para contato!
-                    </label>
-                </div>          
+            <div class="col s12 m6 l6">   
               <div class="input-field">             
                   <i class="material-icons prefix">email</i>
-                  <input placeholder="Email" name="email" id="email" type="email" class="validate" [(ngModel)]="usuarioMensagem.email" required #emailUM="ngModel">                 
+                  <input placeholder="Email" name="email" id="email" type="email" class="validate" [(ngModel)]="usuarioMensagem.email" required #emailUM="ngModel">   
+                  <label for="email">Email</label>               
               </div>            
             </div>
-            <div class="col s12 m6 l6">
-                <div *ngIf="telUM.errors && (telUM.dirty || telUM.touched)">
-                    <label [hidden]="!telUM.errors.required" class="red-text erro">
-                        Informe um telefone para contato!
-                    </label>
-                </div>          
+            <div class="col s12 m6 l6">     
               <div class="input-field">        
                   <i class="material-icons prefix">phone</i>
-                  <input name="telefone"  id="icon_phone" type="text" class="validate" [(ngModel)]="usuarioMensagem.telefone" required #telUM="ngModel">
+                  <input name="telefone" placeholder="" id="icon_phone" type="text" class="validate" [(ngModel)]="usuarioMensagem.telefone" required #telUM="ngModel">
                   <label for="icon_phone">Telefone para Contato</label>                  
               </div>            
             </div>
-            <div class="col s12">
-                <div *ngIf="textoUM.errors && (textoUM.dirty || textoUM.touched)">
-                    <label [hidden]="!textoUM.errors.required" class="red-text erro">
-                        Preencha o campo!
-                    </label>
-                </div>          
+            <div class="col s12">         
               <div class="input-field">      
                   <i class="material-icons prefix">description</i>
-                  <textarea placeholder="Mensagem" name="texto" id="textarea1" class="materialize-textarea validate" [(ngModel)]="usuarioMensagem.texto" required #textoUM="ngModel"></textarea>                 
+                  <textarea placeholder="Mensagem" placeholder="" name="texto" id="textarea1" class="materialize-textarea validate" [(ngModel)]="usuarioMensagem.texto" required #textoUM="ngModel"></textarea>                 
+                  <label for="textarea1">Mensagem</label>  
               </div>            
             </div>  
         </div> 

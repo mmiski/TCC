@@ -1,3 +1,4 @@
+<form #form="ngForm">
 <div class="row section">
     <div class="col s12">
       <a (click)="gridModeloContrato()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
@@ -10,21 +11,117 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">info</i>
-                    <input  id="icon_nome" type="text" class="validate">
-                    <label for="icon_nome">Titulo</label>
+                    <input name="titulo" [(ngModel)]="modeloContrato.titulo" placeholder="" id="titulo" type="text" class="validate" required #titulo="ngModel">
+                    <label for="titulo">Titulo</label>
                   </div>
           </div>
           <div class="row">
               <div class="input-field col s12">
                   <i class="material-icons prefix">description</i>
-                  <textarea id="textarea1" class="materialize-textarea"></textarea>
-                  <label for="textarea1">Dados do Contrato</label>
+                  <textarea name="dados" [(ngModel)]="modeloContrato.dados" placeholder="" id="dados" type="text" class="materialize-textarea validate" required #dados="ngModel"></textarea>
+                  <label for="dados">Dados do Contrato</label>
               </div>   
         </div>
         </div>
     </div>
   </div>
   <div class="row container">
-      <a (click)="gridModeloContrato()"class="col s12 m6 btn btn-waves green">Salvar</a>
-      <a (click)="gridModeloContrato()" class="col s12 m6 btn btn-waves red">Cancelar</a>
+    <button [disabled]="!form.form.valid" (click)="salvar()"class="col s12 m6 btn btn-waves green">Salvar</button>
+    <a (click)="gridModeloContrato()" class="col s12 m6 btn btn-waves red">Cancelar</a>
   </div>
+</form>
+
+<!-- Modal LOADING -->
+<div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
+    <div class="modal-content center">
+        <h4 style="padding-bottom:1%;">Carregando</h4>
+        <div  class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-red">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-yellow">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-green">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+  
+  <!-- Modal ALERT -->
+  <div id="alert" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="alert">
+    <div class="modal-content center no-padding">
+        <div class="row orange lighten-2 white-text title-alert">
+        <h4>{{msgTitulo}}</h4>
+    </div>
+    <div class="row">
+        <p>{{msgCorpo}}</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-green btn orange lighten-1" (click)="close('ALERT')">OK</a> 
+  </div>
+  </div>
+  
+  <!-- Modal SUCCESS -->
+  <div id="success" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="success">
+    <div class="modal-content center no-padding">
+      <div class="row green lighten-2 white-text title-alert">
+            <h4>{{msgTitulo}}</h4>
+        </div>
+        <div class="row">
+            <p>{{msgCorpo}}</p>
+        </div>
+    </div>
+    <div class="modal-footer center">
+      <a class="waves-effect waves-green btn green lighten-1" (click)="close('SUCCESS')">OK</a> 
+    </div>
+  </div>
+  
+   <!-- Modal DANGER -->
+   <div id="danger" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="danger">
+    <div class="modal-content center no-padding">
+    <div class="row red lighten-2 white-text title-alert">
+        <h4>{{msgTitulo}}</h4>
+    </div>
+    <div class="row">
+        <p>{{msgCorpo}}</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+  <a class="waves-effect waves-green btn btn-flat" (click)="close('DANGER')">Sim</a> 
+  <a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">Não</a>
+  </div>
+  </div>
+  
