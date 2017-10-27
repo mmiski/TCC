@@ -49,7 +49,7 @@ export class PlanoMensalidadeService {
       }).subscribe((dados) => {
         debugger;
         if (dados.length > 0) {
-          reject(new Error("Plano de Mensalidade já cadastrado. Por favor, altere o título!")); 
+          reject(new Error("Plano de Mensalidade já cadastrado.")); 
         }else{
           resolve();
         }

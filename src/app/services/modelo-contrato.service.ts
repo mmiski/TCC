@@ -48,7 +48,7 @@ export class ModeloContratoService {
       }).subscribe((dados) => {
         debugger;
         if (dados.length > 0) {
-          reject(new Error("Contrato já cadastrado. Por favor, altere o título!")); 
+          reject(new Error("Contrato já cadastrado.")); 
         }else{
           resolve();
         }

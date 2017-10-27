@@ -49,7 +49,7 @@ export class VeiculoService {
       }).subscribe((dados) => {
         debugger;
         if (dados.length > 0) {
-          reject(new Error("Veículo já cadastrado. Por favor, altere a placa!")); 
+          reject(new Error("Veículo já cadastrado.")); 
         }else{
           resolve();
         }

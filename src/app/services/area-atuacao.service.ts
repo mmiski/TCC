@@ -48,7 +48,7 @@ export class AreaAtuacaoService {
       }).subscribe((dados) => {
         debugger;
         if (dados.length > 0) {
-          reject(new Error("Área de Atuação já cadastrada. Por favor, altere a descrição!")); 
+          reject(new Error("Área de Atuação já cadastrada.")); 
         }else{
           resolve();
         }

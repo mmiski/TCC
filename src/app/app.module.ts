@@ -48,6 +48,7 @@ import { LabelErrorComponent } from './label-error/label-error.component';
 import { ModeloContratoService } from './services/modelo-contrato.service';
 import { PlanoMensalidadeService } from './services/plano-mensalidade.service';
 import { VeiculoService } from './services/veiculo.service';
+import { MotoristaService } from './services/motorista.service';
 
 
 const  config = {
@@ -107,7 +108,7 @@ const  config = {
     })
   ],
   providers: [AngularFireDatabase, AuthService, UsuarioService, ClienteService, ContatoService, UsuarioMensagemService,
-              AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService],
+              AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService, MotoristaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

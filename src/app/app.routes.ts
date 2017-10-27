@@ -46,6 +46,7 @@ const appRoutes: Routes  = [
   { path: 'cadVeiculo', component: CadastroVeiculoComponent },
   { path: 'gridVeiculo', component: GridVeiculoComponent },
   { path: 'veicRevisao', component: VeiculoRevisaoComponent },
+  { path: 'cadMotorista/:key', component: CadastroMotoristaComponent },
   { path: 'cadMotorista', component: CadastroMotoristaComponent },
   { path: 'gridMotorista', component: GridMotoristaComponent },
   { path: 'cadRota', component: CadastroRotasComponent },
