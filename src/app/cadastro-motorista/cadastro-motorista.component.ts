@@ -83,17 +83,13 @@ constructor(public router: Router, public _serviceMotorista: MotoristaService, p
     if (key) {
       this.key = key;
         this._serviceMotorista.getDados(key).subscribe(dados => {
-          this.motorista.AB = dados[0].$value;
-          this.motorista.C = dados[1].$value;          
-          this.motorista.cpf = dados[2].$value;
-          this.motorista.D = dados[3].$value;
-          this.motorista.dataEmissao = dados[4].$value;
-          this.motorista.dataNascimento = dados[5].$value;
-          this.motorista.dataVencimento = dados[6].$value;
-          this.motorista.E = dados[7].$value;
-          this.motorista.nome = dados[8].$value;
-          this.motorista.nRegistro = dados[9].$value;
-          this.motorista.telefone = dados[10].$value;
+          this.motorista.cpf = dados[0].$value;
+          this.motorista.dataEmissao = dados[1].$value;
+          this.motorista.dataNascimento = dados[2].$value;
+          this.motorista.dataVencimento = dados[3].$value;
+          this.motorista.nome = dados[4].$value;
+          this.motorista.nRegistro = dados[5].$value;
+          this.motorista.telefone = dados[6].$value;
         });
     }
 });

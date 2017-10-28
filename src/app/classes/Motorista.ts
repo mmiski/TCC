@@ -6,9 +6,5 @@ export class Motorista{
                     public telefone: string = "",
                     public nRegistro: string = "",
                     public dataEmissao: string = "",
-                    public dataVencimento: string = "",
-                    public AB: boolean = true,
-                    public C: boolean = true,
-                    public D: boolean = true,
-                    public E: boolean = false){}
+                    public dataVencimento: string = ""){}
     }

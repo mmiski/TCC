@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { QRCodeModule } from 'angular2-qrcode';
 
 import { AppComponent } from './app.component';
 import { MaterializeModule } from 'angular2-materialize';
@@ -103,6 +104,7 @@ const  config = {
     ReactiveFormsModule,
     AngularFireAuthModule,
     routing,
+    QRCodeModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA2t1tgd1Pj83TH_PAqfRuyR4kHOQ1rJnI'
     })
