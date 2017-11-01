@@ -3,73 +3,128 @@
         <div class="col s12 m12 l3 container">
             <div class="card grey lighten-4">
               <div class="card-content grey lighten-4 center-align">
-                <a class="waves-effect waves-light btn btn-flat" (click)="cadPassageiro()"><i class="material-icons left">add</i>Adicionar</a>
+                <a class="waves-effect waves-light btn btn-flat" (click)="novo()"><i class="material-icons left">add</i>Adicionar</a>
               </div>
             </div>
           </div>
       <div class="col s12 m12 l9">
         <div class="card grey lighten-4 z-depth-4">
           <div class="card-content grey lighten-4">
-              <ul materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="lstPassageirosCollapsible">
-                  <li>
-                    <div class="collapsible-header row" style="margin-bottom: 0px;">
-                      <div class="col s8 grey-text text-darken-4">
-                        <h6>Maria Cândida</h6>
+            <ul class="collection" *ngFor="let item of listaPassageiros | async">
+                <li class="row collection-item valign-wrapper">
+                  <div class="col s8">
+                      <div>
+                        <h6>{{item.nome}}</h6>
                       </div>
-                      <div class="col s2 btn btn-flat waves-effect" (click)="cadPassageiro() ">
-                          <i class="material-icons">edit</i>
-                      </div>
-                      <div class="col s2 btn btn-flat waves-effect">
-                          <i class="material-icons">delete</i>
-                      </div>  
-                    </div>
-                      <div class="collapsible-body" style="display: none;">
-                      <ul>
-                          <li class="card">
-                              <div class="card-content">
-                                <span class="card-title">Acesso Mobile</span>
-                                <div class="row grey lighten-4" style="margin-bottom: 0px;">
-                                  <div class="col s12 m8">
-                                      <h6>Chave: IAOJAEF787134BHAS</h6>
-                                  </div>
-                                      <a class="col s12 m4 btn btn-flat waves-effect">Gerar Chave</a>
-                                </div>
-                              </div>
-                          </li>
-                      </ul>
-                      </div>
-                  </li>
-                  <li>
-                      <div class="collapsible-header row" style="margin-bottom: 0px;">
-                        <div class="col s8  grey-text text-darken-4">
-                          <h6>José pega no meu pé</h6>
-                        </div>
-                        <div class="col s2 btn btn-flat waves-effect" (click)="cadPassageiro() ">
-                            <i class="material-icons">edit</i>
-                        </div>
-                        <div class="col s2 btn btn-flat waves-effect">
-                            <i class="material-icons">delete</i>
-                        </div>  
-                      </div>
-                        <div class="collapsible-body" style="display: none;">
-                            <ul>
-                                <li class="card">
-                                    <div class="card-content">
-                                      <span class="card-title">Acesso Mobile</span>
-                                      <div class="row grey lighten-4" style="margin-bottom: 0px;">
-                                        <div class="col s12 m8">
-                                            <h6>Chave: Não Gerada!</h6>
-                                        </div>
-                                            <a class="col s12 m4 btn btn-flat waves-effect">Gerar Chave</a>
-                                      </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-              </ul>
+                  </div>
+                  <a class="col s2 btn btn-flat waves-effect" (click)="alterar(item.$key)">
+                      <i class="material-icons">edit</i>
+                  </a>
+                  <a  (click)="show('DANGER', item.$key)" class="col s2 btn btn-flat waves-effect">
+                      <i class="material-icons">delete</i>
+                  </a>             
+                </li>               
+            </ul>
+            <div *ngIf="(listaPassageiros | async)?.length == 0" class="center-align">
+                <label>Nenhum registro encontrado.</label>
+            </div>
           </div>
         </div>
       </div>
      
     </div>
+  
+  <!-- Modal LOADING -->
+  <div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
+  <div class="modal-content center">
+    <h4 style="padding-bottom:1%;">Carregando</h4>
+    <div  class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+  
+        <div class="spinner-layer spinner-red">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+  
+        <div class="spinner-layer spinner-yellow">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+  
+        <div class="spinner-layer spinner-green">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+  
+  <!-- Modal ALERT -->
+  <div id="alert" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="alert">
+  <div class="modal-content center no-padding">
+    <div class="row orange lighten-2 white-text title-alert">
+    <h4>{{msgTitulo}}</h4>
+  </div>
+  <div class="row">
+    <p>{{msgCorpo}}</p>
+  </div>
+  </div>
+  <div class="modal-footer">
+  <a class="waves-effect waves-green btn orange lighten-1" (click)="close('ALERT')">OK</a> 
+  </div>
+  </div>
+  
+  <!-- Modal SUCCESS -->
+  <div id="success" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="success">
+  <div class="modal-content center no-padding">
+  <div class="row green lighten-2 white-text title-alert">
+        <h4>{{msgTitulo}}</h4>
+    </div>
+    <div class="row">
+        <p>{{msgCorpo}}</p>
+    </div>
+  </div>
+  <div class="modal-footer center">
+  <a class="waves-effect waves-green btn green lighten-1" (click)="close('SUCCESS')">OK</a> 
+  </div>
+  </div>
+  
+  <!-- Modal DANGER -->
+  <div id="danger" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="danger">
+  <div class="modal-content center no-padding">
+  <div class="row red lighten-2 white-text title-alert">
+    <h4>Exclusão</h4>
+  </div>
+  <div class="row">
+    <p>Deseja excluir esse registro?</p>
+  </div>
+  </div>
+  <div class="modal-footer">
+  <a class="waves-effect waves-green btn btn-flat" (click)="excluir(key)">Sim</a> 
+  <a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">Não</a>
+  </div>
+  </div>
+  

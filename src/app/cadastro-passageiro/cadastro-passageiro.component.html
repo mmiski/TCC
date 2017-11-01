@@ -3,6 +3,8 @@
       <a (click)="gridPassageiro()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
     </div>
   </div>
+
+  <form #form="ngForm">
   <div class="row container">
     <div class="card z-depth-5">
         <div class="card-content">
@@ -10,54 +12,158 @@
             <div class="row">
                 <div class="input-field col s12 ">
                     <i class="material-icons prefix">person</i>
-                    <input  id="icon_nome" type="text" class="validate">
-                    <label for="icon_nome">Nome</label>
+                    <input name="nome" [(ngModel)]="passageiro.nome" placeholder="" id="nome" type="text" class="validate" required #nome="ngModel">
+                    <label for="nome">Nome</label>
                   </div>
             </div>
             <div class="row">           
                   <div class="input-field col s12 m6 l6 xl6">
                     <i class="material-icons prefix">info</i>
-                    <input  id="icon_cpf" type="text" class="validate">
-                    <label for="icon_cpf">CPF</label>
+                    <input name="cpf" [(ngModel)]="passageiro.cpf" placeholder="" id="cpf" type="text" class="validate" required #cpf="ngModel">
+                    <label for="cpf">CPF</label>
                   </div>
                   <div class="input-field col s12 m6 l6 xl6">
                       <i class="material-icons prefix">date_range</i>
-                      <input id="dtNasc"
-                      materialize="pickadate"
-                      [materializeActions]="dataNascimentoAction"
-                      [materializeParams]="dataNascimentoParams"
-                      type="text" />
-                      <label for="dtNasc">Data de Nascimento</label>
+                      <input name="dataNascimento" materialize="pickadate"  [materializeActions]="dataNascimentoAction" [materializeParams]="dataNascimentoParams" [(ngModel)]="passageiro.dataNascimento" placeholder="" id="dataNascimento" type="text" class="validate" required #dataNascimento="ngModel">
+                      <label for="dataNascimento">Data de Nascimento</label>
                   </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 m6 l6 ">
                     <i class="material-icons prefix">email</i>
-                    <input id="email" type="email" class="validate">
-                    <label for="email" data-error="Inválido" data-success="Válido">Email</label>
+                    <input name="email" [(ngModel)]="passageiro.email" placeholder="" id="email" type="email" class="validate" required email #email="ngModel">
+                    <label for="email" data-error="Email Inválido">Email</label>
                 </div>
                 <div class="input-field col s12 m6 l6 ">
                     <i class="material-icons prefix">phone</i>
-                    <input  id="icon_phone" type="text" class="validate">
-                    <label for="icon_phone">Telefone para Contato</label>
+                    <input name="telefone" [(ngModel)]="passageiro.telefone" placeholder="" id="telefone" type="text" class="validate" required #telefone="ngModel">
+                    <label for="telefone">Telefone para Contato</label>
                 </div>
             </div>
-          </div>
-    </div>
-  </div>
-  <div class="row container">
-    <div class="card z-depth-5">
-        <div class="card-content">
-            <span class="card-title">Endereço de Moradia</span>
+          <div class="row divider"></div>
             <div class="row">
-                <agm-map [latitude]="lat" [longitude]="lng">
-                    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-                </agm-map>
+              <span class="card-title">Local de Moradia</span>
+              <div class="input-field col s12 ">
+                  <i class="material-icons prefix">map</i>
+                  <input name="endereco" [(ngModel)]="passageiro.endereco" placeholder="" id="endereco" type="text" class="validate" required #endereco="ngModel">
+                  <label for="endereco">Endereço</label>
+              </div>  
+              <div class="input-field col s12 ">
+                <i class="material-icons prefix">info</i>
+                <input name="descricaoPosicao" [(ngModel)]="passageiro.descricaoPosicao" placeholder="" id="descricaoPosicao" type="text" class="validate" required #descricaoPosicao="ngModel">
+                <label for="descricaoPosicao">Descrição</label>
+              </div>        
+            </div>
+            <div>
+              <span class="red-text">*Arraste o marcador para atualizar o endereço.</span>
+              <agm-map [latitude]="passageiro.latitude" [longitude]="passageiro.longitude" [zoom]="zoom" [streetViewControl]="false">
+                  <agm-marker [latitude]="passageiro.latitude" [longitude]="passageiro.longitude" [markerDraggable]="true" (dragEnd)="atualizaEndereco($event)">
+                      <agm-info-window>
+                        <strong>{{this.passageiro.descricaoPosicao}}</strong>
+                      </agm-info-window>
+                  </agm-marker>
+              </agm-map>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row container">
+        <button [disabled]="!form.form.valid" (click)="salvar()"class="col s12 m6 btn btn-waves green">Salvar</button>
+        <a (click)="gridPassageiro()" class="col s12 m6 btn btn-waves red">Cancelar</a>
+      </div>
+    </form>
+
+<!-- Modal LOADING -->
+<div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
+    <div class="modal-content center">
+        <h4 style="padding-bottom:1%;">Carregando</h4>
+        <div  class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-red">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-yellow">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-green">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
             </div>
           </div>
     </div>
   </div>
-    <div class="row container">
-          <a (click)="gridPassageiro()"class="col s12 m6 btn btn-waves green">Salvar</a>
-          <a (click)="gridPassageiro()" class="col s12 m6 btn btn-waves red">Cancelar</a>
-      </div>
+  
+  <!-- Modal ALERT -->
+  <div id="alert" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="alert">
+    <div class="modal-content center no-padding">
+        <div class="row orange lighten-2 white-text title-alert">
+        <h4>{{msgTitulo}}</h4>
+    </div>
+    <div class="row">
+        <p>{{msgCorpo}}</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-green btn orange lighten-1" (click)="close('ALERT')">OK</a> 
+  </div>
+  </div>
+  
+  <!-- Modal SUCCESS -->
+  <div id="success" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="success">
+    <div class="modal-content center no-padding">
+      <div class="row green lighten-2 white-text title-alert">
+            <h4>{{msgTitulo}}</h4>
+        </div>
+        <div class="row">
+            <p>{{msgCorpo}}</p>
+        </div>
+    </div>
+    <div class="modal-footer center">
+      <a class="waves-effect waves-green btn green lighten-1" (click)="close('SUCCESS')">OK</a> 
+    </div>
+  </div>
+  
+   <!-- Modal DANGER -->
+   <div id="danger" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="danger">
+    <div class="modal-content center no-padding">
+    <div class="row red lighten-2 white-text title-alert">
+        <h4>{{msgTitulo}}</h4>
+    </div>
+    <div class="row">
+        <p>{{msgCorpo}}</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+  <a class="waves-effect waves-green btn btn-flat" (click)="close('DANGER')">Sim</a> 
+  <a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">Não</a>
+  </div>
+  </div>
+  

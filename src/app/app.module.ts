@@ -50,6 +50,8 @@ import { ModeloContratoService } from './services/modelo-contrato.service';
 import { PlanoMensalidadeService } from './services/plano-mensalidade.service';
 import { VeiculoService } from './services/veiculo.service';
 import { MotoristaService } from './services/motorista.service';
+import { PassageiroService } from './services/passageiro.service';
+import { HttpModule } from '@angular/http';
 
 
 const  config = {
@@ -105,12 +107,13 @@ const  config = {
     AngularFireAuthModule,
     routing,
     QRCodeModule,
+    HttpModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA2t1tgd1Pj83TH_PAqfRuyR4kHOQ1rJnI'
+      apiKey: 'AIzaSyAvOdpKx_WqECI5MBuE3UaHE63t-Ik3a3A'
     })
   ],
   providers: [AngularFireDatabase, AuthService, UsuarioService, ClienteService, ContatoService, UsuarioMensagemService,
-              AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService, MotoristaService],
+              AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService, MotoristaService, PassageiroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

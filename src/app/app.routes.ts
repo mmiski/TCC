@@ -36,6 +36,7 @@ const appRoutes: Routes  = [
   { path: 'areaAtuacao', component: AreaAtuacaoComponent },
   { path: 'cadAreaAtuacao/:key', component: CadastroAreaAtuacaoComponent },
   { path: 'cadAreaAtuacao', component: CadastroAreaAtuacaoComponent },
+  { path: 'cadPassageiro/:key', component: CadastroPassageiroComponent },
   { path: 'cadPassageiro', component: CadastroPassageiroComponent },
   { path: 'gridPassageiro', component: GridPassageiroComponent },
   { path: 'passResp', component: PassageiroResponsavelComponent },
