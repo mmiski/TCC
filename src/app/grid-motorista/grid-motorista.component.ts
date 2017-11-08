@@ -10,7 +10,6 @@ import { MotoristaService } from '../services/motorista.service';
   styleUrls: ['./grid-motorista.component.css']
 })
 export class GridMotoristaComponent {
-  lstMotoristasCollapsible = new EventEmitter<string|MaterializeAction>();
 
     listaMotoristas: FirebaseListObservable<any>;
     
@@ -31,18 +30,6 @@ export class GridMotoristaComponent {
         outDuration: 200, // Transition out duration
       }
     ]
-  
-      
-    params = [
-      {
-        onOpen: (el) => {
-          console.log("Collapsible open", el);
-        },
-        onClose: (el) => {
-          console.log("Collapsible close", el);
-        }
-      }
-    ];
   
       constructor(public router: Router, public _serviceMotorista: MotoristaService) {
         debugger;

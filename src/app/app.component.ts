@@ -112,6 +112,7 @@ msgParams = [
 constructor(private formBuilder: FormBuilder, public router: Router, public  _service: AuthService, public _serviceUsuarioMensagem: UsuarioMensagemService){
   this.usuarioMensagem = new UsuarioMensagem();
   this.router.navigate(['site']);
+  this.usuario = new Usuario();
  
 }
 
@@ -127,7 +128,7 @@ ngOnInit(){
     senha: [null, Validators.required]
   });
 
-  this.loginEmailSenha();
+  // this.loginEmailSenha();
 }
 //Inicio dos métodos
 
@@ -203,7 +204,10 @@ verificaEmailInvalido(formulario: FormGroup) {
       this.router.navigate(['main']);     
       this.setTitulo('');
       this.setLogado(true);
-      this.usuario = this._service.getDadosUsuarioDataBase(0);
+      this._service.getDadosUsuarioDataBase2(0).then((usuario: Usuario) =>{
+        debugger;
+        this.usuario = usuario;
+      });
       this.usuarioMensagem = new UsuarioMensagem();
       this.closeNavBarLogin();
       this.close('LOADING');
@@ -223,7 +227,9 @@ verificaEmailInvalido(formulario: FormGroup) {
       this.router.navigate(['main']); 
       this.setTitulo('');
       this.setLogado(true);
-      this.usuario = this._service.getDadosUsuarioDataBase(1);
+      this._service.getDadosUsuarioDataBase2(1).then((usuario: Usuario) =>{
+        this.usuario = usuario;
+      });
       this.usuarioMensagem = new UsuarioMensagem();
       this.closeNavBarLogin();
       this.close('LOADING');

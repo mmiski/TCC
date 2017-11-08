@@ -14,7 +14,6 @@ import { ConfiguracaoUsuarioComponent } from './configuracao-usuario/configuraca
 import { DadosEmpresaComponent } from './dados-empresa/dados-empresa.component';
 import { AreaAtuacaoComponent } from './area-atuacao/area-atuacao.component';
 import { CadastroPassageiroComponent } from './cadastro-passageiro/cadastro-passageiro.component';
-import { PassageiroResponsavelComponent } from './passageiro-responsavel/passageiro-responsavel.component';
 import { PassageiroMensalidadeComponent } from './passageiro-mensalidade/passageiro-mensalidade.component';
 import { CadastroVeiculoComponent } from './cadastro-veiculo/cadastro-veiculo.component';
 import { VeiculoRevisaoComponent } from './veiculo-revisao/veiculo-revisao.component';
@@ -52,6 +51,9 @@ import { VeiculoService } from './services/veiculo.service';
 import { MotoristaService } from './services/motorista.service';
 import { PassageiroService } from './services/passageiro.service';
 import { HttpModule } from '@angular/http';
+import { GridResponsavelComponent } from './grid-responsavel/grid-responsavel.component';
+import { CadastroResponsavelComponent } from './cadastro-responsavel/cadastro-responsavel.component';
+import { ResponsavelService } from './services/responsavel.service';
 
 
 const  config = {
@@ -73,7 +75,6 @@ const  config = {
     DadosEmpresaComponent,
     AreaAtuacaoComponent,
     CadastroPassageiroComponent,
-    PassageiroResponsavelComponent,
     PassageiroMensalidadeComponent,
     CadastroVeiculoComponent,
     VeiculoRevisaoComponent,
@@ -96,7 +97,9 @@ const  config = {
     CadastroPassageiroMensalidadeComponent,
     CadastroRotaVinculoPassageiroComponent,
     ContatoComponent,
-    LabelErrorComponent
+    LabelErrorComponent,
+    GridResponsavelComponent,
+    CadastroResponsavelComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +116,7 @@ const  config = {
     })
   ],
   providers: [AngularFireDatabase, AuthService, UsuarioService, ClienteService, ContatoService, UsuarioMensagemService,
-              AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService, MotoristaService, PassageiroService],
+              AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService, MotoristaService, PassageiroService, ResponsavelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

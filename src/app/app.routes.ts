@@ -4,7 +4,6 @@ import { AreaAtuacaoComponent } from './area-atuacao/area-atuacao.component';
 import { ConfiguracaoUsuarioComponent } from './configuracao-usuario/configuracao-usuario.component';
 import { DadosEmpresaComponent } from './dados-empresa/dados-empresa.component';
 import { CadastroPassageiroComponent } from './cadastro-passageiro/cadastro-passageiro.component';
-import { PassageiroResponsavelComponent } from './passageiro-responsavel/passageiro-responsavel.component';
 import { PassageiroMensalidadeComponent } from './passageiro-mensalidade/passageiro-mensalidade.component';
 import { CadastroVeiculoComponent } from './cadastro-veiculo/cadastro-veiculo.component';
 import { VeiculoRevisaoComponent } from './veiculo-revisao/veiculo-revisao.component';
@@ -27,6 +26,8 @@ import { GridRotasComponent } from './grid-rotas/grid-rotas.component';
 import { CadastroPassageiroMensalidadeComponent } from './cadastro-passageiro-mensalidade/cadastro-passageiro-mensalidade.component';
 import { CadastroRotaVinculoPassageiroComponent } from './cadastro-rota-vinculo-passageiro/cadastro-rota-vinculo-passageiro.component';
 import { ContatoComponent } from './contato/contato.component';
+import { GridResponsavelComponent } from './grid-responsavel/grid-responsavel.component';
+import { CadastroResponsavelComponent } from './cadastro-responsavel/cadastro-responsavel.component';
 
 const appRoutes: Routes  = [
   { path: 'site', component: SiteComponent },
@@ -39,7 +40,9 @@ const appRoutes: Routes  = [
   { path: 'cadPassageiro/:key', component: CadastroPassageiroComponent },
   { path: 'cadPassageiro', component: CadastroPassageiroComponent },
   { path: 'gridPassageiro', component: GridPassageiroComponent },
-  { path: 'passResp', component: PassageiroResponsavelComponent },
+  { path: 'gridResponsavel', component: GridResponsavelComponent },
+  { path: 'cadResponsavel/:key', component: CadastroResponsavelComponent },
+  { path: 'cadResponsavel', component: CadastroResponsavelComponent },
   { path: 'passMens', component: PassageiroMensalidadeComponent },
   { path: 'cadPassMensalidade', component: CadastroPassageiroMensalidadeComponent },
   { path: 'passContrato', component: PassageiroContratoComponent },

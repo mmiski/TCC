@@ -1,42 +1,41 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularFire2/database';
 import { AuthService } from './auth.service';
-import { Motorista } from '../classes/Motorista';
+import { Responsavel } from '../classes/Responsavel';
 import { Usuario } from '../classes/Usuario';
+import { Posicao } from '../classes/Posicao';
 
 @Injectable()
-export class MotoristaService {
+export class ResponsavelService {
 
-  motorista: Motorista;
+  responsavel: Responsavel;
   usuario: Usuario;
   caminho: string = "";
-  lista: FirebaseListObservable<any>;
+  listaResponsaveis: FirebaseListObservable<any>;
 
-  constructor(public afDataBase: AngularFireDatabase, private _serviceUser: AuthService ) { 
+
+  constructor(public afDataBase: AngularFireDatabase, private _serviceUser: AuthService) { 
     this.usuario = this._serviceUser.getDadosUsuarioDataBase(0);
-    this.caminho = '/Clientes/'+this.usuario.identificacaoCliente+'/Motoristas';
-    this.lista = this.afDataBase.list(this.caminho);
-    
-    console.log('Id do Cliente: '+ this.usuario.identificacaoCliente);     
+    this.caminho = `/Clientes/${this.usuario.identificacaoCliente}/Responsaveis`;
+    this.listaResponsaveis = afDataBase.list(this.caminho);
   }
+
 
   getDados(key: string){
     return this.afDataBase.list(`${this.caminho}/${key}`);
   }
 
   
-  alterar(key: string, motorista: Motorista){
-
-        return this.lista.update(key, motorista);
+  alterar(key: string, responsavel: Responsavel){
+        return this.listaResponsaveis.update(key, responsavel);
   }
 
-  novo(motorista: Motorista){
-    debugger;
-    return this.lista.push(motorista);
+  novo(responsavel: Responsavel){
+    return this.listaResponsaveis.push(responsavel);
   }
   
   deleta(key: string){
-    return this.lista.remove(key);
+    return this.listaResponsaveis.remove(key);
   }
 
   isDuplicado(valor: string = ""){
@@ -45,19 +44,18 @@ export class MotoristaService {
 
       this.afDataBase.list(this.caminho, {
         query: {
-          orderByChild: 'titulo',
+          orderByChild: 'cpf',
           equalTo: valor
         }
       }).subscribe((dados) => {
         debugger;
         if (dados.length > 0) {
-          reject(new Error("Motorista já cadastrado.")); 
+          reject(new Error("Responsável já cadastrado.")); 
         }else{
           resolve();
         }
       });    
     });
   }
-  
 
 }

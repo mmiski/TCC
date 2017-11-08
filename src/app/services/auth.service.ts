@@ -12,6 +12,7 @@ import { Cliente } from '../classes/Cliente';
 export class AuthService{
 
     authState: Observable<firebase.User>;
+    usuario: Usuario;
 
     constructor(public afAuth: AngularFireAuth, public afDataBase: AngularFireDatabase, public _serviceCliente: ClienteService,public _serviceUsuario: UsuarioService){
         this.authState = afAuth.authState;
@@ -81,6 +82,7 @@ export class AuthService{
         let retornoUsuario = new Usuario();
         debugger;
         this.authState.subscribe((usuario: firebase.User)=>{
+            debugger;
             if (usuario != null) {
                 this.lstUsuarioDataBase(usuario.uid).subscribe(dados => {
                     debugger;
@@ -97,14 +99,51 @@ export class AuthService{
                     retornoUsuario.uid = dados[0].uid;
                     retornoUsuario.bloqueado = dados[0].vinculado;
                     retornoUsuario.keyDuplicadoUsuario = dados[0].keyDuplicadoUsuario;
-                    console.log('Retorno do método getDadosUsuarioDataBase: '+ dados.toString());     
                     }               
                 });
             }         
         })
-
+        debugger;
+        this.usuario = retornoUsuario;
         return retornoUsuario;
     }
+
+
+
+
+    getDadosUsuarioDataBase2(localChamada: number){
+        return new Promise((resolve, reject) => {
+            let retornoUsuario = new Usuario();
+            debugger;
+            this.authState.subscribe((usuario: firebase.User)=>{
+                debugger;
+                if (usuario != null) {
+                    this.lstUsuarioDataBase(usuario.uid).subscribe(dados => {
+                        debugger;
+                        if (dados.length == 0 && localChamada == 1) {
+                            this.cadastroUsuarioProvider(usuario).then(() =>{
+                              this.getDadosUsuarioDataBase(0);                 
+                            });
+                        }else{
+                        retornoUsuario.nome = dados[0].nome;
+                        retornoUsuario.email = dados[0].email;
+                        retornoUsuario.imagemUsuario = dados[0].imagemUsuario;
+                        retornoUsuario.identificacaoCliente = dados[0].identificacaoCliente;
+                        retornoUsuario.uid = dados[0].uid;
+                        retornoUsuario.bloqueado = dados[0].vinculado;
+                        retornoUsuario.keyDuplicadoUsuario = dados[0].keyDuplicadoUsuario;
+                        }     
+                        debugger;
+                        this.usuario = retornoUsuario;
+                        resolve(retornoUsuario);
+                    });
+                }else{
+                    reject(new Error("Não foi possível buscar os dados do usuário.")); 
+                }         
+            })
+        });     
+    }
+
 
     getDadosClienteDataBase(): Cliente{
         let retornoCliente= new Cliente();

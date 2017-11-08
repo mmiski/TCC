@@ -1,4 +1,4 @@
-export class PassageiroResponsavel{
+export class Responsavel{
     
         constructor(public nome: string = "",
                     public cpf: string = "",
