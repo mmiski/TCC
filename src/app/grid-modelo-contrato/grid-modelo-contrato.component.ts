@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FirebaseListObservable } from 'angularFire2/database';
 import { MaterializeAction } from 'angular2-materialize';
 import { ModeloContratoService } from '../services/modelo-contrato.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-grid-modelo-contrato',
@@ -32,8 +33,9 @@ export class GridModeloContratoComponent  {
   ]
 
 
-    constructor(public router: Router, public _serviceModeloContrato: ModeloContratoService) {
-      this.listaModelosContrato = this._serviceModeloContrato.lista;
+    constructor(public router: Router, public _serviceModeloContrato: ModeloContratoService, public _serviceAuth: AuthService) {
+      this._serviceModeloContrato.key = _serviceAuth.usuario.identificacaoCliente;
+      this.listaModelosContrato = this._serviceModeloContrato.lista();
 
      }
   

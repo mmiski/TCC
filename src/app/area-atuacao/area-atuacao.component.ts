@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AreaAtuacaoService } from '../services/area-atuacao.service';
 import { FirebaseListObservable } from 'angularFire2/database';
 import { MaterializeAction } from 'angular2-materialize';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-area-atuacao',
@@ -32,8 +33,9 @@ export class AreaAtuacaoComponent  {
   ]
 
 
-    constructor(public router: Router, public _serviceAreaAtuacao: AreaAtuacaoService) {
-      this.listaAreasAtuacao = this._serviceAreaAtuacao.lista;
+    constructor(public router: Router, public _serviceAreaAtuacao: AreaAtuacaoService, public _serviceAuth: AuthService) {
+      this._serviceAreaAtuacao.key = _serviceAuth.usuario.identificacaoCliente;
+      this.listaAreasAtuacao = this._serviceAreaAtuacao.lista();
 
      }
   

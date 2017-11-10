@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { MaterializeAction } from 'angular2-materialize';
 import { FirebaseListObservable } from 'angularFire2/database';
 import { MotoristaService } from '../services/motorista.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-grid-motorista',
@@ -31,9 +32,10 @@ export class GridMotoristaComponent {
       }
     ]
   
-      constructor(public router: Router, public _serviceMotorista: MotoristaService) {
+      constructor(public router: Router, public _serviceMotorista: MotoristaService, public _serviceAuth: AuthService) {
         debugger;
-        this.listaMotoristas = this._serviceMotorista.lista;
+        this._serviceMotorista.key = _serviceAuth.usuario.identificacaoCliente;
+        this.listaMotoristas = this._serviceMotorista.lista();
   
        }
     

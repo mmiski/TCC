@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularFire2/database';
-import { AuthService } from './auth.service';
 import { Responsavel } from '../classes/Responsavel';
 import { Usuario } from '../classes/Usuario';
 import { Posicao } from '../classes/Posicao';
@@ -10,38 +9,39 @@ export class ResponsavelService {
 
   responsavel: Responsavel;
   usuario: Usuario;
-  caminho: string = "";
-  listaResponsaveis: FirebaseListObservable<any>;
+  key ="";
 
 
-  constructor(public afDataBase: AngularFireDatabase, private _serviceUser: AuthService) { 
-    this.caminho = `/Clientes/${this._serviceUser.usuario.identificacaoCliente}/Responsaveis`;
-    this.listaResponsaveis = afDataBase.list(this.caminho);
+  constructor(public afDataBase: AngularFireDatabase) { 
+
   }
 
 
   getDados(key: string){
-    return this.afDataBase.list(`${this.caminho}/${key}`);
+    return this.afDataBase.list(`/Clientes/${this.key}/Responsaveis/${key}`);
   }
 
+  listaResponsaveis(): FirebaseListObservable<any>{
+    return this.afDataBase.list(`/Clientes/${this.key}/Responsaveis`)
+  }
   
   alterar(key: string, responsavel: Responsavel){
-        return this.listaResponsaveis.update(key, responsavel);
+        return this.listaResponsaveis().update(key, responsavel);
   }
 
   novo(responsavel: Responsavel){
-    return this.listaResponsaveis.push(responsavel);
+    return this.listaResponsaveis().push(responsavel);
   }
   
   deleta(key: string){
-    return this.listaResponsaveis.remove(key);
+    return this.listaResponsaveis().remove(key);
   }
 
   isDuplicado(valor: string = ""){
     return new Promise((resolve, reject) => {
       let flag = false;
 
-      this.afDataBase.list(this.caminho, {
+      this.afDataBase.list(`/Clientes/${this.key}/Responsaveis`, {
         query: {
           orderByChild: 'cpf',
           equalTo: valor

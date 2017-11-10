@@ -3,6 +3,7 @@ import { MaterializeAction } from 'angular2-materialize';
 import { Router } from '@angular/router';
 import { ResponsavelService } from '../services/responsavel.service';
 import { FirebaseListObservable } from 'angularFire2/database';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-grid-responsavel',
@@ -45,9 +46,9 @@ export class GridResponsavelComponent{
     }
   ];
 
-    constructor(public router: Router, public _serviceResponsavel: ResponsavelService) {
-      debugger;
-      this.listaResponsaveis = this._serviceResponsavel.listaResponsaveis;
+    constructor(public router: Router, public _serviceResponsavel: ResponsavelService, public _serviceAuth: AuthService) {
+      this._serviceResponsavel.key = _serviceAuth.usuario.identificacaoCliente;
+      this.listaResponsaveis = this._serviceResponsavel.listaResponsaveis();
 
      }
   

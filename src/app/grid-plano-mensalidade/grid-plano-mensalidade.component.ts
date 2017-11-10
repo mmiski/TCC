@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FirebaseListObservable } from 'angularFire2/database';
 import { MaterializeAction } from 'angular2-materialize';
 import { PlanoMensalidadeService } from '../services/plano-mensalidade.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-grid-plano-mensalidade',
@@ -32,9 +33,9 @@ export class GridPlanoMensalidadeComponent{
   ]
 
 
-    constructor(public router: Router, public _servicePlanoMensalidade: PlanoMensalidadeService) {
-      debugger;
-      this.listaPlanosMensalidade = this._servicePlanoMensalidade.lista;
+    constructor(public router: Router, public _servicePlanoMensalidade: PlanoMensalidadeService, public _serviceAuth: AuthService) {
+      this._servicePlanoMensalidade.key = _serviceAuth.usuario.identificacaoCliente;
+      this.listaPlanosMensalidade = this._servicePlanoMensalidade.lista();
 
      }
   

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularFire2/database';
-import { AuthService } from './auth.service';
 import { Motorista } from '../classes/Motorista';
 import { Usuario } from '../classes/Usuario';
 
@@ -9,40 +8,39 @@ export class MotoristaService {
 
   motorista: Motorista;
   usuario: Usuario;
-  caminho: string = "";
-  lista: FirebaseListObservable<any>;
+  key = "";
 
-  constructor(public afDataBase: AngularFireDatabase, private _serviceUser: AuthService ) { 
-    this.caminho = '/Clientes/'+this._serviceUser.usuario.identificacaoCliente+'/Motoristas';
-    this.lista = this.afDataBase.list(this.caminho);
-    
-    console.log('Id do Cliente: '+ this.usuario.identificacaoCliente);     
+  constructor(public afDataBase: AngularFireDatabase ) {    
   }
 
   getDados(key: string){
-    return this.afDataBase.list(`${this.caminho}/${key}`);
+    return this.afDataBase.list(`/Clientes/${this.key}/Motoristas/${key}`);
   }
 
+  lista(): FirebaseListObservable<any>{
+    
+        return this.afDataBase.list(`/Clientes/${this.key}/Motoristas`);
+      }
   
   alterar(key: string, motorista: Motorista){
 
-        return this.lista.update(key, motorista);
+        return this.lista().update(key, motorista);
   }
 
   novo(motorista: Motorista){
     debugger;
-    return this.lista.push(motorista);
+    return this.lista().push(motorista);
   }
   
   deleta(key: string){
-    return this.lista.remove(key);
+    return this.lista().remove(key);
   }
 
   isDuplicado(valor: string = ""){
     return new Promise((resolve, reject) => {
       let flag = false;
 
-      this.afDataBase.list(this.caminho, {
+      this.afDataBase.list(`/Clientes/${this.key}/Motoristas`, {
         query: {
           orderByChild: 'titulo',
           equalTo: valor

@@ -30,6 +30,7 @@ export class AuthService{
         return this.afAuth.auth.signInWithPopup(provider).then(() => this.geraUsuario(1));
     }
 
+    
     cadastroUsuarioEmailSenha(email: string, senha: string, nome: string ){
         debugger;
         return this.afAuth.auth.createUserWithEmailAndPassword(email, senha).then((dados) => {

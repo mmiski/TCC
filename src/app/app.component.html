@@ -44,9 +44,9 @@
                   <div class="collapsible-body" style="display: none;">
                     <ul>
                       <li><a [routerLink]="['gridPassageiro']" (click)="setTitulo('Cadastro de Passageiro')">Cadastro</a></li>
-                      <li><a [routerLink]="['gridResponsavel']" (click)="setTitulo('Responsáveis do Passageiro')">Responsáveis</a></li>
-                      <li><a [routerLink]="['passContrato']" (click)="setTitulo('Contrato do Passageiro')">Contrato do Passageiro</a></li>
-                      <li><a [routerLink]="['passMens']" (click)="setTitulo('Mensalidades')">Mensalidades</a></li>
+                      <li *ngIf="false"><a [routerLink]="['gridResponsavel']" (click)="setTitulo('Responsáveis do Passageiro')">Responsáveis</a></li>
+                      <li *ngIf="false"><a [routerLink]="['passContrato']" (click)="setTitulo('Contrato do Passageiro')">Contrato do Passageiro</a></li>
+                      <li *ngIf="false"><a [routerLink]="['passMens']" (click)="setTitulo('Mensalidades')">Mensalidades</a></li>
                     </ul>
                   </div>
                 </li>
@@ -65,7 +65,7 @@
                     </ul>
                   </div>
                 </li>
-                <li ><a class="collapsible-header waves-effect waves-teal"><i class="material-icons">map</i>Rotas</a>
+                <li *ngIf="false"><a class="collapsible-header waves-effect waves-teal"><i class="material-icons">map</i>Rotas</a>
                   <div class="collapsible-body" style="display: none;">
                     <ul>
                       <li><a [routerLink]="['gridRota']" (click)="setTitulo('Cadastro de Rotas')">Cadastro</a></li>
@@ -77,7 +77,7 @@
             </li>
             <li ><a (click)="setTitulo('Cadastro Planos de Mensalidade')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridPlanoMensalidade']"><i class="material-icons" >attach_money</i>Planos de Mensalidade</a></li>
             <li ><a (click)="setTitulo('Cadastro de Modelos de Contrato')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridModeloContrato']"><i class="material-icons">assignment</i>Modelos de Contrato</a></li>
-            <li ><a (click)="setTitulo('Gerenciamento de Usuários')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridUsuario']"><i class="material-icons">person</i>Gerenciamento de Usuários</a></li>
+            <li *ngIf="false"><a (click)="setTitulo('Gerenciamento de Usuários')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridUsuario']"><i class="material-icons">person</i>Gerenciamento de Usuários</a></li>
           </ul>
           <a href="#navMob" materialize="sideNav" [materializeParams]="[{edge:'left'}]" data-activates="navMob" class="button-collapse white-text"><i class="material-icons">menu</i></a>
         </div>

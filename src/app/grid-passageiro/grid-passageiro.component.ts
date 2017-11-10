@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MaterializeAction } from 'angular2-materialize';
 import { PassageiroService } from '../services/passageiro.service';
 import { FirebaseListObservable } from 'angularFire2/database';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-grid-passageiro',
@@ -43,9 +44,10 @@ export class GridPassageiroComponent {
         }
       ];
     
-        constructor(public router: Router, public _servicePassageiro: PassageiroService) {
+        constructor(public router: Router, public _servicePassageiro: PassageiroService, public _serviceAuth: AuthService) {
           debugger;
-          this.listaPassageiros = this._servicePassageiro.listaPassageiros;
+          this._servicePassageiro.key = _serviceAuth.usuario.identificacaoCliente;
+          this.listaPassageiros = this._servicePassageiro.lista();
     
          }
       
