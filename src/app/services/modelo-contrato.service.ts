@@ -13,8 +13,7 @@ export class ModeloContratoService {
   lista: FirebaseListObservable<any>;
 
   constructor(public afDataBase: AngularFireDatabase, private _serviceUser: AuthService ) { 
-    this.usuario = this._serviceUser.getDadosUsuarioDataBase(0);
-    this.caminho = '/Clientes/'+this.usuario.identificacaoCliente+'/ModelosContrato';
+    this.caminho = '/Clientes/'+this._serviceUser.usuario.identificacaoCliente+'/ModelosContrato';
     this.lista = this.afDataBase.list(this.caminho);
   }
 

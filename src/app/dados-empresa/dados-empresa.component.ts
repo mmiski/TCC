@@ -32,7 +32,7 @@ msgTitulo: string = "";
 msgCorpo: string = "";
 
   constructor(public _serviceCliente: ClienteService, public _serviceAuth: AuthService) { 
-    this.usuario = this._serviceAuth.getDadosUsuarioDataBase(0);
+    this.usuario = this._serviceAuth.usuario;
     this.cliente = this._serviceAuth.getDadosClienteDataBase();
   } 
 

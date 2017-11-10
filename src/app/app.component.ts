@@ -204,10 +204,7 @@ verificaEmailInvalido(formulario: FormGroup) {
       this.router.navigate(['main']);     
       this.setTitulo('');
       this.setLogado(true);
-      this._service.getDadosUsuarioDataBase2(0).then((usuario: Usuario) =>{
-        debugger;
-        this.usuario = usuario;
-      });
+      this.usuario = this._service.usuario;
       this.usuarioMensagem = new UsuarioMensagem();
       this.closeNavBarLogin();
       this.close('LOADING');
@@ -220,16 +217,14 @@ verificaEmailInvalido(formulario: FormGroup) {
   }
 
   loginProvider(tipo: number){
-    let provider = tipo == 1 ? new firebase.auth.GoogleAuthProvider() : new firebase.auth.FacebookAuthProvider();
-    this._service.afAuth.auth.signInWithPopup(provider).then(() => {
+    
+    this._service.signInWithPopup(tipo).then(() => {
       this.show('LOADING');
       this.closeModalLogin();
       this.router.navigate(['main']); 
       this.setTitulo('');
       this.setLogado(true);
-      this._service.getDadosUsuarioDataBase2(1).then((usuario: Usuario) =>{
-        this.usuario = usuario;
-      });
+      this.usuario = this._service.usuario;
       this.usuarioMensagem = new UsuarioMensagem();
       this.closeNavBarLogin();
       this.close('LOADING');

@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { ClienteService } from './cliente.service';
 import { UsuarioService } from './usuario.service';
 import { Cliente } from '../classes/Cliente';
+import { Provider } from '@angular/core/src/di/provider';
 
 @Injectable()
 export class AuthService{
@@ -16,18 +17,23 @@ export class AuthService{
 
     constructor(public afAuth: AngularFireAuth, public afDataBase: AngularFireDatabase, public _serviceCliente: ClienteService,public _serviceUsuario: UsuarioService){
         this.authState = afAuth.authState;
+        this.usuario = new Usuario();
     }
 
 
     loginEmailSenha(email: string, senha: string ){
-        return this.afAuth.auth.signInWithEmailAndPassword(email, senha);
+        return this.afAuth.auth.signInWithEmailAndPassword(email, senha).then(() => this.geraUsuario(0));
+    }
+
+    signInWithPopup(tipo: number){
+        let provider = tipo == 1 ? new firebase.auth.GoogleAuthProvider() : new firebase.auth.FacebookAuthProvider();
+        return this.afAuth.auth.signInWithPopup(provider).then(() => this.geraUsuario(1));
     }
 
     cadastroUsuarioEmailSenha(email: string, senha: string, nome: string ){
         debugger;
         return this.afAuth.auth.createUserWithEmailAndPassword(email, senha).then((dados) => {
-            debugger;
-            this.cadastraUsuarioDataBase(dados.email, dados.uid, nome);
+            this.cadastraUsuarioDataBase(dados.email, dados.uid, nome).then(() => this.geraUsuario(0));
         });
     }
 
@@ -43,7 +49,7 @@ export class AuthService{
             this._serviceCliente.criarClienteNovo().then((dadosC) => {
                 cadUsuario.identificacaoCliente = dadosC.key;
                 cadUsuario.keyDuplicadoUsuario = dadosU.key;
-                this._serviceUsuario.salvaUsuario(cadUsuario);
+                this._serviceUsuario.salvaUsuario(cadUsuario).then(() => this.geraUsuario(0));
             });
         });
     }
@@ -78,93 +84,60 @@ export class AuthService{
         return this.afDataBase.list('/Usuarios').remove(key);
     }
 
-    getDadosUsuarioDataBase(localChamada: number): Usuario{
+    geraUsuario(localChamada: number){
         let retornoUsuario = new Usuario();
-        debugger;
         this.authState.subscribe((usuario: firebase.User)=>{
-            debugger;
             if (usuario != null) {
                 this.lstUsuarioDataBase(usuario.uid).subscribe(dados => {
                     debugger;
                     if (dados.length == 0 && localChamada == 1) {
                         this.cadastroUsuarioProvider(usuario).then(() =>{
-                            console.log('usuario cadastrado, provavelmente provider: '+ usuario.toString()); 
-                            return this.getDadosUsuarioDataBase(0);                 
+                            this.geraUsuario(0);                 
                         });
                     }else{
-                    retornoUsuario.nome = dados[0].nome;
-                    retornoUsuario.email = dados[0].email;
-                    retornoUsuario.imagemUsuario = dados[0].imagemUsuario;
-                    retornoUsuario.identificacaoCliente = dados[0].identificacaoCliente;
-                    retornoUsuario.uid = dados[0].uid;
-                    retornoUsuario.bloqueado = dados[0].vinculado;
-                    retornoUsuario.keyDuplicadoUsuario = dados[0].keyDuplicadoUsuario;
+                        this.usuario .nome = dados[0].nome;
+                        this.usuario .email = dados[0].email;
+                        this.usuario .imagemUsuario = dados[0].imagemUsuario;
+                        this.usuario .identificacaoCliente = dados[0].identificacaoCliente;
+                        this.usuario .uid = dados[0].uid;
+                        this.usuario .bloqueado = dados[0].vinculado;
+                        this.usuario .keyDuplicadoUsuario = dados[0].keyDuplicadoUsuario;
                     }               
                 });
             }         
         })
-        debugger;
-        this.usuario = retornoUsuario;
-        return retornoUsuario;
     }
-
-
-
-
-    getDadosUsuarioDataBase2(localChamada: number){
-        return new Promise((resolve, reject) => {
-            let retornoUsuario = new Usuario();
-            debugger;
-            this.authState.subscribe((usuario: firebase.User)=>{
-                debugger;
-                if (usuario != null) {
-                    this.lstUsuarioDataBase(usuario.uid).subscribe(dados => {
-                        debugger;
-                        if (dados.length == 0 && localChamada == 1) {
-                            this.cadastroUsuarioProvider(usuario).then(() =>{
-                              this.getDadosUsuarioDataBase(0);                 
-                            });
-                        }else{
-                        retornoUsuario.nome = dados[0].nome;
-                        retornoUsuario.email = dados[0].email;
-                        retornoUsuario.imagemUsuario = dados[0].imagemUsuario;
-                        retornoUsuario.identificacaoCliente = dados[0].identificacaoCliente;
-                        retornoUsuario.uid = dados[0].uid;
-                        retornoUsuario.bloqueado = dados[0].vinculado;
-                        retornoUsuario.keyDuplicadoUsuario = dados[0].keyDuplicadoUsuario;
-                        }     
-                        debugger;
-                        this.usuario = retornoUsuario;
-                        resolve(retornoUsuario);
-                    });
-                }else{
-                    reject(new Error("Não foi possível buscar os dados do usuário.")); 
-                }         
-            })
-        });     
-    }
-
 
     getDadosClienteDataBase(): Cliente{
         let retornoCliente= new Cliente();
-        this.authState.subscribe((usuario: firebase.User)=>{
-          if (usuario != null) {
-              this.lstUsuarioDataBase(usuario.uid).subscribe((dadosU) => {
-                  debugger;
-                this._serviceCliente.lstClienteDataBase(dadosU[0].identificacaoCliente).subscribe((dados) => {
-                  debugger;
-                  retornoCliente.razaoSocial = dados[4].$value;
-                  retornoCliente.nomeFantasia = dados[3].$value;
-                  retornoCliente.nome = dados[2].$value;
-                  retornoCliente.email = dados[1].$value;
-                  retornoCliente.cnpjCpf = dados[0].$value;           
-                  retornoCliente.telefone = dados[5].$value;       
-                });
-              });
-          }         
-      })
                
-    
+        this.lstUsuarioDataBase(this.usuario.uid).subscribe((dadosU) => {
+            this._serviceCliente.lstClienteDataBase(this.usuario.identificacaoCliente).subscribe((dados) => {
+                debugger;
+                dados.forEach(element => {
+                    debugger;
+                    if (element.$key == 'cnpjCpf') {
+                        retornoCliente.cnpjCpf = element.$value; 
+                    }
+                    else if (element.$key == 'email') {
+                        retornoCliente.email = element.$value; 
+                    }
+                    else if (element.$key == 'razaoSocial') {
+                        retornoCliente.razaoSocial = element.$value; 
+                    }
+                    else if (element.$key == 'nome') {
+                        retornoCliente.nome = element.$value; 
+                    }
+                    else if (element.$key == 'nomeFantasia') {
+                        retornoCliente.nomeFantasia = element.$value; 
+                    }
+                    else if (element.$key == 'telefone') {
+                        retornoCliente.telefone = element.$value; 
+                    }
+                });  
+            });
+          });
+
         return retornoCliente;
     }
 

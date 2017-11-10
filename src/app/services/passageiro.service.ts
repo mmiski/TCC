@@ -15,8 +15,7 @@ export class PassageiroService {
 
 
   constructor(public afDataBase: AngularFireDatabase, private _serviceUser: AuthService) { 
-    this.usuario = this._serviceUser.getDadosUsuarioDataBase(0);
-    this.caminho = `/Clientes/${this.usuario.identificacaoCliente}/Passageiros`;
+    this.caminho = `/Clientes/${this._serviceUser.usuario.identificacaoCliente}/Passageiros`;
     this.listaPassageiros = this.afDataBase.list(this.caminho);
   }
 

@@ -12,8 +12,7 @@ export class AreaAtuacaoService {
   lista: FirebaseListObservable<any>;
 
   constructor(public afDataBase: AngularFireDatabase, private _serviceUser: AuthService ) { 
-    this.usuario = this._serviceUser.usuario;
-    this.caminho = '/Clientes/'+this.usuario.identificacaoCliente+'/AreasAtuacao';
+    this.caminho = '/Clientes/'+this._serviceUser.usuario.identificacaoCliente+'/AreasAtuacao';
     this.lista = this.afDataBase.list(this.caminho);
     debugger;
   }

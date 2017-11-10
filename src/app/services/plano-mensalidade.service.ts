@@ -13,8 +13,7 @@ export class PlanoMensalidadeService {
   lista: FirebaseListObservable<any>;
 
   constructor(public afDataBase: AngularFireDatabase, private _serviceUser: AuthService ) { 
-    this.usuario = this._serviceUser.getDadosUsuarioDataBase(0);
-    this.caminho = '/Clientes/'+this.usuario.identificacaoCliente+'/PlanosMensalidade';
+    this.caminho = '/Clientes/'+this._serviceUser.usuario.identificacaoCliente+'/PlanosMensalidade';
     this.lista = this.afDataBase.list(this.caminho);
   }
 

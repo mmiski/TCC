@@ -13,8 +13,7 @@ export class MotoristaService {
   lista: FirebaseListObservable<any>;
 
   constructor(public afDataBase: AngularFireDatabase, private _serviceUser: AuthService ) { 
-    this.usuario = this._serviceUser.getDadosUsuarioDataBase(0);
-    this.caminho = '/Clientes/'+this.usuario.identificacaoCliente+'/Motoristas';
+    this.caminho = '/Clientes/'+this._serviceUser.usuario.identificacaoCliente+'/Motoristas';
     this.lista = this.afDataBase.list(this.caminho);
     
     console.log('Id do Cliente: '+ this.usuario.identificacaoCliente);     

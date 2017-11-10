@@ -47,7 +47,7 @@ params = [
 ];
 
   constructor(public _serviceAuth: AuthService, public _serviceUsuario: UsuarioService, public _serviceCliente: ClienteService, public router: Router) { 
-    this.usuario = this._serviceAuth.getDadosUsuarioDataBase(0);
+    this.usuario = this._serviceAuth.usuario;
   }
 
 

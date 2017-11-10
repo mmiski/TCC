@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FirebaseListObservable } from 'angularFire2/database';
 import { MaterializeAction } from 'angular2-materialize';
 import { VeiculoService } from '../services/veiculo.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-grid-veiculo',
@@ -32,12 +33,14 @@ export class GridVeiculoComponent {
   ]
 
 
-    constructor(public router: Router, public _serviceVeiculo: VeiculoService) {
+    constructor(public router: Router, public _serviceVeiculo: VeiculoService, public _serviceAuth: AuthService) {
       debugger;
-      this.listaVeiculos = this._serviceVeiculo.lista;
+      this._serviceVeiculo.key = this._serviceAuth.usuario.identificacaoCliente;
+      this.listaVeiculos = this._serviceVeiculo.lista();
 
      }
-  
+ 
+
     novo(){
       this.show('LOADING');
       this.router.navigate(['cadVeiculo']);

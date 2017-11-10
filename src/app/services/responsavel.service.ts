@@ -15,8 +15,7 @@ export class ResponsavelService {
 
 
   constructor(public afDataBase: AngularFireDatabase, private _serviceUser: AuthService) { 
-    this.usuario = this._serviceUser.getDadosUsuarioDataBase(0);
-    this.caminho = `/Clientes/${this.usuario.identificacaoCliente}/Responsaveis`;
+    this.caminho = `/Clientes/${this._serviceUser.usuario.identificacaoCliente}/Responsaveis`;
     this.listaResponsaveis = afDataBase.list(this.caminho);
   }
 
