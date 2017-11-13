@@ -10,12 +10,9 @@
                                 <h6>{{item.nome}}</h6>
                               </div>
                           </div>
-                          <a class="col s2 m1 l1 btn btn-flat waves-effect tooltipped" materialize="tooltip" data-position="top" data-delay="20" data-tooltip="Visualizar Contratos" (click)="visualizar(item.$key)">
-                              <i class="material-icons">remove_red_eye</i>
-                          </a>
-                          <a  class="col s2 m1 l1 btn btn-flat waves-effect tooltipped" materialize="tooltip" data-position="top" data-delay="20" data-tooltip="Víncular Novo Contrato" (click)="novo(item.$key)">
-                              <i class="material-icons">add</i>
-                          </a>             
+                          <a class="col s2 m1 l1 btn btn-flat waves-effect tooltipped" materialize="tooltip" data-position="top" data-delay="20" data-tooltip="Ver Contratos" (click)="visualizar(item.$key)">
+                              <i class="material-icons">send</i>
+                          </a>           
                         </li>               
                 </ul>
                 <div *ngIf="(listaPassageiros | async)?.length == 0" class="center-align">

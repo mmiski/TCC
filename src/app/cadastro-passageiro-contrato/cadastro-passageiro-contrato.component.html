@@ -1,6 +1,6 @@
 <div class="row section">
     <div class="col s12">
-      <a (click)="gridPassageiro()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
+      <a (click)="gridContrato()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
     </div>
   </div>
 
@@ -10,22 +10,24 @@
         <div class="card-content">
             <span class="card-title">Dados do Contrato</span>
             <div class="row">
-                <select name="tipo" materialize="material_select" [materializeSelectOptions]="selectTipos" [(ngModel)]="usuarioMensagem.tipo" required #tipoUM="ngModel">
-                    <option value="" disabled selected>Selecione um contrato</option>
-                    <option *ngFor="let option of selectTipos" [value]="option.value">{{option.name}}</option>
-                </select>
+              <div class="input-field col s12">
+                  <!-- (ngModelChange)="setaKeyContrato($event)" -->
+                  <select name="doc" materialize="material_select"  [materializeSelectOptions]="listaModelosContrato" [(ngModel)]="contrato" required #doc="ngModel">
+                      <option value="" disabled selected>Selecione um contrato</option>
+                      <option *ngFor="let option of listaModelosContrato" [ngValue]="option">{{option.titulo}}</option>
+                  </select>
+              </div>             
             </div>
-            <div class="row">           
-                  <div class="input-field col s12 m6 l6 xl6">
-                    <i class="material-icons prefix">info</i>
-                    <input name="cpf" [(ngModel)]="passageiro.cpf" placeholder="" id="cpf" type="text" class="validate" required #cpf="ngModel">
-                    <label for="cpf">CPF</label>
-                  </div>
-                  <div class="input-field col s12 m6 l6 xl6">
-                      <i class="material-icons prefix">date_range</i>
-                      <input name="dataNascimento" materialize="pickadate"  [materializeActions]="dataNascimentoAction" [materializeParams]="dataNascimentoParams" [(ngModel)]="passageiro.dataNascimento" placeholder="" id="dataNascimento" type="text" class="validate" required #dataNascimento="ngModel">
-                      <label for="dataNascimento">Data de Nascimento</label>
-                  </div>
+            <div class="row">   
+                <div class="input-field col s12 m6 l6 xl6">
+                    <i class="material-icons prefix">date_range</i>
+                    <input name="dataVencimento" materialize="pickadate"  [materializeActions]="dataVencimentoAction" [materializeParams]="dataVencimentoParams" [(ngModel)]="passageiroContrato.dataVencimento" placeholder="" id="dataVencimento" type="text" class="validate" required #dataVencimento="ngModel">
+                    <label for="dataVencimento">Data de Vencimento do Contrato</label>
+                </div>        
+                  <p class="col s12 m6 l6 xl6 center-align">
+                      <input type="checkbox" id="ass" name="ass" #ass="ngModel" [(ngModel)]="passageiroContrato.assinado" />
+                      <label for="ass">Assinado?</label>
+                  </p>                 
             </div>
           </div>
         </div>

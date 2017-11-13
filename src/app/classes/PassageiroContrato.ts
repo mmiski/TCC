@@ -1,7 +1,6 @@
 export class PassageiroContrato{
     
-        constructor(public titulo: string = "",    
-                    public documentoKey: string = "",
+        constructor( public contratoKey: string = "",
                     public dataVencimento: string ="",
                     public assinado: boolean = false){}
     }

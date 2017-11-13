@@ -14,6 +14,7 @@ export class ModeloContratoService {
   }
 
   getDados(key: string){
+    debugger;
     return this.afDataBase.list(`/Clientes/${this.key}/ModelosContrato/${key}`);
   }
 

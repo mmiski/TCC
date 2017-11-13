@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { PassageiroContratoService } from '../services/passageiro-contrato.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FirebaseListObservable } from 'angularFire2/database';
+import { ModeloContratoService } from '../services/modelo-contrato.service';
 
 @Component({
   selector: 'app-visualizar-passageiro-contrato',
@@ -12,16 +13,18 @@ import { FirebaseListObservable } from 'angularFire2/database';
 })
 export class VisualizarPassageiroContratoComponent {
 
-  listaContratos: FirebaseListObservable<any>;
+  listaContratos: Array<ContratoDTO>;
 
   msgTitulo: string = "";
   msgCorpo: string = "";
   key: string = "";
+  keyExcluir: string = "";
 
   alert = new EventEmitter<string|MaterializeAction>();
   success = new EventEmitter<string|MaterializeAction>();
   danger = new EventEmitter<string|MaterializeAction>();  
   loading = new EventEmitter<string|MaterializeAction>();
+  contratoCollapsible = new EventEmitter<string|MaterializeAction>();
   
   msgParams = [
     {
@@ -32,25 +35,60 @@ export class VisualizarPassageiroContratoComponent {
     }
   ]
 
-  constructor(public router: Router, public route: ActivatedRoute, public _servicePassageiroContrato: PassageiroContratoService, public _serviceAuth: AuthService) { 
+  params = [
+    {
+    }
+  ];
+
+  constructor(public router: Router, public route: ActivatedRoute, public _servicePassageiroContrato: PassageiroContratoService, public _serviceAuth: AuthService, public _serviceModeloContrato: ModeloContratoService) { 
 
 
     this.route.params.subscribe(parans => {
       let key = parans['key'];
         if (key) {
-        this.key = key;
-        this._servicePassageiroContrato.clienteKey = _serviceAuth.usuario.identificacaoCliente;
-        this._servicePassageiroContrato.passageiroKey = key;
-        this.listaContratos = this._servicePassageiroContrato.lista();
-        }
-      });
+
+            this.key = key;
+            this._servicePassageiroContrato.clienteKey = _serviceAuth.usuario.identificacaoCliente;
+            this._serviceModeloContrato.key = _serviceAuth.usuario.identificacaoCliente;
+            this._servicePassageiroContrato.passageiroKey = key;
+            this.listaContratos = new Array<ContratoDTO>();
+
+            this._servicePassageiroContrato.lista().subscribe(dados => {
+              this.listaContratos = new Array<ContratoDTO>();
+              dados.forEach(element => {
+                let contratoN = new ContratoDTO();
+                contratoN.assinado = element.assinado;
+                contratoN.dataVencimento = element.dataVencimento;
+                contratoN.contratoKey = element.contratoKey;
+                contratoN.$key = element.$key;
+
+                this._serviceModeloContrato.getDados(contratoN.contratoKey).subscribe(cnt => {
+                  if (cnt.length > 0) {
+                    contratoN.titulo = cnt[1].$value;
+                    contratoN.dados = cnt[0].$value;
+                    this.listaContratos.push(contratoN);
+                  }
+                });
+
+                
+              });
+            });
+      }
+    });
   }
 
   gridContrato(){
     this.router.navigate(['gridContrato']);
   }
 
-  excluir(key: string = ""){
+  novo(){
+    this.show('LOADING');
+    this.router.navigate(['cadPassContrato', this.key]);
+    this.close('LOADING');
+  }
+
+  excluir(key){
+    debugger;
     this.show('LOADING');
     this.close('DANGER');
     this._servicePassageiroContrato.deleta(key).then(() =>{
@@ -88,6 +126,7 @@ export class VisualizarPassageiroContratoComponent {
           }
           else if(tipo.toUpperCase() == "DANGER"){
             this.danger.emit({action:"modal",params:['open']});
+            this.keyExcluir = key;
           }
           else if(tipo.toUpperCase() == "SUCCESS"){
             this.success.emit({action:"modal",params:['open']});
@@ -113,4 +152,12 @@ export class VisualizarPassageiroContratoComponent {
         }
 
 
+}
+class ContratoDTO{
+  public titulo: string = "";
+  public dados: string = "";
+  public contratoKey: string = "";
+  public dataVencimento: string ="";
+  public assinado: boolean = false;
+  public $key: string= "";
 }

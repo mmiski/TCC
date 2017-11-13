@@ -39,12 +39,6 @@ export class PassageiroContratoComponent{
 
    }
 
-   novo(key: string = ""){
-    this.show('LOADING');
-    this.router.navigate(['cadPassContrato', key]);
-    this.close('LOADING');
-   }
-
    visualizar(key: string = ""){
     this.show('LOADING');
     this.router.navigate(['visuPassContrato', key]);

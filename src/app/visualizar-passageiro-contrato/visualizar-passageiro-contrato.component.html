@@ -3,38 +3,55 @@
       <a (click)="gridContrato()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
     </div>
   </div>
-<div class="row section"> 
-          <div class="col s12 ">
-            <div class="card grey lighten-4 z-depth-4">
-              <div class="card-content grey lighten-4">
-                        <div *ngFor="let item of listaContratos | async" class="card">
-                            <div class="card-content">
-                              <div class="row">
-                                  <div class="col s12 m10 l10">
-                                      <h5>{{item.titulo}}</h5>
-                                  </div>
-                                  <a (click)=" excluir(item.$key)" class="col s12 m2 l2 btn btn-flat waves-effect">
-                                      <i class="material-icons">delete</i>
-                                  </a>  
-                              </div>
-                              <div class="row center grey lighten-4">
-                                <div class="col s12 m6 l6">
-                                  <h6>Validade do Contrato: {{item.dataVencimento}}</h6>
-                                </div>
-                                <div class="col s12 m6 l6 center">
-                                        <input [disabled]="item.assinado" type="checkbox" id="x" [(ngModel)]="item.assinado" (change)="assinar(item.assinado, item.$key)"/>
-                                        <label for="x">Assinado</label>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                        <div *ngIf="(listaContratos | async)?.length == 0" class="center-align">
-                            <label>Nenhum registro encontrado.</label>
-                        </div>
-              </div>
-            </div>
+<div class="row"> 
+    <div class="col s12 m12 l3 container">
+        <div class="card grey lighten-4">
+          <div class="card-content grey lighten-4 center-align">
+            <a class="waves-effect waves-light btn btn-flat" (click)="novo()"><i class="material-icons left">add</i>Adicionar</a>
           </div>
         </div>
+      </div>
+      <div class="col s12 m12 l9">
+        <div class="card grey lighten-4 z-depth-4">
+          <div class="card-content grey lighten-4">
+                    <ul *ngIf="(listaContratos)?.length > 0" materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="contratoCollapsible">
+                        <li *ngFor="let item of listaContratos">
+                            <div class="collapsible-header row" style="margin-bottom: 0px;">
+                                  <div class="col s7 m7 l7 grey-text text-darken-4">
+                                    <h6>{{item.titulo}}</h6>
+                                  </div>  
+                                  <div class="col s3 m4 l4 grey-text text-darken-4">
+                                      <h6>Vencimento: {{item.dataVencimento}}</h6>
+                                    </div>  
+                                  <a  (click)="show('DANGER', item.$key)" class="col s3 m1 l1 btn btn-flat waves-effect">
+                                      <i class="material-icons">delete</i>
+                                  </a>                       
+                            </div> 
+                            <div class="collapsible-body" style="display: none;">
+                              <div class="row">
+                               <p class="col s12">
+                                      <input  [disabled]="item.assinado" type="checkbox" id={{item.$key}} [(ngModel)]="item.assinado" (change)="assinar(item.assinado, item.$key)"/>
+                                      <label for={{item.$key}} >Assinado</label>
+                               </p>
+                              </div>
+                              <div class="row">
+                                <div class="card">
+                                  <div class="card-content">
+                                      <span class="card-title"><strong>Dados do Contrato</strong></span>
+                                      <p class="flow-text">{{item.dados}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>  
+                        </li>               
+                    </ul>
+                    <div *ngIf="(listaContratos)?.length == 0" class="center-align">
+                        <label>Nenhum registro encontrado.</label>
+                    </div>
+          </div>
+        </div>
+      </div>
+</div>
         
     
       <!-- Modal LOADING -->
@@ -126,7 +143,7 @@
             </div>
             </div>
             <div class="modal-footer">
-            <a class="waves-effect waves-green btn btn-flat" (click)="excluir(key)">Sim</a> 
+            <a class="waves-effect waves-green btn btn-flat" (click)="excluir(keyExcluir)">Sim</a> 
             <a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">Não</a>
             </div>
             </div>
