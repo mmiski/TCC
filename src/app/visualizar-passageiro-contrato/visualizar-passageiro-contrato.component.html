@@ -22,7 +22,7 @@
                                   <h6>Validade do Contrato: {{item.dataVencimento}}</h6>
                                 </div>
                                 <div class="col s12 m6 l6 center">
-                                        <input type="checkbox" id="x" [(ngModel)]="item.assinado" (change)="assinar(item.assinado, item.$key)"/>
+                                        <input [disabled]="item.assinado" type="checkbox" id="x" [(ngModel)]="item.assinado" (change)="assinar(item.assinado, item.$key)"/>
                                         <label for="x">Assinado</label>
                                 </div>
                               </div>
