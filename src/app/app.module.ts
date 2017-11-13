@@ -54,6 +54,9 @@ import { HttpModule } from '@angular/http';
 import { GridResponsavelComponent } from './grid-responsavel/grid-responsavel.component';
 import { CadastroResponsavelComponent } from './cadastro-responsavel/cadastro-responsavel.component';
 import { ResponsavelService } from './services/responsavel.service';
+import { PassageiroContratoService } from './services/passageiro-contrato.service';
+import { VisualizarPassageiroContratoComponent } from './visualizar-passageiro-contrato/visualizar-passageiro-contrato.component';
+import { CadastroPassageiroContratoComponent } from './cadastro-passageiro-contrato/cadastro-passageiro-contrato.component';
 
 
 const  config = {
@@ -99,7 +102,9 @@ const  config = {
     ContatoComponent,
     LabelErrorComponent,
     GridResponsavelComponent,
-    CadastroResponsavelComponent
+    CadastroResponsavelComponent,
+    VisualizarPassageiroContratoComponent,
+    CadastroPassageiroContratoComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +121,7 @@ const  config = {
     })
   ],
   providers: [AngularFireDatabase, AuthService, UsuarioService, ClienteService, ContatoService, UsuarioMensagemService,
-              AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService, MotoristaService, PassageiroService, ResponsavelService],
+              AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService, MotoristaService, PassageiroService, ResponsavelService, PassageiroContratoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

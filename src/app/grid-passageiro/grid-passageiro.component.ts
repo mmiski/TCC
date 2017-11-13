@@ -32,17 +32,6 @@ export class GridPassageiroComponent {
         }
       ]
     
-        
-      params = [
-        {
-          onOpen: (el) => {
-            console.log("Collapsible open", el);
-          },
-          onClose: (el) => {
-            console.log("Collapsible close", el);
-          }
-        }
-      ];
     
         constructor(public router: Router, public _servicePassageiro: PassageiroService, public _serviceAuth: AuthService) {
           debugger;

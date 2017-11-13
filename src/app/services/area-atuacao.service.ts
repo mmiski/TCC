@@ -19,7 +19,11 @@ export class AreaAtuacaoService {
 
   lista(): FirebaseListObservable<any>{
     
-        return this.afDataBase.list(`/Clientes/${this.key}/AreasAtuacao`);
+        return this.afDataBase.list(`/Clientes/${this.key}/AreasAtuacao`,{
+          query: {
+          orderByChild: 'descricao'
+          }
+          });
   }
 
   alterar(key: string, areaAtuacao: AreaAtuacao){

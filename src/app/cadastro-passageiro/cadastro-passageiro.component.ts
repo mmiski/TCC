@@ -60,15 +60,35 @@ export class CadastroPassageiroComponent {
         this.key = key;
         this.zoom = 18;
           this._servicePassageiro.getDados(key).subscribe(dados => {
-            this.passageiro.cpf = dados[0].$value;
-            this.passageiro.dataNascimento = dados[1].$value;       
-            this.passageiro.descricaoPosicao = dados[2].$value;   
-            this.passageiro.email = dados[3].$value;
-            this.passageiro.endereco = dados[4].$value;
-            this.passageiro.latitude = parseFloat(dados[5].$value);
-            this.passageiro.longitude =  parseFloat(dados[6].$value);
-            this.passageiro.nome = dados[7].$value;
-            this.passageiro.telefone = dados[8].$value;
+            dados.forEach(pass => {
+              if (pass.$key == 'cpf') {
+                this.passageiro.cpf = pass.$value; 
+              }
+              else if (pass.$key == 'dataNascimento') {
+                this.passageiro.dataNascimento = pass.$value; 
+              }
+              else if (pass.$key == 'descricaoPosicao') {
+                this.passageiro.descricaoPosicao = pass.$value; 
+              }
+              else if (pass.$key == 'email') {
+                this.passageiro.email = pass.$value; 
+              }
+              else if (pass.$key == 'endereco') {
+                this.passageiro.endereco = pass.$value; 
+              }
+              else if (pass.$key == 'latitude') {
+                this.passageiro.latitude = pass.$value; 
+              }
+              else if (pass.$key == 'longitude') {
+                this.passageiro.longitude = pass.$value; 
+              }
+              else if (pass.$key == 'nome') {
+                this.passageiro.nome = pass.$value; 
+            }
+              else if (pass.$key == 'telefone') {
+                this.passageiro.telefone = pass.$value; 
+              }
+            });
           });
       }
   });

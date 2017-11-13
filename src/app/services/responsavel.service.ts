@@ -16,13 +16,25 @@ export class ResponsavelService {
 
   }
 
+  deletarPassageiro(keyPassageiro: string = "", keyResponsavel: string = ""){
+    return this.afDataBase.list(`/Clientes/${this.key}/Responsaveis/${keyResponsavel}/Passageiros`).remove(keyPassageiro);
+  }
+
+  adicionarPassageiro(keyPassageiro: string = "", keyResponsavel: string = ""){
+    let passNew = {"passageiroKey" : keyPassageiro};
+    return this.afDataBase.list(`/Clientes/${this.key}/Responsaveis/${keyResponsavel}/Passageiros`).push(passNew);
+  }
 
   getDados(key: string){
     return this.afDataBase.list(`/Clientes/${this.key}/Responsaveis/${key}`);
   }
 
   listaResponsaveis(): FirebaseListObservable<any>{
-    return this.afDataBase.list(`/Clientes/${this.key}/Responsaveis`)
+    return this.afDataBase.list(`/Clientes/${this.key}/Responsaveis`,{
+      query: {
+      orderByChild: 'nome'
+      }
+      })
   }
   
   alterar(key: string, responsavel: Responsavel){

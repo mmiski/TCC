@@ -20,7 +20,11 @@ export class PlanoMensalidadeService {
 
   lista(): FirebaseListObservable<any>{
     
-        return this.afDataBase.list(`/Clientes/${this.key}/PlanosMensalidade`);
+        return this.afDataBase.list(`/Clientes/${this.key}/PlanosMensalidade`,{
+          query: {
+          orderByChild: 'titulo'
+          }
+          });
       }
   
   alterar(key: string, planoMensalidade: PlanoMensalidade){

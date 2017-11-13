@@ -5,46 +5,76 @@
             <a class="waves-effect waves-light btn btn-flat" (click)="novo()"><i class="material-icons left">add</i>Adicionar</a>
           </div>
         </div>
-      </div>
+    </div>
   <div class="col s12 m12 l9">
     <div class="card grey lighten-4 z-depth-4">
       <div class="card-content grey lighten-4">
-          <ul *ngFor="let item of listaResponsaveis | async" materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="responsavelCollapsible">
-            <li >
+          <div class="row">
+              <div class="col s2 m1 l1">
+                  <i class="material-icons">info</i>
+              </div>
+              <div class="con s10 m11 l11">
+                  <label class="red-text">Clique no responsável para expandir a linha e ver os passageiros vínculados.</label>
+              </div>
+          </div>
+          
+          <ul  materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="responsavelCollapsible">
+            <li (click)="carregaListaPassageiros(item.$key)" *ngFor="let item of listaResponsaveis | async">
               <div class="collapsible-header row" style="margin-bottom: 0px;">
-                    <div class="col s8  grey-text text-darken-4">
-                      <h6>item.nome</h6>
+                    <div class="col s3 m9 l9 grey-text text-darken-4">
+                      <h6>{{item.nome}}</h6>
                     </div>
                    
-                    <a class="col s2 btn btn-flat waves-effect" (click)="alterar(item.$key)">
+                    <a (click)="carregaListaPassageirosSemVinc(item.$key)" materialize="tooltip" class="col s3 m1 l1 btn btn-flat waves-effect tooltipped" data-position="top" data-delay="20" data-tooltip="Víncular Passageiro">
+                      <i class="material-icons">person_pin</i>
+                    </a>   
+                    <a class="col s3 m1 l1 btn btn-flat waves-effect" (click)="alterar(item.$key)">
                         <i class="material-icons">edit</i>
                     </a>
-                    <a  (click)="show('DANGER', item.$key)" class="col s2 btn btn-flat waves-effect">
+                    <a  (click)="show('DANGER', item.$key)" class="col s3 m1 l1 btn btn-flat waves-effect">
                         <i class="material-icons">delete</i>
-                    </a>      
+                    </a>                       
             </div> 
             <div class="collapsible-body" style="display: none;">
-                <ul class="collection">
-                    <li class="collection-item">
-                        <div class="row" style="margin:0px;">
-                          <div class="col s10">
-                            <strong>TETA</strong>
-                          </div>
-                          <div class="col s2">
-                              <i class="material-icons">edit</i>
-                          </div>
-                        </div>
-                    </li>
-                </ul>
-                </div>  
+              <h5 *ngIf="(listaPassageiros)?.length > 0" class="center">Passageiros</h5>
+              <ul *ngFor="let passageiro of listaPassageiros" class="collection with-header">
+                <li class="collection-item row">
+                  <div class="col s10">
+                    <p>{{passageiro.nome}} - CPF: {{passageiro.cpf}}</p>  
+                  </div>
+                  <div class="col s2">
+                      <a (click)="deletarPassageiro(passageiro.$key, item.$key)" class="btn-flat"><i class="material-icons">delete</i></a>
+                  </div>
+                </li>
+              </ul>
+              <div *ngIf="(listaPassageiros)?.length == 0" class="center-align">
+                <label>Nenhum passageiro vinculado.</label>
+              </div>
+            </div>  
             </li>               
         </ul>
-        <div *ngIf="(listaMotoristas | async)?.length == 0" class="center-align">
+        <div *ngIf="(listaResponsaveis | async)?.length == 0" class="center-align">
             <label>Nenhum registro encontrado.</label>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+
+<div id="modalVincPass" class="modal bottom-sheet" materialize="modal" [materializeParams]="vinculoPassageiroParams" [materializeActions]="vinculoPassageiroAction">
+    <div class="modal-content">
+        <h4 class="center">Selecione um Passageiro para Víncular</h4>
+          <div class="collection">
+            <a (click)="adicionarVincPassageiro(passSV.$key, passSV.$keyResponsavel)" *ngFor="let passSV of listaSemVincPassageiros" class="collection-item">{{passSV.nome}} - CPF: {{passSV.cpf}}</a>
+          </div>
+          <div *ngIf="(listaSemVincPassageiros)?.length == 0" class="center-align">
+              <label class="center">Todos os passageiros já estão vínculados com o Responsável.</label>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn-flat">Fechar</a>
+      </div>
 </div>
 
    <!-- Modal LOADING -->

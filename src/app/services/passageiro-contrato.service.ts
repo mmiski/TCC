@@ -1,40 +1,37 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularFire2/database';
-import { ModeloContrato } from '../classes/ModeloContrato';
+import { PassageiroContrato } from '../classes/PassageiroContrato';
 import { Usuario } from '../classes/Usuario';
 
 @Injectable()
-export class ModeloContratoService {
+export class PassageiroContratoService {
 
-  modeloContrato: ModeloContrato;
+  passageiroContrato: PassageiroContrato;
   usuario: Usuario;
-  key = "";
+  clienteKey = "";
+  passageiroKey = "";
 
   constructor(public afDataBase: AngularFireDatabase) { 
   }
 
-  getDados(key: string){
-    return this.afDataBase.list(`/Clientes/${this.key}/ModelosContrato/${key}`);
-  }
-
   lista(): FirebaseListObservable<any>{
-    
-      return this.afDataBase.list(`/Clientes/${this.key}/ModelosContrato`,{
+      debugger;
+      return this.afDataBase.list(`/Clientes/${this.clienteKey}/Passageiros/${this.passageiroKey}/Contratos`,{
         query: {
         orderByChild: 'titulo'
         }
         });
   }
 
-  alterar(key: string, modeloContrato: ModeloContrato){
-
-        return this.lista().update(key, modeloContrato);
+  novo(passageiroContrato: PassageiroContrato){
+    return this.lista().push(passageiroContrato);
   }
 
-  novo(modeloContrato: ModeloContrato){
-    return this.lista().push(modeloContrato);
+  assinar(assinado: boolean = false, key: string = ""){
+    debugger;
+    return this.lista().update(key, {assinado: assinado});
   }
-  
+
   deleta(key: string){
     return this.lista().remove(key);
   }
@@ -43,15 +40,15 @@ export class ModeloContratoService {
     return new Promise((resolve, reject) => {
       let flag = false;
 
-      this.afDataBase.list(`/Clientes/${this.key}/ModelosContrato`, {
+      this.afDataBase.list(`/Clientes/${this.clienteKey}/Passageiros/${this.passageiroKey}/Contratos`, {
         query: {
-          orderByChild: 'titulo',
+          orderByChild: 'dataVencimento',
           equalTo: valor
         }
       }).subscribe((dados) => {
         debugger;
         if (dados.length > 0) {
-          reject(new Error("Contrato já cadastrado.")); 
+          reject(new Error("Contrato já vínculado com o passageiro.")); 
         }else{
           resolve();
         }

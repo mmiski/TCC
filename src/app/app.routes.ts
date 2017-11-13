@@ -28,6 +28,8 @@ import { CadastroRotaVinculoPassageiroComponent } from './cadastro-rota-vinculo-
 import { ContatoComponent } from './contato/contato.component';
 import { GridResponsavelComponent } from './grid-responsavel/grid-responsavel.component';
 import { CadastroResponsavelComponent } from './cadastro-responsavel/cadastro-responsavel.component';
+import { VisualizarPassageiroContratoComponent } from './visualizar-passageiro-contrato/visualizar-passageiro-contrato.component';
+import { CadastroPassageiroContratoComponent } from './cadastro-passageiro-contrato/cadastro-passageiro-contrato.component';
 
 const appRoutes: Routes  = [
   { path: 'site', component: SiteComponent },
@@ -45,7 +47,9 @@ const appRoutes: Routes  = [
   { path: 'cadResponsavel', component: CadastroResponsavelComponent },
   { path: 'passMens', component: PassageiroMensalidadeComponent },
   { path: 'cadPassMensalidade', component: CadastroPassageiroMensalidadeComponent },
-  { path: 'passContrato', component: PassageiroContratoComponent },
+  { path: 'gridContrato', component: PassageiroContratoComponent },
+  { path: 'visuPassContrato/:key', component: VisualizarPassageiroContratoComponent },
+  { path: 'cadPassContrato/:key', component: CadastroPassageiroContratoComponent },
   { path: 'cadVeiculo/:key', component: CadastroVeiculoComponent },
   { path: 'cadVeiculo', component: CadastroVeiculoComponent },
   { path: 'gridVeiculo', component: GridVeiculoComponent },

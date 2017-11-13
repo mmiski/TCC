@@ -19,7 +19,11 @@ export class MotoristaService {
 
   lista(): FirebaseListObservable<any>{
     
-        return this.afDataBase.list(`/Clientes/${this.key}/Motoristas`);
+        return this.afDataBase.list(`/Clientes/${this.key}/Motoristas`,{
+          query: {
+          orderByChild: 'nome'
+          }
+          });
       }
   
   alterar(key: string, motorista: Motorista){

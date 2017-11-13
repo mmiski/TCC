@@ -19,7 +19,11 @@ export class VeiculoService {
 
   lista(): FirebaseListObservable<any>{
 
-    return this.afDataBase.list(`/Clientes/${this.key}/Veiculos`);
+    return this.afDataBase.list(`/Clientes/${this.key}/Veiculos`,{
+      query: {
+      orderByChild: 'placa'
+      }
+      });
   }
 
   alterar(key: string, veiculo: Veiculo){
@@ -42,7 +46,7 @@ export class VeiculoService {
 
       this.afDataBase.list(`/Clientes/${this.key}/Veiculos/`, {
         query: {
-          orderByChild: 'titulo',
+          orderByChild: 'placa',
           equalTo: valor
         }
       }).subscribe((dados) => {

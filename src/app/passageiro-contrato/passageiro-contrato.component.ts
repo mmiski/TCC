@@ -1,5 +1,9 @@
 import { Component, EventEmitter } from '@angular/core';
 import { MaterializeAction } from 'angular2-materialize';
+import { FirebaseListObservable } from 'angularFire2/database';
+import { Router } from '@angular/router';
+import { PassageiroService } from '../services/passageiro.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-passageiro-contrato',
@@ -8,58 +12,75 @@ import { MaterializeAction } from 'angular2-materialize';
 })
 export class PassageiroContratoComponent{
 
-  lstPassageirosCollapsible = new EventEmitter<string|MaterializeAction>();
-  modalDocumento = new EventEmitter<string|MaterializeAction>();
-  dataVencimentoAction = new EventEmitter<string|MaterializeAction>();
 
-  autocompleteInit = {
-    'data': {'Documento +18': null, 'Documento -18': null},
-    onAutocomplete: (val) => {
-      console.log(val);
-    },
-    minLength: 1,
-    limit: 20
-  };
+  listaPassageiros: FirebaseListObservable<any>;
 
+  msgTitulo: string = "";
+  msgCorpo: string = "";
 
-  dataVencimentoParams = [
+  alert = new EventEmitter<string|MaterializeAction>();
+  success = new EventEmitter<string|MaterializeAction>();
+  danger = new EventEmitter<string|MaterializeAction>();  
+  loading = new EventEmitter<string|MaterializeAction>();
+  
+  msgParams = [
     {
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Today',
-      clear: 'Clear',
-      close: 'Ok',
-      closeOnSelect: true, // Close upon selecting a date,
-      format: 'dd/mm/yyyy'
+      dismissible: false, // Modal can be dismissed by clicking outside of the modal
+      opacity: 0.8, // Opacity of modal background
+      inDuration: 300, // Transition in duration
+      outDuration: 200, // Transition out duration
     }
   ]
 
-  params = [
-    {
-      onOpen: (el) => {
-        console.log("Collapsible open", el);
-      },
-      onClose: (el) => {
-        console.log("Collapsible close", el);
-      }
-    }
-  ];
+  constructor(public router: Router, public _servicePassageiro: PassageiroService, public _serviceAuth: AuthService) {
+    this._servicePassageiro.key = _serviceAuth.usuario.identificacaoCliente;
 
-  modelDocumentoParams = [
-    {
-      dismissible: true,
-      complete: function() { console.log('Closed'); }
-    }
-  ]
+    this.listaPassageiros = this._servicePassageiro.lista();
 
-  constructor() { }
+   }
 
-  openModalDocumento() {
-    this.modalDocumento.emit({action:"modal",params:['open']});
+   novo(key: string = ""){
+    this.show('LOADING');
+    this.router.navigate(['cadPassContrato', key]);
+    this.close('LOADING');
+   }
+
+   visualizar(key: string = ""){
+    this.show('LOADING');
+    this.router.navigate(['visuPassContrato', key]);
+    this.close('LOADING');
   }
 
-  closeModalDocumento() {
-    this.modalDocumento.emit({action:"modal",params:['close']});
-  }
+  show(tipo: string, key: string = ""){
+    
+          if (tipo.toUpperCase() == "ALERT") {
+            this.alert.emit({action:"modal",params:['open']});
+          }
+          else if(tipo.toUpperCase() == "DANGER"){
+            this.danger.emit({action:"modal",params:['open']});
+          }
+          else if(tipo.toUpperCase() == "SUCCESS"){
+            this.success.emit({action:"modal",params:['open']});
+          }
+          else if(tipo.toUpperCase() == "LOADING"){
+            this.loading.emit({action:"modal",params:['open']});
+          }
+        }
+        
+        close(tipo: string){
+          if (tipo.toUpperCase() == "ALERT") {
+            this.alert.emit({action:"modal",params:['close']});
+          }
+          else if(tipo.toUpperCase() == "DANGER"){
+            this.danger.emit({action:"modal",params:['close']});
+          }
+          else if(tipo.toUpperCase() == "SUCCESS"){
+            this.success.emit({action:"modal",params:['close']});
+          }
+          else if(tipo.toUpperCase() == "LOADING"){
+            this.loading.emit({action:"modal",params:['close']});
+          }
+        }
 
 }
+

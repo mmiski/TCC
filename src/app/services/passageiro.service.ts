@@ -21,7 +21,11 @@ export class PassageiroService {
 
   lista(): FirebaseListObservable<any>{
     
-        return this.afDataBase.list(`/Clientes/${this.key}/Passageiros`);
+        return this.afDataBase.list(`/Clientes/${this.key}/Passageiros`,{
+          query: {
+          orderByChild: 'nome'
+          }
+          });
       }
 
   alterar(key: string, passageiro: Passageiro){

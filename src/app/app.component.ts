@@ -128,7 +128,7 @@ ngOnInit(){
     senha: [null, Validators.required]
   });
 
-  // this.loginEmailSenha();
+  this.loginEmailSenha();
 }
 //Inicio dos métodos
 
