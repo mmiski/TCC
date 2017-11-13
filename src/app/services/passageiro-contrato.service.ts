@@ -50,7 +50,7 @@ export class PassageiroContratoService {
 
       this.afDataBase.list(`/Clientes/${this.clienteKey}/Passageiros/${this.passageiroKey}/Contratos`, {
         query: {
-          orderByChild: 'dataVencimento',
+          orderByChild: 'contratoKey',
           equalTo: valor
         }
       }).subscribe((dados) => {
