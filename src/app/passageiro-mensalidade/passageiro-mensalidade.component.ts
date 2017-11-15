@@ -1,6 +1,9 @@
 import { Component, EventEmitter } from '@angular/core';
 import { MaterializeAction } from 'angular2-materialize';
+import { FirebaseListObservable } from 'angularFire2/database';
 import { Router } from '@angular/router';
+import { PassageiroService } from '../services/passageiro.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-passageiro-mensalidade',
@@ -9,22 +12,69 @@ import { Router } from '@angular/router';
 })
 export class PassageiroMensalidadeComponent{
 
-  constructor(public router: Router) { }
-  lstPassageirosCollapsible = new EventEmitter<string|MaterializeAction>();
 
-  params = [
+  listaPassageiros: FirebaseListObservable<any>;
+
+  msgTitulo: string = "";
+  msgCorpo: string = "";
+
+  alert = new EventEmitter<string|MaterializeAction>();
+  success = new EventEmitter<string|MaterializeAction>();
+  danger = new EventEmitter<string|MaterializeAction>();  
+  loading = new EventEmitter<string|MaterializeAction>();
+  
+  msgParams = [
     {
-      onOpen: (el) => {
-        console.log("Collapsible open", el);
-      },
-      onClose: (el) => {
-        console.log("Collapsible close", el);
-      }
+      dismissible: false, // Modal can be dismissed by clicking outside of the modal
+      opacity: 0.8, // Opacity of modal background
+      inDuration: 300, // Transition in duration
+      outDuration: 200, // Transition out duration
     }
-  ];
+  ]
 
-  cadPassageiroMensalidade(){
-    this.router.navigate(['cadPassMensalidade']);
+  constructor(public router: Router, public _servicePassageiro: PassageiroService, public _serviceAuth: AuthService) {
+    this._servicePassageiro.key = _serviceAuth.usuario.identificacaoCliente;
+
+    this.listaPassageiros = this._servicePassageiro.lista();
+
+   }
+
+   visualizar(key: string = ""){
+    this.show('LOADING');
+    this.router.navigate(['visuPassMensalidade', key]);
+    this.close('LOADING');
   }
 
+  show(tipo: string, key: string = ""){
+    
+          if (tipo.toUpperCase() == "ALERT") {
+            this.alert.emit({action:"modal",params:['open']});
+          }
+          else if(tipo.toUpperCase() == "DANGER"){
+            this.danger.emit({action:"modal",params:['open']});
+          }
+          else if(tipo.toUpperCase() == "SUCCESS"){
+            this.success.emit({action:"modal",params:['open']});
+          }
+          else if(tipo.toUpperCase() == "LOADING"){
+            this.loading.emit({action:"modal",params:['open']});
+          }
+        }
+        
+        close(tipo: string){
+          if (tipo.toUpperCase() == "ALERT") {
+            this.alert.emit({action:"modal",params:['close']});
+          }
+          else if(tipo.toUpperCase() == "DANGER"){
+            this.danger.emit({action:"modal",params:['close']});
+          }
+          else if(tipo.toUpperCase() == "SUCCESS"){
+            this.success.emit({action:"modal",params:['close']});
+          }
+          else if(tipo.toUpperCase() == "LOADING"){
+            this.loading.emit({action:"modal",params:['close']});
+          }
+        }
+
 }
+

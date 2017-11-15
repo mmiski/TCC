@@ -57,6 +57,8 @@ import { ResponsavelService } from './services/responsavel.service';
 import { PassageiroContratoService } from './services/passageiro-contrato.service';
 import { VisualizarPassageiroContratoComponent } from './visualizar-passageiro-contrato/visualizar-passageiro-contrato.component';
 import { CadastroPassageiroContratoComponent } from './cadastro-passageiro-contrato/cadastro-passageiro-contrato.component';
+import { VisualizarPassageiroMensalidadeComponent } from './visualizar-passageiro-mensalidade/visualizar-passageiro-mensalidade.component';
+import { PassageiroMensalidadeService } from './services/passageiro-mensalidade.service';
 
 
 const  config = {
@@ -104,7 +106,8 @@ const  config = {
     GridResponsavelComponent,
     CadastroResponsavelComponent,
     VisualizarPassageiroContratoComponent,
-    CadastroPassageiroContratoComponent
+    CadastroPassageiroContratoComponent,
+    VisualizarPassageiroMensalidadeComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +124,8 @@ const  config = {
     })
   ],
   providers: [AngularFireDatabase, AuthService, UsuarioService, ClienteService, ContatoService, UsuarioMensagemService,
-              AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService, MotoristaService, PassageiroService, ResponsavelService, PassageiroContratoService],
+              AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService, MotoristaService, PassageiroService, ResponsavelService, 
+              PassageiroContratoService, PassageiroMensalidadeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

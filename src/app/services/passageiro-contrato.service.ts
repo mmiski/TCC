@@ -44,19 +44,21 @@ export class PassageiroContratoService {
     return this.lista().remove(key);
   }
 
-  isDuplicado(valor: string = ""){
+  isDuplicado(dataVencimento: string = "", contratoKey: string = "" ){
     return new Promise((resolve, reject) => {
       let flag = false;
 
-      this.afDataBase.list(`/Clientes/${this.clienteKey}/Passageiros/${this.passageiroKey}/Contratos`, {
-        query: {
-          orderByChild: 'contratoKey',
-          equalTo: valor
-        }
-      }).subscribe((dados) => {
-        if (dados.length > 0) {
-          reject(new Error("Contrato já vínculado com o passageiro.")); 
-        }else{
+      this.afDataBase.list(`/Clientes/${this.clienteKey}/Passageiros/${this.passageiroKey}/Contratos`).subscribe((dados) => {
+
+        dados.forEach(element => {
+          debugger;
+          if (element.dataVencimento >= dataVencimento && element.contratoKey == contratoKey) {
+            reject(new Error("Passageiro já contém esse Contrato vigente no mesmo período!")); 
+          }else{
+            resolve();
+          }
+        });
+        if (dados.length == 0) {
           resolve();
         }
       });    

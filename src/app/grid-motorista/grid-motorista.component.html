@@ -10,8 +10,8 @@
       <div class="col s12 m12 l9">
         <div class="card grey lighten-4 z-depth-4">
           <div class="card-content grey lighten-4">
-            <ul class="collection" *ngFor="let item of listaMotoristas | async">
-                <li class="row collection-item valign-wrapper">
+            <ul class="collection" >
+                <li class="row collection-item valign-wrapper" *ngFor="let item of listaMotoristas | async">
                   <div class="col s8">
                       <div>
                         <h6>{{item.nome}}</h6>

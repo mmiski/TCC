@@ -38,7 +38,38 @@ export class PlanoMensalidadeService {
   }
   
   deleta(key: string){
-    return this.lista().remove(key);
+    return new Promise((resolve, reject) => {
+      let flag = false;
+      this.afDataBase.list(`/Clientes/${this.key}/Passageiros`).subscribe((listaPassageiros) => {
+        
+        listaPassageiros.forEach((passageiro, index) => {
+          debugger;
+          this.afDataBase.list(`/Clientes/${this.key}/Passageiros/${passageiro.$key}/Mensalidades`, {
+            query: {
+              orderByChild: 'mensalidadeKey',
+              equalTo: key
+            }
+          }).subscribe((mensalidades)=>{
+            debugger;
+            if (mensalidades.length > 0) {
+              flag = true;
+            }
+
+            debugger;
+            if (flag) {
+              reject(new Error("Mensalidade vinculada a um Passageiro!")); 
+            }else if(index == listaPassageiros.length - 1){
+              this.lista().remove(key).then(() => {
+                resolve();
+              }).catch(err => {
+                reject(new Error(err.message)); 
+              });
+            }
+
+          });
+        });
+      });    
+    });
   }
 
   isDuplicado(valor: string = ""){

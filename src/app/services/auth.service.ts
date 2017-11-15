@@ -30,7 +30,10 @@ export class AuthService{
         return this.afAuth.auth.signInWithPopup(provider).then(() => this.geraUsuario(1));
     }
 
-    
+    redefinirSenha(email: string= ""){
+        return this.afAuth.auth.sendPasswordResetEmail(email);
+    }
+
     cadastroUsuarioEmailSenha(email: string, senha: string, nome: string ){
         debugger;
         return this.afAuth.auth.createUserWithEmailAndPassword(email, senha).then((dados) => {

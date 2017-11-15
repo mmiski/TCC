@@ -81,6 +81,21 @@ params = [
     }
   }
 
+  redefinirSenha(){
+    this.show('LOADING');
+    this._serviceAuth.redefinirSenha(this.usuario.email).then(() => {
+      this.close('LOADING');
+      this.msgTitulo = "Concluído";
+      this.msgCorpo = "Um email foi encaminhado para você redifinir a senha, verifique sua caixa de entrada!";
+      this.show('SUCCESS');
+    }).catch(err => {
+      this.close('LOADING');
+      this.msgTitulo = "Atenção";
+      this.msgCorpo = err.message;
+      this.show('ALERT');
+    });;
+  }
+
   salvar(){
     this.show('LOADING');
     this._serviceUsuario.salvaUsuario(this.usuario).then(() => {

@@ -81,7 +81,7 @@ export class CadastroPassageiroContratoComponent {
 
   salvar(){
     this.show('LOADING');  
-      this._servicePassageiroContrato.isDuplicado(this.passageiroContrato.contratoKey).then(() => {
+      this._servicePassageiroContrato.isDuplicado(this.passageiroContrato.dataVencimento, this.passageiroContrato.contratoKey).then(() => {
         this.passageiroContrato.contratoKey = this.contrato.$key;
         this._servicePassageiroContrato.novo(this.passageiroContrato).then((dados) =>{
           this.close('LOADING');

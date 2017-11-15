@@ -30,6 +30,7 @@ import { GridResponsavelComponent } from './grid-responsavel/grid-responsavel.co
 import { CadastroResponsavelComponent } from './cadastro-responsavel/cadastro-responsavel.component';
 import { VisualizarPassageiroContratoComponent } from './visualizar-passageiro-contrato/visualizar-passageiro-contrato.component';
 import { CadastroPassageiroContratoComponent } from './cadastro-passageiro-contrato/cadastro-passageiro-contrato.component';
+import { VisualizarPassageiroMensalidadeComponent } from './visualizar-passageiro-mensalidade/visualizar-passageiro-mensalidade.component';
 
 const appRoutes: Routes  = [
   { path: 'site', component: SiteComponent },
@@ -45,12 +46,12 @@ const appRoutes: Routes  = [
   { path: 'gridResponsavel', component: GridResponsavelComponent },
   { path: 'cadResponsavel/:key', component: CadastroResponsavelComponent },
   { path: 'cadResponsavel', component: CadastroResponsavelComponent },
-  { path: 'passMens', component: PassageiroMensalidadeComponent },
-  { path: 'cadPassMensalidade', component: CadastroPassageiroMensalidadeComponent },
+  { path: 'gridMensalidade', component: PassageiroMensalidadeComponent },
+  { path: 'visuPassMensalidade/:key', component: VisualizarPassageiroMensalidadeComponent },
+  { path: 'cadPassMensalidade/:passageiroKey', component: CadastroPassageiroMensalidadeComponent },
   { path: 'gridContrato', component: PassageiroContratoComponent },
   { path: 'visuPassContrato/:key', component: VisualizarPassageiroContratoComponent },
   { path: 'cadPassContrato/:passageiroKey', component: CadastroPassageiroContratoComponent },
-  { path: 'cadPassContrato/:passageiroKey/:contratoKey', component: CadastroPassageiroContratoComponent },
   { path: 'cadVeiculo/:key', component: CadastroVeiculoComponent },
   { path: 'cadVeiculo', component: CadastroVeiculoComponent },
   { path: 'gridVeiculo', component: GridVeiculoComponent },

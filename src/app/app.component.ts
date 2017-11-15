@@ -118,8 +118,8 @@ constructor(private formBuilder: FormBuilder, public router: Router, public  _se
 
 ngOnInit(){
   this.formularioLogin = this.formBuilder.group({
-    email: ['1@1.com', [Validators.required, Validators.email]],
-    senha: ['111111', Validators.required]
+    email: [null, [Validators.required, Validators.email]],
+    senha: [null, Validators.required]
   });
 
   this.formularioCadastroLogin= this.formBuilder.group({
@@ -197,9 +197,11 @@ verificaEmailInvalido(formulario: FormGroup) {
     });
   }
 
-  loginEmailSenha(){
+  loginEmailSenha(isCadastro: boolean = false){
     this.show('LOADING');
-    this._service.loginEmailSenha(this.formularioLogin.get('email').value,this.formularioLogin.get('senha').value).then(() => { 
+    let email = isCadastro ? this.formularioCadastroLogin.get('email').value : this.formularioLogin.get('email').value;
+    let senha = isCadastro ? this.formularioCadastroLogin.get('senha').value : this.formularioLogin.get('senha').value;
+    this._service.loginEmailSenha(email,senha).then(() => { 
       this.closeModalLogin();
       this.router.navigate(['main']);     
       this.setTitulo('');
@@ -242,7 +244,7 @@ verificaEmailInvalido(formulario: FormGroup) {
                                             this.formularioCadastroLogin.get('senha').value, 
                                             this.formularioCadastroLogin.get('nome').value).then(() => {   
       this.close('LOADING');
-      this.loginEmailSenha();
+      this.loginEmailSenha(true);
     }).catch(err => {
       this.msgTitulo = "Atenção";
       this.msgCorpo = err.message;
