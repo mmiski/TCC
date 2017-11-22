@@ -1,0 +1,89 @@
+<div class="row section">
+    
+          <div class="col s12 ">
+            <div class="card grey lighten-4 z-depth-4">
+              <div class="card-content grey lighten-4">
+                    <ul class="collection" >
+                            <li class="row collection-item valign-wrapper">
+                              <div class="col s8 m10 l10">
+                                  <div>
+                                    <h6>Passageiros</h6>
+                                  </div>
+                              </div>
+                              <a class="col s2 m1 l1 btn btn-flat waves-effect tooltipped" materialize="tooltip" data-position="top" data-delay="20" data-tooltip="Ver Acessos" (click)="visualizar(ETipoUsuario.Passageiro)">
+                                  <i class="material-icons">send</i>
+                              </a>           
+                            </li>    
+                            <li class="row collection-item valign-wrapper">
+                                <div class="col s8 m10 l10">
+                                    <div>
+                                      <h6>Motoristas</h6>
+                                    </div>
+                                </div>
+                                <a class="col s2 m1 l1 btn btn-flat waves-effect tooltipped" materialize="tooltip" data-position="top" data-delay="20" data-tooltip="Ver Acessos" (click)="visualizar(ETipoUsuario.Motorista)">
+                                    <i class="material-icons">send</i>
+                                </a>           
+                              </li>  
+                              <li class="row collection-item valign-wrapper">
+                              <div class="col s8 m10 l10">
+                                  <div>
+                                    <h6>Responsáveis</h6>
+                                  </div>
+                              </div>
+                              <a class="col s2 m1 l1 btn btn-flat waves-effect tooltipped" materialize="tooltip" data-position="top" data-delay="20" data-tooltip="Ver Acessos" (click)="visualizar(ETipoUsuario.Responsavel)">
+                                  <i class="material-icons">send</i>
+                              </a>           
+                            </li>             
+                    </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+  <!-- Modal LOADING -->
+  <div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
+      <div class="modal-content center">
+        <h4 style="padding-bottom:1%;">Carregando</h4>
+        <div  class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-red">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-yellow">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-green">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+      </div>
+      </div>

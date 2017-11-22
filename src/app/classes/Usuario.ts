@@ -4,6 +4,7 @@ export class Usuario{
                     public email: string = "",
                     public uid: string = "",
                     public bloqueado: boolean = false,
+                    public isAdm: boolean = false,
                     public imagemUsuario: string ="",
                     public identificacaoCliente: string = "",
                     public keyDuplicadoUsuario: string = ""){}

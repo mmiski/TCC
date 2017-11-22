@@ -31,6 +31,9 @@ import { CadastroResponsavelComponent } from './cadastro-responsavel/cadastro-re
 import { VisualizarPassageiroContratoComponent } from './visualizar-passageiro-contrato/visualizar-passageiro-contrato.component';
 import { CadastroPassageiroContratoComponent } from './cadastro-passageiro-contrato/cadastro-passageiro-contrato.component';
 import { VisualizarPassageiroMensalidadeComponent } from './visualizar-passageiro-mensalidade/visualizar-passageiro-mensalidade.component';
+import { GridAcessoMobileComponent } from './grid-acesso-mobile/grid-acesso-mobile.component';
+import { ListaAcessosComponent } from './lista-acessos/lista-acessos.component';
+import { VisualizaAcessoComponent } from './visualiza-acesso/visualiza-acesso.component';
 
 const appRoutes: Routes  = [
   { path: 'site', component: SiteComponent },
@@ -72,6 +75,9 @@ const appRoutes: Routes  = [
   { path: 'cadUsuario', component: CadastroUsuarioComponent },
   { path: 'gridUsuario', component: GridUsuarioComponent },
   { path: 'contato', component: ContatoComponent },
+  { path: 'gridAcessoMobile', component: GridAcessoMobileComponent },
+  { path: 'listaAcessosMobile/:tipoUsuario', component: ListaAcessosComponent },
+  { path: 'visualizaAcesso/:key', component: VisualizaAcessoComponent },
   { path: '**', redirectTo: 'site'}
 ];
 

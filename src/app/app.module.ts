@@ -59,6 +59,10 @@ import { VisualizarPassageiroContratoComponent } from './visualizar-passageiro-c
 import { CadastroPassageiroContratoComponent } from './cadastro-passageiro-contrato/cadastro-passageiro-contrato.component';
 import { VisualizarPassageiroMensalidadeComponent } from './visualizar-passageiro-mensalidade/visualizar-passageiro-mensalidade.component';
 import { PassageiroMensalidadeService } from './services/passageiro-mensalidade.service';
+import { GridAcessoMobileComponent } from './grid-acesso-mobile/grid-acesso-mobile.component';
+import { ListaAcessosComponent } from './lista-acessos/lista-acessos.component';
+import { VisualizaAcessoComponent } from './visualiza-acesso/visualiza-acesso.component';
+import { AcessoMobileService } from './services/acesso-mobile.service';
 
 
 const  config = {
@@ -107,7 +111,10 @@ const  config = {
     CadastroResponsavelComponent,
     VisualizarPassageiroContratoComponent,
     CadastroPassageiroContratoComponent,
-    VisualizarPassageiroMensalidadeComponent
+    VisualizarPassageiroMensalidadeComponent,
+    GridAcessoMobileComponent,
+    ListaAcessosComponent,
+    VisualizaAcessoComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +132,7 @@ const  config = {
   ],
   providers: [AngularFireDatabase, AuthService, UsuarioService, ClienteService, ContatoService, UsuarioMensagemService,
               AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService, MotoristaService, PassageiroService, ResponsavelService, 
-              PassageiroContratoService, PassageiroMensalidadeService],
+              PassageiroContratoService, PassageiroMensalidadeService, AcessoMobileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

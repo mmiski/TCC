@@ -111,9 +111,9 @@ msgParams = [
 //Método construtor
 constructor(private formBuilder: FormBuilder, public router: Router, public  _service: AuthService, public _serviceUsuarioMensagem: UsuarioMensagemService){
   this.usuarioMensagem = new UsuarioMensagem();
-  this.router.navigate(['site']);
+  // this.router.navigate(['site']);
   this.usuario = new Usuario();
- 
+
 }
 
 ngOnInit(){
@@ -127,8 +127,6 @@ ngOnInit(){
     email: [null, [Validators.required, Validators.email]],
     senha: [null, Validators.required]
   });
-
-  this.loginEmailSenha();
 }
 //Inicio dos métodos
 
@@ -251,6 +249,21 @@ verificaEmailInvalido(formulario: FormGroup) {
       this.show('ALERT');
       this.close('LOADING');
     });
+  }
+
+  esqueciMinhaSenha(){
+    this.show('LOADING');
+    this._service.redefinirSenha(this.formularioLogin.get('email').value).then(() => {
+      this.close('LOADING');
+      this.msgTitulo = "Concluído";
+      this.msgCorpo = "Um email foi encaminhado para você redifinir a senha, verifique sua caixa de entrada!";
+      this.show('SUCCESS');
+    }).catch(err => {
+      this.close('LOADING');
+      this.msgTitulo = "Atenção";
+      this.msgCorpo = err.message;
+      this.show('ALERT');
+    });;
   }
 
   logOut(){

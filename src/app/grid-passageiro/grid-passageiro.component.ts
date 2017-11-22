@@ -34,7 +34,11 @@ export class GridPassageiroComponent {
     
     
         constructor(public router: Router, public _servicePassageiro: PassageiroService, public _serviceAuth: AuthService) {
-          debugger;
+
+          if (!this._serviceAuth.afAuth.auth.currentUser) {
+            this.router.navigate(['site']);
+          }
+
           this._servicePassageiro.key = _serviceAuth.usuario.identificacaoCliente;
           this.listaPassageiros = this._servicePassageiro.lista();
     

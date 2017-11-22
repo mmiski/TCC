@@ -98,7 +98,7 @@ params = [
 
   salvar(){
     this.show('LOADING');
-    this._serviceUsuario.salvaUsuario(this.usuario).then(() => {
+    this._serviceUsuario.alterar(this.usuario).then(() => {
       this.close('LOADING');
       this.msgTitulo = "Concluído";
       this.msgCorpo = "Dados do usuário salvos com sucesso!";

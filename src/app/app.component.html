@@ -23,14 +23,21 @@
                 <a><span class="white-text name center-align">{{usuario.nome}}</span></a>
               </div>
             </li>
+            
+            <li *ngIf="usuario.bloqueado"> <blockquote class="red-text"> Seu usuário está bloqueado!</blockquote></li>
             <li><a  [routerLink]="['main']" (click)="setTitulo('')"><i class="material-icons">home</i>Início</a></li>
-            <li><a [routerLink]="['configUsuario']" (click)="setTitulo('Configurações do Usuário')"><i class="material-icons" >settings</i>Configurações do Usuário</a></li>
+            <li><a [routerLink]="['configUsuario']" (click)="setTitulo('Configurações do Usuário')"><i class="material-icons truncate" >account_box</i>Perfil</a></li>
             <li><a  (click)="logOut()"><i class="material-icons">exit_to_app</i>Sair</a></li>
             <li>
               <div class="divider"></div>
             </li>
-
-            <li class="padding-top-1perc">
+            
+            <li><a [routerLink]="['gridAcessoMobile']" (click)="setTitulo('Acessos Mobile')" class="collapsible-header waves-effect waves-teal"><i class="material-icons">phone_iphone</i>Acessos Mobile</a></li>
+            <li *ngIf="!usuario.bloqueado"><a *ngIf="usuario.isAdm" (click)="setTitulo('Gerenciamento de Usuários')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridUsuario']"><i class="material-icons">person</i>Gerenciamento de Usuários</a></li>
+            <li>
+                <div class="divider"></div>
+              </li>
+            <li *ngIf="!usuario.bloqueado" class="padding-top-1perc">
               <ul materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="navBarLateralCollapsible">
                 <li><a class="collapsible-header waves-effect waves-teal"><i class="material-icons">domain</i>Empresa</a>
                   <div class="collapsible-body" style="display: none;">
@@ -75,9 +82,8 @@
                 </li>
               </ul>
             </li>
-            <li ><a (click)="setTitulo('Cadastro Planos de Mensalidade')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridPlanoMensalidade']"><i class="material-icons" >attach_money</i>Planos de Mensalidade</a></li>
-            <li ><a (click)="setTitulo('Cadastro de Modelos de Contrato')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridModeloContrato']"><i class="material-icons">assignment</i>Modelos de Contrato</a></li>
-            <li ><a (click)="setTitulo('Gerenciamento de Usuários')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridUsuario']"><i class="material-icons">person</i>Gerenciamento de Usuários</a></li>
+            <li *ngIf="!usuario.bloqueado"><a (click)="setTitulo('Cadastro Planos de Mensalidade')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridPlanoMensalidade']"><i class="material-icons" >attach_money</i>Planos de Mensalidade</a></li>
+            <li *ngIf="!usuario.bloqueado"><a (click)="setTitulo('Cadastro de Modelos de Contrato')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridModeloContrato']"><i class="material-icons">assignment</i>Modelos de Contrato</a></li>
           </ul>
           <a href="#navMob" materialize="sideNav" [materializeParams]="[{edge:'left'}]" data-activates="navMob" class="button-collapse white-text"><i class="material-icons">menu</i></a>
         </div>
@@ -205,40 +211,44 @@
           <form [formGroup]="formularioLogin" class="col s12 z-depth-5 card form-horizontal">
             <div class="row card-content">
                 <span class="truncate card-title center-align">Dados para Logar</span>
-              <div class="row">
-                  <div class="col s12 m6 l6 xl6">
-                      <label-error [mostrarErro]="verificaEmailInvalido(formularioLogin)" mensagemErro="Email inválido" ></label-error>
+              <div class="card row">
+                <div class="card-content">
+                    <div class="col s12 m4 l4 xl4">
+                        <label-error [mostrarErro]="verificaEmailInvalido(formularioLogin)" mensagemErro="Email inválido" ></label-error>
+                        <div class="input-field">
+                            <i class="material-icons prefix">email</i>
+                            <input id="icon_email" type="email"  class="form-control" formControlName="email">
+                            <label for="icon_email">Email</label>
+                        </div>         
+                    </div>
+        
+        
+                    <div class="col s12 m4 l4 xl4">
+                      <label-error [mostrarErro]="verificaValidTouched('senha',formularioLogin)" mensagemErro="Insira a Senha"></label-error>
                       <div class="input-field">
-                          <i class="material-icons prefix">email</i>
-                          <input id="icon_email" type="email"  class="form-control" formControlName="email">
-                          <label for="icon_email">Email</label>
-                      </div>         
-                  </div>
-      
-      
-                  <div class="col s12 m6 l6 xl6">
-                    <label-error [mostrarErro]="verificaValidTouched('senha',formularioLogin)" mensagemErro="Insira a Senha"></label-error>
-                    <div class="input-field">
-                        <i class="material-icons prefix">security</i>
-                        <input id="icon_password" type="password" class="form-control" formControlName="senha">
-                        <label for="icon_password">Senha</label>
+                          <i class="material-icons prefix">security</i>
+                          <input id="icon_password" type="password" class="form-control" formControlName="senha">
+                          <label for="icon_password">Senha</label>
+                      </div>
+                    </div>   
+                </div>
+                       
+                  <div class="col s12 m4 l4 xl4">
+                    <div class=" row">
+                        <button [disabled]="!formularioLogin.valid" (click)="loginEmailSenha()" class="col s6 m12 l12 x12  waves-effect waves-light btn btn-flat"><i class="material-icons left">input</i>Logar</button>
+                      <button [disabled]="!formularioLogin.get('email').valid" (click)="esqueciMinhaSenha()" class="col s6 m12 l12 x12 center-align waves-effect waves-light btn btn-flat deep-purple-text">Esqueci minha senha</button>
+                      <a (click)="closeNavBarLogin()" class="col s12 m12 l12 x12 waves-effect waves-light btn btn-flat "><i class="material-icons left">close</i>Sair</a>
                     </div>
                   </div>
+                    
               </div>
-              <div class="row center">
-                <div class="col s12 m6 l6">
-                    <button [disabled]="!formularioLogin.valid" (click)="loginEmailSenha()" class=" waves-effect waves-light btn btn-flat"><i class="material-icons left">input</i>Logar</button>
-                </div>
-                <div class="col s12 m6 l6">
-                    <a (click)="closeNavBarLogin()" class="waves-effect waves-light btn btn-flat "><i class="material-icons left">close</i>Sair</a>
-                </div>
-                 
-              </div>
-              <div class="row divider grey-text text-darken-3"></div>
-              <div class="row">            
-                  <a [routerLink]="['main']" (click)="loginProvider(1)" class="truncate col s12 m6 l6 center-align waves-effect waves-light btn red">Logar com Gmail</a>
-                  <a [routerLink]="['main']" (click)="loginProvider(2)" class="truncate col s12 m6 l6 center-align waves-effect waves-light btn blue ">Logar com Facebook</a>
-              </div>
+              <div class="card">     
+                <div class="card-content row">
+                    <span class="truncate card-title center-align">Outras Opções</span>
+                    <a [routerLink]="['main']" (click)="loginProvider(1)" class="truncate col s12 m6 l6 center-align waves-effect waves-light btn red">Logar com Gmail</a>
+                    <a [routerLink]="['main']" (click)="loginProvider(2)" class="truncate col s12 m6 l6 center-align waves-effect waves-light btn blue ">Logar com Facebook</a>
+                </div>       
+              </div>           
             </div>         
           </form>
         </div>

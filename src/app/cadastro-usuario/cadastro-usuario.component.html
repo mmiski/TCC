@@ -1,3 +1,4 @@
+<form #form="ngForm" >
 <div class="row section">
     <div class="col s12">
       <a (click)="gridUsuario()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
@@ -8,28 +9,124 @@
         <div class="card-content">
             <span class="card-title">Dados do Usuário</span>
             <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">person</i>
-                    <input  id="icon_nome" type="text" class="validate">
-                    <label for="icon_nome">Nome</label>
-                  </div>
+              <div class="input-field col s12 ">
+                  <i class="material-icons prefix">person</i>
+                  <input name="nome" [(ngModel)]="usuario.nome" placeholder="" id="nome" type="text" class="validate" required #nome="ngModel">
+                  <label for="nome">Nome</label>
+                </div>
           </div>
-          <div class="row">
-              <div class="input-field col s12 m6 l6 xl6">
-                <i class="material-icons prefix">email</i>
-                <input id="email" type="email" class="validate">
-                <label for="email" data-error="Inválido" data-success="Válido">Email</label>
+            <div class="row">
+              <div class="input-field col s12 m6 l6 ">
+                  <i class="material-icons prefix">email</i>
+                  <input name="email" [(ngModel)]="usuario.email" placeholder="" id="email" type="email" class="validate" required email #email="ngModel">
+                  <label for="email" data-error="Email Inválido">Email</label>
               </div>
-              <div class="input-field col s12 m6 l6 xl6">
-                <i class="material-icons prefix">security</i>
-                <input  id="icon_password" type="password" class="validate">
-                <label for="icon_password">Senha</label>
+              <div class="input-field col s12 m6 l6 ">
+                  <i class="material-icons prefix">security</i>
+                  <input name="senha" [(ngModel)]="usuario.senha" placeholder="" id="senha" type="password" class="validate" required #senha="ngModel">
+                  <label for="senha">Senha</label>
               </div>
             </div>
         </div>
     </div>
   </div>
   <div class="row container">
-      <a (click)="gridUsuario()"class="col s12 m6 btn btn-waves green">Salvar</a>
-      <a (click)="gridUsuario()" class="col s12 m6 btn btn-waves red">Cancelar</a>
+    <button [disabled]="!form.form.valid" (click)="salvar()"class="col s12 m6 btn btn-waves green">Salvar</button>
+    <a (click)="gridUsuario()" class="col s12 m6 btn btn-waves red">Cancelar</a>
   </div>
+</form>
+
+
+<!-- Modal LOADING -->
+<div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
+  <div class="modal-content center">
+      <h4 style="padding-bottom:1%;">Carregando</h4>
+      <div  class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+
+<!-- Modal ALERT -->
+<div id="alert" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="alert">
+  <div class="modal-content center no-padding">
+      <div class="row orange lighten-2 white-text title-alert">
+      <h4>{{msgTitulo}}</h4>
+  </div>
+  <div class="row">
+      <p>{{msgCorpo}}</p>
+  </div>
+</div>
+<div class="modal-footer">
+  <a class="waves-effect waves-green btn orange lighten-1" (click)="close('ALERT')">OK</a> 
+</div>
+</div>
+
+<!-- Modal SUCCESS -->
+<div id="success" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="success">
+  <div class="modal-content center no-padding">
+    <div class="row green lighten-2 white-text title-alert">
+          <h4>{{msgTitulo}}</h4>
+      </div>
+      <div class="row">
+          <p>{{msgCorpo}}</p>
+      </div>
+  </div>
+  <div class="modal-footer center">
+    <a class="waves-effect waves-green btn green lighten-1" (click)="close('SUCCESS')">OK</a> 
+  </div>
+</div>
+
+ <!-- Modal DANGER -->
+ <div id="danger" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="danger">
+  <div class="modal-content center no-padding">
+  <div class="row red lighten-2 white-text title-alert">
+      <h4>{{msgTitulo}}</h4>
+  </div>
+  <div class="row">
+      <p>{{msgCorpo}}</p>
+  </div>
+</div>
+<div class="modal-footer">
+<a class="waves-effect waves-green btn btn-flat" (click)="close('DANGER')">Sim</a> 
+<a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">Não</a>
+</div>
+</div>

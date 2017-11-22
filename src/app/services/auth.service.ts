@@ -5,7 +5,6 @@ import { Usuario } from '../classes/Usuario';
 import { AngularFireDatabase } from "angularFire2/database";
 import { Injectable } from '@angular/core';
 import { ClienteService } from './cliente.service';
-import { UsuarioService } from './usuario.service';
 import { Cliente } from '../classes/Cliente';
 import { Provider } from '@angular/core/src/di/provider';
 
@@ -15,7 +14,7 @@ export class AuthService{
     authState: Observable<firebase.User>;
     usuario: Usuario;
 
-    constructor(public afAuth: AngularFireAuth, public afDataBase: AngularFireDatabase, public _serviceCliente: ClienteService,public _serviceUsuario: UsuarioService){
+    constructor(public afAuth: AngularFireAuth, public afDataBase: AngularFireDatabase, public _serviceCliente: ClienteService){
         this.authState = afAuth.authState;
         this.usuario = new Usuario();
     }
@@ -34,10 +33,14 @@ export class AuthService{
         return this.afAuth.auth.sendPasswordResetEmail(email);
     }
 
-    cadastroUsuarioEmailSenha(email: string, senha: string, nome: string ){
-        debugger;
+    cadastroUsuarioEmailSenha(email: string, senha: string, nome: string, isLogin: boolean = true ){
         return this.afAuth.auth.createUserWithEmailAndPassword(email, senha).then((dados) => {
-            this.cadastraUsuarioDataBase(dados.email, dados.uid, nome).then(() => this.geraUsuario(0));
+            if (isLogin) {
+                this.cadastraUsuarioDataBase(dados.email, dados.uid, nome).then(() => {
+                    debugger;
+                    this.geraUsuario(0)
+            });
+            }          
         });
     }
 
@@ -47,13 +50,14 @@ export class AuthService{
         cadUsuario.email = usuario.email;
         cadUsuario.imagemUsuario = usuario.photoURL;
         cadUsuario.uid = usuario.uid;
+        cadUsuario.isAdm = true;
         cadUsuario.bloqueado = false;
        
         return this.afDataBase.list('/Usuarios').push(cadUsuario).then((dadosU) => {
             this._serviceCliente.criarClienteNovo().then((dadosC) => {
                 cadUsuario.identificacaoCliente = dadosC.key;
                 cadUsuario.keyDuplicadoUsuario = dadosU.key;
-                this._serviceUsuario.salvaUsuario(cadUsuario).then(() => this.geraUsuario(0));
+                this.alterar(cadUsuario).then(() => this.geraUsuario(0));
             });
         });
     }
@@ -68,14 +72,16 @@ export class AuthService{
         cadUsuario.email = email;
         cadUsuario.uid = uid;
         cadUsuario.nome = nome;
+        cadUsuario.isAdm = true;
+        cadUsuario.bloqueado = false;
         cadUsuario.imagemUsuario = 'http://icons.iconarchive.com/icons/double-j-design/origami-colored-pencil/256/blue-user-icon.png';     
         debugger;
         return this.afDataBase.list('/Usuarios').push(cadUsuario).then((dadosU) => {
-            this._serviceCliente.criarClienteNovo().then((dadosC) => {
-                cadUsuario.identificacaoCliente = dadosC.key;
-                cadUsuario.keyDuplicadoUsuario = dadosU.key;
-                this._serviceUsuario.salvaUsuario(cadUsuario);
-            });
+                this._serviceCliente.criarClienteNovo().then((dadosC) => {
+                    cadUsuario.identificacaoCliente = dadosC.key;
+                    cadUsuario.keyDuplicadoUsuario = dadosU.key;
+                    this.alterar(cadUsuario);
+                });        
         });
     }
 
@@ -90,7 +96,7 @@ export class AuthService{
 
     geraUsuario(localChamada: number){
         let retornoUsuario = new Usuario();
-        this.authState.subscribe((usuario: firebase.User)=>{
+            let usuario = this.afAuth.auth.currentUser;
             if (usuario != null) {
                 this.lstUsuarioDataBase(usuario.uid).subscribe(dados => {
                     debugger;
@@ -104,12 +110,12 @@ export class AuthService{
                         this.usuario .imagemUsuario = dados[0].imagemUsuario;
                         this.usuario .identificacaoCliente = dados[0].identificacaoCliente;
                         this.usuario .uid = dados[0].uid;
-                        this.usuario .bloqueado = dados[0].vinculado;
+                        this.usuario .bloqueado = dados[0].bloqueado;
+                        this.usuario .isAdm = dados[0].isAdm;
                         this.usuario .keyDuplicadoUsuario = dados[0].keyDuplicadoUsuario;
                     }               
                 });
-            }         
-        })
+            } 
     }
 
     getDadosClienteDataBase(): Cliente{
@@ -162,5 +168,10 @@ export class AuthService{
               }
         });
     }
+
+    alterar(usuario: Usuario){
+        debugger;
+                return this.afDataBase.list('/Usuarios').update(usuario.keyDuplicadoUsuario, usuario);
+          }
 
 }
