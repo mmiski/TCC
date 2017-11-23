@@ -7,8 +7,6 @@ import { AuthService } from '../services/auth.service';
 import { ResponsavelService } from '../services/responsavel.service';
 import { PassageiroService } from '../services/passageiro.service';
 import { MotoristaService } from '../services/motorista.service';
-import { ETipoUsuario } from '../enumerator/etipo-usuario.enum';
-
 @Component({
   selector: 'app-lista-acessos',
   templateUrl: './lista-acessos.component.html',
@@ -18,8 +16,8 @@ export class ListaAcessosComponent {
 
 
   listaGrid: Array<ListaGridDTO>;
-  listaCadastro: Array<ListaCadastroDTO>;
-  tipoUsuario: ETipoUsuario;
+  listaCadastro: FirebaseListObservable<any>;
+  tipoUsuario: number;
   key: string;
   
   msgTitulo: string = "";
@@ -29,8 +27,8 @@ export class ListaAcessosComponent {
   success = new EventEmitter<string|MaterializeAction>();
   danger = new EventEmitter<string|MaterializeAction>();  
   loading = new EventEmitter<string|MaterializeAction>();
-  responsavelCollapsible = new EventEmitter<string|MaterializeAction>();
-  vinculoPassageiroAction = new EventEmitter<string|MaterializeAction>();
+  usuarioCollapsible = new EventEmitter<string|MaterializeAction>();
+  vinculoUsuarioAction = new EventEmitter<string|MaterializeAction>();
   
   msgParams = [
     {
@@ -41,7 +39,7 @@ export class ListaAcessosComponent {
     }
   ]
 
-  vinculoPassageiroParams = [
+  vinculoUsuarioParams = [
     {
       dismissible: true,
       complete: function() { console.log('Closed'); }
@@ -67,21 +65,24 @@ export class ListaAcessosComponent {
 
       this.route.params.subscribe(parans => {
         this.tipoUsuario = parans['tipoUsuario'];        
+        
+        this.listaCadastro = this.tipoUsuario == 0 ? this._servicePassageiro.lista() : this.tipoUsuario == 1 ? this._serviceMotorista.lista() : this._serviceResponsavel.listaResponsaveis();
 
           this._serviceAcesso.lista().subscribe(dados => {
             dados.forEach(element => {
               if (element.tipoUsuario == this.tipoUsuario) {
               let listaGridNew = new ListaGridDTO();
-
+                debugger;
               listaGridNew.$key = element.$key;
               listaGridNew.$keyUsuario = element.usuarioKey;
               listaGridNew.codigo = element.codigo;
               listaGridNew.ultimoAcesso = element.ultimoAcesso;
               listaGridNew.dispositivoUltimoAcesso = element.dispositivoUltimoAcesso;
             
-                if (this.tipoUsuario == ETipoUsuario.Passageiro) {
+                if (this.tipoUsuario == 1) {
                   this._servicePassageiro.getDados(element.usuarioKey).subscribe(pass => {
                     pass.forEach(element => {
+                      debugger;
                       if (element.$key == 'nome') {
                         listaGridNew.nome = element.$value; 
                       }
@@ -92,9 +93,10 @@ export class ListaAcessosComponent {
                     
                     this.listaGrid.push(listaGridNew);
                   });
-                } else if (this.tipoUsuario == ETipoUsuario.Motorista) {
+                } else if (this.tipoUsuario == 2) {
                   this._serviceMotorista.getDados(element.usuarioKey).subscribe(pass => {
                     pass.forEach(element => {
+                      debugger;
                       if (element.$key == 'nome') {
                         listaGridNew.nome = element.$value; 
                       }
@@ -104,9 +106,10 @@ export class ListaAcessosComponent {
                     }); 
                     this.listaGrid.push(listaGridNew);                  
                   });
-                }else if (this.tipoUsuario == ETipoUsuario.Responsavel) {
+                }else if (this.tipoUsuario == 3) {
                   this._serviceResponsavel.getDados(element.usuarioKey).subscribe(pass => {
                     pass.forEach(element => {
+                      debugger;
                       if (element.$key == 'nome') {
                         listaGridNew.nome = element.$value; 
                       }
@@ -122,6 +125,11 @@ export class ListaAcessosComponent {
           })
       });
      }
+
+
+     gridAcessoMobile(){
+      this.router.navigate(['gridAcessoMobile']);
+    }
      
     show(tipo: string, key: string = ""){
 
@@ -155,12 +163,16 @@ export class ListaAcessosComponent {
       }
     }
 
-    openModalVincPassageiro() {
-      this.vinculoPassageiroAction.emit({action:"modal",params:['open']});
+    novo(){
+      this.openModalVincUs();
+    }
+
+    openModalVincUs() {
+      this.vinculoUsuarioAction.emit({action:"modal",params:['open']});
     }
   
     closeModalVincPassageiro() {
-      this.vinculoPassageiroAction.emit({action:"modal",params:['close']});
+      this.vinculoUsuarioAction.emit({action:"modal",params:['close']});
     }
 
 }
@@ -175,8 +187,3 @@ class ListaGridDTO{
   public dispositivoUltimoAcesso: string = "";
 }
 
-class ListaCadastroDTO{
-  public nome: string = "";
-  public cpf: string = "";
-  public $key: string = "";
-}

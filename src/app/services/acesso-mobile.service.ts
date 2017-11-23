@@ -20,7 +20,7 @@ clienteKey: string = "";
   }
 
   lista(): FirebaseListObservable<any>{
-    
+    debugger;
         return this.afDataBase.list(`/AcessosMobile/`,{
             query: {
             orderByChild: 'clienteKey',

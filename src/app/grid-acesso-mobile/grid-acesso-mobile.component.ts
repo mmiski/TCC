@@ -1,7 +1,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { MaterializeAction } from 'angular2-materialize';
-import { ETipoUsuario } from '../enumerator/etipo-usuario.enum';
 
 @Component({
   selector: 'app-grid-acesso-mobile',
@@ -25,11 +24,11 @@ export class GridAcessoMobileComponent{
   ]
 
   constructor(public router: Router) { 
-
+    
 
   }
 
-  visualizar(tipo: ETipoUsuario){
+  visualizar(tipo: number){
     this.show('LOADING');
     this.router.navigate(['listaAcessosMobile', tipo]);
     this.close('LOADING');

@@ -1,143 +1,165 @@
-
-    <div class="row section">
-        <div class="col s12 m12 l3 container">
-            <div class="card grey lighten-4">
-              <div class="card-content grey lighten-4 center-align">
-                <a class="waves-effect waves-light btn btn-flat" (click)="novo()"><i class="material-icons left">add</i>Adicionar</a>
-              </div>
+<div class="row section">
+    <div class="col s12">
+      <a (click)="gridAcessoMobile()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
+    </div>
+  </div>
+<div class="row section">
+  <div class="col s12 m12 l3 container">
+      <div class="card grey lighten-4">
+        <div class="card-content grey lighten-4 center-align">
+          <a class="waves-effect waves-light btn btn-flat" (click)="novo()"><i class="material-icons left">add</i>Adicionar</a>
+        </div>
+      </div>
+  </div>
+<div class="col s12 m12 l9">
+  <div class="card grey lighten-4 z-depth-4">
+    <div class="card-content grey lighten-4">
+        <div class="row">
+            <div class="col s2 m1 l1">
+                <i class="material-icons">info</i>
             </div>
-          </div>
-      <div class="col s12 m12 l9">
-        <div class="card grey lighten-4 z-depth-4">
-          <div class="card-content grey lighten-4">
-            <ul class="collection" >
-                <li class="row collection-item valign-wrapper" *ngFor="let item of lista">
-                  <div class="col s8">
-                      <div>
-                        <h6>{{item.nome}}</h6>
-                        <label>{{item.cpf}}</label>
-                      </div>
+            <div class="con s10 m11 l11">
+                <label class="red-text">Clique nos registros para ver mais informações.</label>
+            </div>
+        </div>
+        
+        <ul  materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="usuarioCollapsible">
+          <li *ngFor="let item of listaGrid">
+            <div class="collapsible-header row" style="margin-bottom: 0px;">
+                  <div class="col s3 m9 l9 grey-text text-darken-4">
+                    <h6>{{item.nome}}</h6>
                   </div>
-                  <a (click)="carregaListaPassageirosSemVinc(item.$key)" materialize="tooltip" class="col s2  btn btn-flat waves-effect tooltipped" data-position="top" data-delay="20" data-tooltip="Visualizar Acesso">
-                      <i class="material-icons">visibility</i>
-                    </a>   
-                  <a  (click)="show('DANGER', item.$key)" class="col s2 btn btn-flat waves-effect">
+                 
+                  <a  materialize="tooltip" class="col s3 m1 l1 btn btn-flat waves-effect tooltipped" data-position="top" data-delay="20" data-tooltip="Ver QRCode">
+                    <i class="material-icons">flip_to_back</i>
+                  </a>   
+                  <a  (click)="show('DANGER', item.$key)" class="col s3 m1 l1 btn btn-flat waves-effect">
                       <i class="material-icons">delete</i>
-                  </a>             
-                </li>               
-            </ul>
-            <div *ngIf="(listaMotoristas | async)?.length == 0" class="center-align">
-                <label>Nenhum registro encontrado.</label>
+                  </a>                       
+          </div> 
+          <div class="collapsible-body" style="display: none;">
+            <div class="row card">
+              <div class="card-content">
+                <div class="col s12">
+                  <label>{{item.codigo}}</label>
+                </div>
+              </div>
+            </div>
+          </div>  
+          </li>               
+      </ul>
+      <div *ngIf="(listaGrid)?.length == 0" class="center-align">
+          <label>Nenhum registro encontrado.</label>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div id="modalVincUs" class="modal bottom-sheet" materialize="modal" [materializeParams]="vinculoUsuarioParams" [materializeActions]="vinculoUsuarioAction">
+  <div class="modal-content">
+      <h4 class="center">Selecione uma pessoa para gerar o Acesso Mobile</h4>
+        <div class="collection">
+          <a  *ngFor="let us of listaCadastro | async" class="collection-item">{{us.nome}} - CPF: {{us.cpf}}</a>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Fechar</a>
+    </div>
+</div>
+
+ <!-- Modal LOADING -->
+ <div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
+    <div class="modal-content center">
+      <h4 style="padding-bottom:1%;">Carregando</h4>
+      <div  class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
             </div>
           </div>
         </div>
-      </div>
-     
     </div>
-
-    <div id="modalAcesso" class="modal bottom-sheet" materialize="modal" [materializeParams]="vinculoPassageiroParams" [materializeActions]="vinculoPassageiroAction">
-        <div class="modal-content">
-            <h4 class="center">Selecione um Passageiro para Víncular</h4>
-              <div class="collection">
-                <a (click)="adicionarAcesso(reg.clienteKey, reg.usuarioKey)" *ngFor="let reg of listaRegistros" class="collection-item">{{reg.nome}} - CPF: {{reg.cpf}}</a>
-              </div>
-          </div>
-          <div class="modal-footer">
-            <a class="modal-action modal-close waves-effect waves-green btn-flat">Fechar</a>
-          </div>
     </div>
-  
-  <!-- Modal LOADING -->
-  <div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
-  <div class="modal-content center">
-    <h4 style="padding-bottom:1%;">Carregando</h4>
-    <div  class="preloader-wrapper big active">
-        <div class="spinner-layer spinner-blue">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div><div class="gap-patch">
-            <div class="circle"></div>
-          </div><div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-  
-        <div class="spinner-layer spinner-red">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div><div class="gap-patch">
-            <div class="circle"></div>
-          </div><div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-  
-        <div class="spinner-layer spinner-yellow">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div><div class="gap-patch">
-            <div class="circle"></div>
-          </div><div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-  
-        <div class="spinner-layer spinner-green">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div><div class="gap-patch">
-            <div class="circle"></div>
-          </div><div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-      </div>
-  </div>
-  </div>
-  
-  <!-- Modal ALERT -->
-  <div id="alert" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="alert">
-  <div class="modal-content center no-padding">
-    <div class="row orange lighten-2 white-text title-alert">
-    <h4>{{msgTitulo}}</h4>
-  </div>
-  <div class="row">
-    <p>{{msgCorpo}}</p>
-  </div>
-  </div>
-  <div class="modal-footer">
-  <a class="waves-effect waves-green btn orange lighten-1" (click)="close('ALERT')">OK</a> 
-  </div>
-  </div>
-  
-  <!-- Modal SUCCESS -->
-  <div id="success" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="success">
-  <div class="modal-content center no-padding">
-  <div class="row green lighten-2 white-text title-alert">
-        <h4>{{msgTitulo}}</h4>
+    
+    <!-- Modal ALERT -->
+    <div id="alert" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="alert">
+    <div class="modal-content center no-padding">
+      <div class="row orange lighten-2 white-text title-alert">
+      <h4>{{msgTitulo}}</h4>
     </div>
     <div class="row">
-        <p>{{msgCorpo}}</p>
+      <p>{{msgCorpo}}</p>
     </div>
-  </div>
-  <div class="modal-footer center">
-  <a class="waves-effect waves-green btn green lighten-1" (click)="close('SUCCESS')">OK</a> 
-  </div>
-  </div>
-  
-  <!-- Modal DANGER -->
-  <div id="danger" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="danger">
-  <div class="modal-content center no-padding">
-  <div class="row red lighten-2 white-text title-alert">
-    <h4>Exclusão</h4>
-  </div>
-  <div class="row">
-    <p>Deseja excluir esse registro?</p>
-  </div>
-  </div>
-  <div class="modal-footer">
-  <a class="waves-effect waves-green btn btn-flat" (click)="excluir(key)">Sim</a> 
-  <a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">Não</a>
-  </div>
-  </div>
-  
+    </div>
+    <div class="modal-footer">
+    <a class="waves-effect waves-green btn orange lighten-1" (click)="close('ALERT')">OK</a> 
+    </div>
+    </div>
+    
+    <!-- Modal SUCCESS -->
+    <div id="success" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="success">
+    <div class="modal-content center no-padding">
+    <div class="row green lighten-2 white-text title-alert">
+          <h4>{{msgTitulo}}</h4>
+      </div>
+      <div class="row">
+          <p>{{msgCorpo}}</p>
+      </div>
+    </div>
+    <div class="modal-footer center">
+    <a class="waves-effect waves-green btn green lighten-1" (click)="close('SUCCESS')">OK</a> 
+    </div>
+    </div>
+    
+    <!-- Modal DANGER -->
+    <div id="danger" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="danger">
+    <div class="modal-content center no-padding">
+    <div class="row red lighten-2 white-text title-alert">
+      <h4>Exclusão</h4>
+    </div>
+    <div class="row">
+      <p>Deseja excluir esse registro?</p>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <a class="waves-effect waves-green btn btn-flat" (click)="excluir(key)">Sim</a> 
+    <a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">Não</a>
+    </div>
+    </div>
+    

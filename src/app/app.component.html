@@ -32,10 +32,10 @@
               <div class="divider"></div>
             </li>
             
-            <li><a [routerLink]="['gridAcessoMobile']" (click)="setTitulo('Acessos Mobile')" class="collapsible-header waves-effect waves-teal"><i class="material-icons">phone_iphone</i>Acessos Mobile</a></li>
+            <li *ngIf="!usuario.bloqueado"><a [routerLink]="['gridAcessoMobile']" (click)="setTitulo('Acessos Mobile')" class="collapsible-header waves-effect waves-teal"><i class="material-icons">phone_iphone</i>Acessos Mobile</a></li>
             <li *ngIf="!usuario.bloqueado"><a *ngIf="usuario.isAdm" (click)="setTitulo('Gerenciamento de Usuários')" class="collapsible-header waves-effect waves-teal" [routerLink]="['gridUsuario']"><i class="material-icons">person</i>Gerenciamento de Usuários</a></li>
             <li>
-                <div class="divider"></div>
+                <div *ngIf="!usuario.bloqueado" class="divider"></div>
               </li>
             <li *ngIf="!usuario.bloqueado" class="padding-top-1perc">
               <ul materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="navBarLateralCollapsible">

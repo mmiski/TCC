@@ -180,7 +180,7 @@ params = [
       this.msgCorpo = err.message;
       this.show('ALERT');
     });    
-}
+  }
 
 isDeletarCliente(): boolean{
   let retorno: boolean = false;
