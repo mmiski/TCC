@@ -34,6 +34,7 @@ import { VisualizarPassageiroMensalidadeComponent } from './visualizar-passageir
 import { GridAcessoMobileComponent } from './grid-acesso-mobile/grid-acesso-mobile.component';
 import { ListaAcessosComponent } from './lista-acessos/lista-acessos.component';
 import { VisualizaAcessoComponent } from './visualiza-acesso/visualiza-acesso.component';
+import { CadastroPontoMapaComponent } from './cadastro-ponto-mapa/cadastro-ponto-mapa.component';
 
 const appRoutes: Routes  = [
   { path: 'site', component: SiteComponent },
@@ -61,9 +62,11 @@ const appRoutes: Routes  = [
   { path: 'veicRevisao', component: VeiculoRevisaoComponent },
   { path: 'cadMotorista/:key', component: CadastroMotoristaComponent },
   { path: 'cadMotorista', component: CadastroMotoristaComponent },
-  { path: 'gridMotorista', component: GridMotoristaComponent },
-  { path: 'cadRota', component: CadastroRotasComponent },
+  { path: 'gridMotorista', component: GridMotoristaComponent },  
   { path: 'gridRota', component: GridRotasComponent },
+  { path: 'cadRota', component: CadastroRotasComponent },
+  { path: 'cadRota/:key', component: CadastroRotasComponent },
+  { path: 'cadPontoMapa/:rotaKey', component: CadastroPontoMapaComponent },
   { path: 'rotaVincPass', component: RotaVinculoPassageiroComponent },
   { path: 'cadRotaVincPass', component: CadastroRotaVinculoPassageiroComponent },
   { path: 'cadPlanoMensalidade/:key', component: CadastroPlanoMensalidadeComponent },

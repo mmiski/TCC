@@ -47,7 +47,8 @@ export class CadastroVeiculoComponent{
             this.veiculo.fabricante = dados[1].$value;          
             this.veiculo.modelo = dados[2].$value;
             this.veiculo.placa = dados[3].$value;
-            this.veiculo.renavam = dados[4].$value;
+            this.veiculo.quantidadePassageiros = dados[4].$value;
+            this.veiculo.renavam = dados[5].$value;
           });
       }
   });

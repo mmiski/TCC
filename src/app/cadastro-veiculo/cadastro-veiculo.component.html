@@ -33,11 +33,16 @@
                       </div>
             </div>
             <div class="row">
-                <div class="input-field col s12 ">
+                <div class="input-field col s12 m6 l6 ">
                     <i class="material-icons prefix">priority_high</i>
                     <input name="renavam" [(ngModel)]="veiculo.renavam" placeholder="" id="renavam" type="number" class="validate" required #renavam="ngModel">
                     <label for="renavam">RENAVAM</label>
                 </div>
+                <div class="input-field col s12 m6 l6 ">
+                  <i class="material-icons prefix">group</i>
+                  <input name="qtdPass" [(ngModel)]="veiculo.quantidadePassageiros" placeholder="" id="qtdPass" type="number" class="validate" required #qtdPass="ngModel">
+                  <label for="qtdPass">Quantidade de Passageiros</label>
+              </div>
             </div>
           </div>
     </div>

@@ -4,5 +4,6 @@ export class Veiculo{
                     public ano: string = "",
                     public modelo: string ="",
                     public fabricante: string = "",
-                    public renavam: string = ""){}
+                    public renavam: string = "",
+                    public quantidadePassageiros: number = 0){}
     }

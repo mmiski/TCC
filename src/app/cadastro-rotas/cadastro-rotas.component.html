@@ -3,59 +3,145 @@
       <a (click)="gridRotas()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
     </div>
   </div>
+  <form #form="ngForm">
   <div class="row container">
     <div class="card z-depth-5">
         <div class="card-content">
             <span class="card-title">Dados da Rota</span>
             <div class="row">
                 <div class="input-field col s12 m3 l3 xl3">
-                        <select name="selectedOption" materialize="material_select" [materializeSelectOptions]="selectOptions">
+                        <select  name="sentido" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="rota.sentido" required #sentido="ngModel">
                                 <option value="" disabled selected>Sentido</option>
                                 <option *ngFor="let option of selectOptions" [value]="option.value">{{option.name}}</option>
                         </select>
                 </div>
                 <div class="input-field col s12 m9 l9 xl9">
-                    <input  id="icon_descr" type="text" class="validate">
-                    <label for="icon_descr">Descrição</label>
+                    <input name="descricao" [(ngModel)]="rota.descricao" placeholder="" id="descricao" type="text" class="validate" required #descricao="ngModel">
+                    <label for="descricao">Descrição</label>
                   </div>              
             </div>
             <div class="row">           
                   <div class="input-field col s12 m6 l6 xl6">
                     <i class="material-icons prefix">watch_later</i>
-                    <input id="inicio"
+                    <input
                     materialize="pickatime" 
                     [materializeActions]="horarioInicio"
                     [materializeParams]="[{twelvehour: true}]"
-                    placeholder="00:00" class="validate" type="text">
-                    <label for="inicio">Horário de Inicio</label>
+                    name="horaInicio" [(ngModel)]="rota.horaInicio" placeholder="" id="horaInicio" type="text" class="validate" required #horaInicio="ngModel">
+                    <label for="horaInicio">Horário de Inicio</label>
                   </div>
                   <div class="input-field col s12 m6 l6 xl6">
                       <i class="material-icons prefix">watch_later</i>
-                      <input id="termino"
+                      <input
                       materialize="pickatime" 
                       [materializeActions]="horarioTermino"
                       [materializeParams]="[{twelvehour: true}]"
-                      placeholder="00:00" class="validate" type="text">
-                      <label for="inicio">Horário de Término</label>
+                      name="horaTermino" [(ngModel)]="rota.horaTermino" placeholder="" id="horaTermino" type="text" class="validate" required #horaTermino="ngModel">
+                      <label for="horaTermino">Horário de Término</label>
                     </div>
             </div>
             
           </div>
     </div>    
   </div>
-  <div class="row container">
-      <div class="card z-depth-5">
-        <div class="card-content">
-            <span class="card-title">Mapa</span>
-            <div class="row">
-                <agm-map [latitude]="lat" [longitude]="lng">
-                    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-                </agm-map>
-            </div>
-        </div>
-      </div>
-    </div>
+
     <div class="row container">
-          <a (click)="gridRotas()"class="col s12 m6 btn btn-waves green">Salvar</a>
-          <a (click)="gridRotas()" class="col s12 m6 btn btn-waves red">Cancelar</a>
+      <button [disabled]="!form.form.valid" (click)="salvar()"class="col s12 m6 btn btn-waves green">Salvar</button>
+      <a (click)="gridRotas()" class="col s12 m6 btn btn-waves red">Cancelar</a>
       </div>
+    </form>
+
+
+<!-- Modal LOADING -->
+<div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
+  <div class="modal-content center">
+      <h4 style="padding-bottom:1%;">Carregando</h4>
+      <div  class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+    
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+
+<!-- Modal ALERT -->
+<div id="alert" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="alert">
+  <div class="modal-content center no-padding">
+      <div class="row orange lighten-2 white-text title-alert">
+      <h4>{{msgTitulo}}</h4>
+  </div>
+  <div class="row">
+      <p>{{msgCorpo}}</p>
+  </div>
+</div>
+<div class="modal-footer">
+  <a class="waves-effect waves-green btn orange lighten-1" (click)="close('ALERT')">OK</a> 
+</div>
+</div>
+
+<!-- Modal SUCCESS -->
+<div id="success" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="success">
+  <div class="modal-content center no-padding">
+    <div class="row green lighten-2 white-text title-alert">
+          <h4>{{msgTitulo}}</h4>
+      </div>
+      <div class="row">
+          <p>{{msgCorpo}}</p>
+      </div>
+  </div>
+  <div class="modal-footer center">
+    <a class="waves-effect waves-green btn green lighten-1" (click)="close('SUCCESS')">OK</a> 
+  </div>
+</div>
+
+ <!-- Modal DANGER -->
+ <div id="danger" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="danger">
+  <div class="modal-content center no-padding">
+  <div class="row red lighten-2 white-text title-alert">
+      <h4>{{msgTitulo}}</h4>
+  </div>
+  <div class="row">
+      <p>{{msgCorpo}}</p>
+  </div>
+</div>
+<div class="modal-footer">
+<a class="waves-effect waves-green btn btn-flat" (click)="close('DANGER')">Sim</a> 
+<a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">Não</a>
+</div>
+</div>
