@@ -7,6 +7,8 @@ import { AuthService } from '../services/auth.service';
 import { ResponsavelService } from '../services/responsavel.service';
 import { PassageiroService } from '../services/passageiro.service';
 import { MotoristaService } from '../services/motorista.service';
+import { AcessoMobile } from '../classes/AcessoMobile';
+import { UUID } from 'angular2-uuid';
 @Component({
   selector: 'app-lista-acessos',
   templateUrl: './lista-acessos.component.html',
@@ -57,7 +59,7 @@ export class ListaAcessosComponent {
                 public _servicePassageiro: PassageiroService, public _serviceMotorista: MotoristaService) {
 
                   
-                  
+      this.listaGrid = new Array<ListaGridDTO>();        
       this._serviceAcesso.clienteKey = this._serviceAuth.usuario.identificacaoCliente;
       this._serviceMotorista.key = this._serviceAuth.usuario.identificacaoCliente;
       this._servicePassageiro.key = this._serviceAuth.usuario.identificacaoCliente;
@@ -69,6 +71,7 @@ export class ListaAcessosComponent {
         this.listaCadastro = this.tipoUsuario == 0 ? this._servicePassageiro.lista() : this.tipoUsuario == 1 ? this._serviceMotorista.lista() : this._serviceResponsavel.listaResponsaveis();
 
           this._serviceAcesso.lista().subscribe(dados => {
+            this.listaGrid = new Array<ListaGridDTO>(); 
             dados.forEach(element => {
               if (element.tipoUsuario == this.tipoUsuario) {
               let listaGridNew = new ListaGridDTO();
@@ -79,7 +82,7 @@ export class ListaAcessosComponent {
               listaGridNew.ultimoAcesso = element.ultimoAcesso;
               listaGridNew.dispositivoUltimoAcesso = element.dispositivoUltimoAcesso;
             
-                if (this.tipoUsuario == 1) {
+                if (this.tipoUsuario == 0) {
                   this._servicePassageiro.getDados(element.usuarioKey).subscribe(pass => {
                     pass.forEach(element => {
                       debugger;
@@ -93,7 +96,7 @@ export class ListaAcessosComponent {
                     
                     this.listaGrid.push(listaGridNew);
                   });
-                } else if (this.tipoUsuario == 2) {
+                } else if (this.tipoUsuario == 1) {
                   this._serviceMotorista.getDados(element.usuarioKey).subscribe(pass => {
                     pass.forEach(element => {
                       debugger;
@@ -106,7 +109,7 @@ export class ListaAcessosComponent {
                     }); 
                     this.listaGrid.push(listaGridNew);                  
                   });
-                }else if (this.tipoUsuario == 3) {
+                }else if (this.tipoUsuario == 2) {
                   this._serviceResponsavel.getDados(element.usuarioKey).subscribe(pass => {
                     pass.forEach(element => {
                       debugger;
@@ -129,8 +132,58 @@ export class ListaAcessosComponent {
 
      gridAcessoMobile(){
       this.router.navigate(['gridAcessoMobile']);
-    }
+     }
+
+     visualizaQRCode(key: string = ""){
+      this.router.navigate(['QRCode', key]);
+     }
      
+      adicionarVincUsuario(us: any){
+      this.show('LOADING');
+      let acessoMobileNew = new AcessoMobile();
+      
+      acessoMobileNew.clienteKey = this._serviceAuth.usuario.identificacaoCliente;
+      acessoMobileNew.tipoUsuario = this.tipoUsuario;
+      acessoMobileNew.usuarioKey = us.$key;
+      acessoMobileNew.codigo = UUID.UUID();
+
+      this._serviceAcesso.isDuplicado(us.$key).then(() => {
+        this._serviceAcesso.novo(acessoMobileNew).then(() => {
+          this.close('LOADING');
+          this.closeModalVincPassageiro();
+          this.msgTitulo = "Vínculo Concluído"
+          this.msgCorpo = "Agora o usuário pode acessar pelo aplicativo VANNZ."
+          this.show('SUCCESS');
+        }).catch(err => {
+          this.close('LOADING');
+          this.msgTitulo = "Atenção";
+          this.msgCorpo = err.message;
+          this.show('ALERT');
+        });
+      }).catch(err => {
+        this.close('LOADING');
+        this.msgTitulo = "Atenção";
+        this.msgCorpo = err.message;
+        this.show('ALERT');
+      });;
+    }
+
+    excluir(key: string){
+      this.show('LOADING');
+      this.close('DANGER');
+      this._serviceAcesso.deleta(key).then(() =>{
+        this.close('LOADING');
+        this.msgTitulo = "Exclusão Concluída"
+        this.msgCorpo = "Area de Atuação foi excluida com êxito."
+        this.show('SUCCESS');
+      }).catch(err => {
+        this.close('LOADING');
+        this.msgTitulo = "Atenção";
+        this.msgCorpo = err.message;
+        this.show('ALERT');
+      });
+    }
+
     show(tipo: string, key: string = ""){
 
       if (tipo.toUpperCase() == "ALERT") {

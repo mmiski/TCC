@@ -16,6 +16,7 @@ export class PassageiroService {
   }
 
   getDados(key: string){
+    debugger;
     return this.afDataBase.list(`/Clientes/${this.key}/Passageiros/${key}`);
   }
 

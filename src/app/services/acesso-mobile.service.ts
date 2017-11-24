@@ -16,7 +16,12 @@ clienteKey: string = "";
 
  
   getDados(key: string){
+    debugger;
     return this.afDataBase.list(`/AcessosMobile/${key}`);
+  }
+
+  novo(acessoMobile: AcessoMobile){
+    return this.lista().push(acessoMobile);
   }
 
   lista(): FirebaseListObservable<any>{

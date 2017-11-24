@@ -76,7 +76,7 @@ const appRoutes: Routes  = [
   { path: 'gridUsuario', component: GridUsuarioComponent },
   { path: 'contato', component: ContatoComponent },
   { path: 'gridAcessoMobile', component: GridAcessoMobileComponent },
-  { path: 'listaAcessosMobile/:tipoUsuario', component: ListaAcessosComponent },
+  { path: 'QRCode/:tipoUsuario', component: ListaAcessosComponent },
   { path: 'visualizaAcesso/:key', component: VisualizaAcessoComponent },
   { path: '**', redirectTo: 'site'}
 ];
