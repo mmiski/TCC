@@ -17,6 +17,7 @@ export class VisualizaAcessoComponent {
   usuario: UsuarioDTO;
   acessoMobile: AcessoMobile;
   logado: boolean = false;
+  key: string = "";
 
   constructor(public _serviceAuth: AuthService, public _serviceAcesso: AcessoMobileService, public router: Router, public route: ActivatedRoute, public _serviceResponsavel: ResponsavelService,
     public _servicePassageiro: PassageiroService, public _serviceMotorista: MotoristaService) { 
@@ -24,18 +25,12 @@ export class VisualizaAcessoComponent {
     this.usuario = new UsuarioDTO();
     this.acessoMobile = new AcessoMobile();
     this.logado = this._serviceAuth.afAuth.auth.currentUser != null ? true : false;
-    this._serviceAcesso.clienteKey = this._serviceAuth.usuario.identificacaoCliente;
-    this._serviceMotorista.key = this._serviceAuth.usuario.identificacaoCliente;
-    this._servicePassageiro.key = this._serviceAuth.usuario.identificacaoCliente;
-    this._serviceResponsavel.key = this._serviceAuth.usuario.identificacaoCliente;
-
-    let key: string = "";
 
     this.route.params.subscribe(parans => {
-     key  = parans['key']; 
+     this.key  = parans['key']; 
     });
-
-    this._serviceAcesso.getDados(key).subscribe(dados => {
+debugger;
+    this._serviceAcesso.getDados(this.key).subscribe(dados => {
       dados.forEach(pass => {
         debugger;
         if (pass.$key == 'usuarioKey') {
@@ -58,6 +53,10 @@ export class VisualizaAcessoComponent {
           this.acessoMobile.dispositivoUltimoAcesso = pass.$value; 
         }
       });
+
+      this._serviceMotorista.key = this.acessoMobile.clienteKey;
+      this._servicePassageiro.key = this.acessoMobile.clienteKey;
+      this._serviceResponsavel.key = this.acessoMobile.clienteKey;
       if (this.acessoMobile.tipoUsuario == 0) {
         this._servicePassageiro.getDados(this.acessoMobile.usuarioKey).subscribe(pass => {
           pass.forEach(element => {

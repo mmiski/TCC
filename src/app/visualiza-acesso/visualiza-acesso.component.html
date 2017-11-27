@@ -3,23 +3,24 @@
     <a (click)="listaAcessoMobile()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
   </div>
 </div>
-<div class="row card">
-    <div class="card-content">
+<div class="card z-depth-5">
+    <div class=" row card-content center-align">
+      <span class="card-title">Acesso Mobile</span>
       <div class="col s12 m4 l4">
         <qr-code [value]="usuario.codigo" [size]="250"></qr-code>
       </div>
       <div class="col s12 m8 l8 card">
-        <div class="card-content text-center">
+        <div class="card-content ">
           <div class="row">
-              <div class="col s12 m6 l6 text-center">
+              <div class="col s12 m6 l6 ">
                   <p><strong>{{usuario.nome}}</strong></p>
               </div>
-              <div class="col s12 m6 l6 text-center">
+              <div class="col s12 m6 l6 ">
                 <p><strong>CPF: </strong>{{usuario.cpf}}</p>
               </div>
           </div>
           <div class="row" style="margin: 0px;">
-            <div class="col s12 text-center">
+            <div class="col s12 ">
                 <p><strong>Código: </strong>{{usuario.codigo}}</p>
             </div>
           </div>
@@ -28,8 +29,8 @@
       <div class="col s12 m8 l8 card">
           <div class="card-content">
             <div class="row" style="margin: 0px;">
-              <div class="col s12 text-center">
-                  <p>Link: <strong>www.web-vannz.firebaseapp.com/QRCode/{{acessoMobile.usuarioKey}}</strong></p>
+              <div class="col s12 ">
+                  <p>Link: <strong>www.web-vannz.firebaseapp.com/QRCode/{{key}}</strong></p>
               </div>
             </div>
           </div>

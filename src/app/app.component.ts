@@ -111,7 +111,7 @@ msgParams = [
 //Método construtor
 constructor(private formBuilder: FormBuilder, public router: Router, public  _service: AuthService, public _serviceUsuarioMensagem: UsuarioMensagemService){
   this.usuarioMensagem = new UsuarioMensagem();
-  this.router.navigate(['site']);
+  // this.router.navigate(['site']);
   this.usuario = new Usuario();
 
 }
