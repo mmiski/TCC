@@ -9,13 +9,7 @@
         <div class="card-content">
             <span class="card-title">Dados da Rota</span>
             <div class="row">
-                <div class="input-field col s12 m3 l3 xl3">
-                        <select  name="sentido" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="rota.sentido" required #sentido="ngModel">
-                                <option value="" disabled selected>Sentido</option>
-                                <option *ngFor="let option of selectOptions" [value]="option.value">{{option.name}}</option>
-                        </select>
-                </div>
-                <div class="input-field col s12 m9 l9 xl9">
+                <div class="input-field col s12">
                     <input name="descricao" [(ngModel)]="rota.descricao" placeholder="" id="descricao" type="text" class="validate" required #descricao="ngModel">
                     <label for="descricao">Descrição</label>
                   </div>              
@@ -26,7 +20,7 @@
                     <input
                     materialize="pickatime" 
                     [materializeActions]="horarioInicio"
-                    [materializeParams]="[{twelvehour: true}]"
+                    [materializeParams]="timePickerParams"
                     name="horaInicio" [(ngModel)]="rota.horaInicio" placeholder="" id="horaInicio" type="text" class="validate" required #horaInicio="ngModel">
                     <label for="horaInicio">Horário de Inicio</label>
                   </div>
@@ -35,7 +29,7 @@
                       <input
                       materialize="pickatime" 
                       [materializeActions]="horarioTermino"
-                      [materializeParams]="[{twelvehour: true}]"
+                      [materializeParams]="timePickerParams"
                       name="horaTermino" [(ngModel)]="rota.horaTermino" placeholder="" id="horaTermino" type="text" class="validate" required #horaTermino="ngModel">
                       <label for="horaTermino">Horário de Término</label>
                     </div>

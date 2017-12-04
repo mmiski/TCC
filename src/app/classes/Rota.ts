@@ -1,8 +1,7 @@
 export class Rota{
     
-        constructor(public sentido: string = "", 
-                    public descricao: string = "",
+        constructor(public descricao: string = "",
                     public horaInicio: string ="",
-                    public horaTermino: string = "",
-                    public rotaIniciada: boolean = false){}
+                    public horaTermino: string = "",                  
+                    public iniciada: boolean = false){}
     }

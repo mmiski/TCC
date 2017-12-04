@@ -84,7 +84,7 @@ export class CadastroPassageiroComponent {
               }
               else if (pass.$key == 'nome') {
                 this.passageiro.nome = pass.$value; 
-            }
+              }
               else if (pass.$key == 'telefone') {
                 this.passageiro.telefone = pass.$value; 
               }

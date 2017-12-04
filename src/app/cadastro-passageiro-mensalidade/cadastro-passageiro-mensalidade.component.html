@@ -11,7 +11,6 @@
             <span class="card-title">Dados da Mensalidade</span>
             <div class="row">
               <div class="input-field col s12">
-                  <!-- (ngModelChange)="setaKeyMensalidade($event)" -->
                   <select name="doc" materialize="material_select"  [materializeSelectOptions]="listaModelosMensalidade" [(ngModel)]="mensalidade" required #doc="ngModel">
                       <option value="" disabled selected>Selecione um mensalidade</option>
                       <option *ngFor="let option of listaModelosMensalidade" [ngValue]="option">{{option.titulo}}</option>

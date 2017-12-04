@@ -1,0 +1,27 @@
+<div class="row section">
+    <div class="col s12">
+      <a (click)="gridRota()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
+    </div>
+  </div>
+  <div class="card z-depth-5">
+    <div class="card-content">
+        <span class="card-title center-align">Mapa de percurso da Rota</span>
+        <agm-map [latitude]="-26.225484" [longitude]="-52.6721232" [zoom]="zoom" [streetViewControl]="false">
+            <agm-marker *ngFor="let item of listaRotaPassageiros" [latitude]="item.latitude" [longitude]="item.longitude">
+                <agm-info-window>
+                  <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s12">                                     
+                      <label>Ordem: {{item.ordem}}</label>
+                    </div>
+                    <div class="col s12">
+                        <strong>Nome: {{item.nome}}</strong>
+                    </div>
+                    <div class="col s12">
+                        <strong>CPF: {{item.cpf}}</strong>
+                    </div>
+                  </div>
+                </agm-info-window>
+            </agm-marker>
+        </agm-map>
+    </div>
+  </div>

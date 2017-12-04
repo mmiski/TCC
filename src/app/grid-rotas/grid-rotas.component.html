@@ -7,19 +7,18 @@
           </div>
       </div>
     <div class="col s12 m12 l9">
-        <blockquote>
-          Clique na linha dos registros para ver mais informações.
-        </blockquote>
       <div class="card grey lighten-4 z-depth-4">
         <div class="card-content grey lighten-4">
-            <ul  materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="usuarioCollapsible">
-              <li (click)="carregaMapa(item.$key)"  *ngFor="let item of listaRotas | async">
-                <div class="collapsible-header row" style="margin-bottom: 0px;">
-                    <div class="col s3 m9 l9 grey-text text-darken-4">
+            <ul class="collection">
+              <li class="row collection-item valign-wrapper" *ngFor="let item of listaRotas | async" style="margin-bottom: 0px;">
+                    <div class="col s12 m8 l8 grey-text text-darken-4">
                         <h6>{{item.descricao}}</h6>
+                        <label>Horario de Início e Término: {{item.horaInicio}} ~ {{item.horaTermino}}</label>
                       </div>
-                     
-                      <a (click)="cadPontoMapa(item.$key)" materialize="tooltip" class="col s3 m1 l1 btn btn-flat waves-effect tooltipped" data-position="top" data-delay="20" data-tooltip="Pontos da Rota">
+                      <a class="col s3 m1 l1 btn btn-flat waves-effect tooltipped" materialize="tooltip" data-position="top" data-delay="20" data-tooltip="Ver Mapa"(click)="rotaMapa(item.$key)">
+                        <i class="material-icons">map</i>Ver Mapa
+                      </a>
+                      <a (click)="gridRotaVincPass(item.$key)" materialize="tooltip" class="col s3 m1 l1 btn btn-flat waves-effect tooltipped" data-position="top" data-delay="20" data-tooltip="Vincular Passageiros">
                         <i class="material-icons">pin_drop</i>
                       </a>   
                       <a class="col s3 m1 l1 btn btn-flat waves-effect" (click)="alterar(item.$key)">
@@ -27,17 +26,7 @@
                       </a>
                       <a  (click)="show('DANGER', item.$key)" class="col s3 m1 l1 btn btn-flat waves-effect">
                           <i class="material-icons">delete</i>
-                      </a>                         
-              </div> 
-              <div class="collapsible-body" style="display: none;">
-                <agm-map [latitude]="-26.225484" [longitude]="-52.6721232" [zoom]="30" [streetViewControl]="false">
-                    <agm-marker *ngFor="let p of listaPontos | async" [latitude]="p.latitude" [longitude]="p.longitude">
-                        <agm-info-window>
-                          <strong>{{p.descricao}}</strong>
-                        </agm-info-window>
-                    </agm-marker>
-                </agm-map>
-              </div>  
+                      </a>  
               </li>               
           </ul>
           <div *ngIf="(listaRotas | async)?.length == 0" class="center-align">

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CadastroPontoMapaComponent } from './cadastro-ponto-mapa.component';
+import { RotaMapaComponent } from './rota-mapa.component';
 
-describe('CadastroPontoMapaComponent', () => {
-  let component: CadastroPontoMapaComponent;
-  let fixture: ComponentFixture<CadastroPontoMapaComponent>;
+describe('RotaMapaComponent', () => {
+  let component: RotaMapaComponent;
+  let fixture: ComponentFixture<RotaMapaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CadastroPontoMapaComponent ]
+      declarations: [ RotaMapaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CadastroPontoMapaComponent);
+    fixture = TestBed.createComponent(RotaMapaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

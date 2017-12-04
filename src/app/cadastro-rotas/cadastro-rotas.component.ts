@@ -42,6 +42,16 @@ export class CadastroRotasComponent{
         outDuration: 200, // Transition out duration
       }
     ]
+
+    timePickerParams = [
+      {
+        default: 'now',
+        twelvehour: false, // Use AM/PM or 24-hour format
+        donetext: 'OK', // text for done-button
+        cleartext: 'Limpar', // text for clear-button
+        canceltext: 'Cancelar', // Text for cancel-button
+      }
+    ]
   
     
     constructor(public router: Router, public _serviceRota: RotaService, public route: ActivatedRoute) { 
@@ -63,9 +73,6 @@ export class CadastroRotasComponent{
                 }
                 else if (pass.$key == 'horaTermino') {
                   this.rota.horaTermino = pass.$value; 
-                }
-                else if (pass.$key == 'sentido') {
-                  this.rota.sentido = pass.$value; 
                 }
               });
             });
@@ -94,7 +101,7 @@ export class CadastroRotasComponent{
       }else{
        
        
-        this._serviceRota.isDuplicado(this.rota.descricao, this.rota.sentido).then(() => {
+        this._serviceRota.isDuplicado(this.rota.descricao).then(() => {
           this._serviceRota.novo(this.rota).then((dados) =>{
             this.close('LOADING');
   

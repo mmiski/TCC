@@ -34,7 +34,7 @@ import { VisualizarPassageiroMensalidadeComponent } from './visualizar-passageir
 import { GridAcessoMobileComponent } from './grid-acesso-mobile/grid-acesso-mobile.component';
 import { ListaAcessosComponent } from './lista-acessos/lista-acessos.component';
 import { VisualizaAcessoComponent } from './visualiza-acesso/visualiza-acesso.component';
-import { CadastroPontoMapaComponent } from './cadastro-ponto-mapa/cadastro-ponto-mapa.component';
+import { RotaMapaComponent } from './rota-mapa/rota-mapa.component';
 
 const appRoutes: Routes  = [
   { path: 'site', component: SiteComponent },
@@ -58,7 +58,6 @@ const appRoutes: Routes  = [
   { path: 'cadPassContrato/:passageiroKey', component: CadastroPassageiroContratoComponent },
   { path: 'cadVeiculo/:key', component: CadastroVeiculoComponent },
   { path: 'cadVeiculo', component: CadastroVeiculoComponent },
-  { path: 'gridVeiculo', component: GridVeiculoComponent },
   { path: 'veicRevisao', component: VeiculoRevisaoComponent },
   { path: 'cadMotorista/:key', component: CadastroMotoristaComponent },
   { path: 'cadMotorista', component: CadastroMotoristaComponent },
@@ -66,9 +65,9 @@ const appRoutes: Routes  = [
   { path: 'gridRota', component: GridRotasComponent },
   { path: 'cadRota', component: CadastroRotasComponent },
   { path: 'cadRota/:key', component: CadastroRotasComponent },
-  { path: 'cadPontoMapa/:rotaKey', component: CadastroPontoMapaComponent },
-  { path: 'rotaVincPass', component: RotaVinculoPassageiroComponent },
-  { path: 'cadRotaVincPass', component: CadastroRotaVinculoPassageiroComponent },
+  { path: 'gridRotaVincPass/:rotaKey', component: RotaVinculoPassageiroComponent },
+  { path: 'cadRotaVincPass/:rotaKey', component: CadastroRotaVinculoPassageiroComponent },
+  { path: 'rotaMapa/:rotaKey', component: RotaMapaComponent },
   { path: 'cadPlanoMensalidade/:key', component: CadastroPlanoMensalidadeComponent },
   { path: 'cadPlanoMensalidade', component: CadastroPlanoMensalidadeComponent },
   { path: 'gridPlanoMensalidade', component: GridPlanoMensalidadeComponent },

@@ -1,98 +1,173 @@
-
 <div class="row section">
     <div class="col s12">
-      <div class="card grey lighten-4 z-depth-4">
-        <div class="card-content grey lighten-4">
-          <ul materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="lstPassageirosCollapsible">
-            <li>
-              <div class="collapsible-header row" style="margin-bottom: 0px;">
-                  <div class="col s2">
-                      <i class="material-icons">forward</i>
-                  </div>
-                <div class="col s8">
-                    <h6>Para: Materdei</h6>
-                </div>
-                <div class="col s2 btn btn-flat waves-effect center" href="#modalDoc" (click)="cadRotaPassageiro() ">
-                    <i class="material-icons">add</i>
-                </div>
-              </div>
-                <div class="collapsible-body" style="display: none;">
-                <ul>
-                    <li class="card">
-                        <div class="card-content">
-                          <div class="row" style="margin-bottom: 0px;">
-                              <div class="col s12 m12 l10 center">
-                                  <h6>José Josino</h6>
-                              </div>
-                              <div class="col s12 m6 l1 btn btn-flat waves-effect" (click)="cadRotaPassageiro()">
-                                  <i class="material-icons">edit</i>
-                              </div>
-                              <div class="col s12 m6 l1 btn btn-flat waves-effect">
-                                  <i class="material-icons">delete</i>
-                              </div>  
-                          </div>
-                          <div class="row" style="margin-bottom: 0px;">
-                            <div class="col s12 m4 l2 center">
-                                <span>Ordem na Fila</span>
-                            </div>
-                            <div class="col s12 m8 l10">
-                                <p class="range-field">
-                                  <input type="range" id="test5" min="1" max="10" />
-                                </p>
-                              </div>
-                          </div>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div class="card-content">
-                          <div class="row" style="margin-bottom: 0px;">
-                              <div class="col s12 m12 l10 center">
-                                  <h6>Maria Gadu</h6>
-                              </div>
-                              <div class="col s12 m6 l1 btn btn-flat waves-effect" (click)="cadRotaPassageiro()">
-                                  <i class="material-icons">edit</i>
-                              </div>
-                              <div class="col s12 m6 l1 btn btn-flat waves-effect">
-                                  <i class="material-icons">delete</i>
-                              </div>  
-                          </div>
-                          <div class="row" style="margin-bottom: 0px;">
-                              <div class="col s12 m4 l2 center">
-                                  <span>Ordem na Fila</span>
-                              </div>
-                              <div class="col s12 m8 l10">
-                                  <p class="range-field">
-                                    <input type="range" id="test5" min="1" max="10" />
-                                  </p>
-                                </div>
-                          </div>
-                        </div>
-                    </li>
-                </ul>
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header row" style="margin-bottom: 0px;">
-                  <div class="col s2">
-                        <i class="material-icons">reply_all</i>
-                    </div>
-                  <div class="col s8">
-                      <h6>De: Materdei</h6>
-                  </div>
-                  <div class="col s2 btn btn-flat waves-effect center" href="#modalDoc" (click)="cadRotaPassageiro()">
-                      <i class="material-icons">add</i>
-                  </div>
-                </div>
-                  <div class="collapsible-body" style="display: none;">
-                  <ul>
-                      <li class="center-aligns">
-                          <label>Nenhum Passageiro vinculado</label>
-                      </li>
-                  </ul>
-                  </div>
-              </li>
-        </ul>
+      <a (click)="gridRota()" class="btn btn-flat btn-waves"><i class="material-icons left">arrow_back</i>Voltar</a>
+    </div>
+  </div>
+<div class="row"> 
+    <div class="col s12 m12 l3 container">
+        <div class="card grey lighten-4 row">
+                <div class="col s6 m12 l12 card-content grey lighten-4 center-align">
+                        <a class="waves-effect waves-light btn btn-flat" (click)="novo()"><i class="material-icons left">add</i>Adicionar</a>
+                </div>              
         </div>
       </div>
-    </div>   
-  </div>
+      <div class="col s12 m12 l9">
+          <blockquote>
+              Clique na linha dos registros para ver mais informações.
+            </blockquote>         
+        <div class="card grey lighten-4 z-depth-4">
+          <div class="card-content grey lighten-4">
+                    <ul *ngIf="(listaRotaPassageiros)?.length > 0" materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="rotaPassageirosCollapsible">
+                        <li *ngFor="let item of listaRotaPassageiros">
+                            <div class="collapsible-header row" style="margin-bottom: 0px;">
+                                  <div class="col s9 m11 l11 grey-text text-darken-4">
+                                    <h6><strong>Nome: </strong>{{item.nome}}</h6>
+                                    <h6><strong>CPF: </strong>{{item.cpf}}</h6>
+                                    <label>Ordem: {{item.ordem}}</label>
+                                  </div>
+                                  <a  (click)="show('DANGER', item.$keyRotaPassageiro)" class="col s3 m1 l1 btn btn-flat waves-effect">
+                                      <i class="material-icons">delete</i>
+                                  </a>                       
+                            </div> 
+                            <div class="collapsible-body" style="display: none;">
+                              <div class="card row">
+                                    <div class="card-content col s12">
+                                            <span class="card-title"><strong>Dias da Semana que irá utilizar a Rota</strong></span>
+                                            <div class="row grey lighten-4" style="margin-bottom: 0px;">
+                                              <p class="col s12 m3 l3">
+                                                <input type="checkbox" id=1+{{item.$keyRotaPassageiro}} [(ngModel)]="item.segunda" (change)="alterar(item.$keyRotaPassageiro, item)"/>
+                                                <label for=1+{{item.$keyRotaPassageiro}}>Segunda-Feira</label>
+                                              </p>
+                                              <p class="col s12 m3 l3">
+                                                <input type="checkbox" id=2+{{item.$keyRotaPassageiro}} [(ngModel)]="item.terca" (change)="alterar(item.$keyRotaPassageiro, item)"/>
+                                                <label for=2+{{item.$keyRotaPassageiro}}>Terça-Feira</label>
+                                              </p>
+                                              <p class="col s12 m3 l3">
+                                                <input type="checkbox" id=3+{{item.$keyRotaPassageiro}} [(ngModel)]="item.quarta" (change)="alterar(item.$keyRotaPassageiro, item)"/>
+                                                <label for=3+{{item.$keyRotaPassageiro}}>Quarta-Feira</label>
+                                              </p>
+                                              <p class="col s12 m3 l3">
+                                                <input type="checkbox" id=4+{{item.$keyRotaPassageiro}} [(ngModel)]="item.quinta" (change)="alterar(item.$keyRotaPassageiro, item)"/>
+                                                <label for=4+{{item.$keyRotaPassageiro}} >Quinta-Feira</label>
+                                              </p>
+                                              <p class="col s12 m3 l3">
+                                                <input type="checkbox" id=5+{{item.$keyRotaPassageiro}} [(ngModel)]="item.sexta" (change)="alterar(item.$keyRotaPassageiro, item)"/>
+                                                <label for=5+{{item.$keyRotaPassageiro}} >Sexta-Feira</label>
+                                              </p>
+                                              <p class="col s12 m3 l3">
+                                                <input type="checkbox" id=6+{{item.$keyRotaPassageiro}} [(ngModel)]="item.sabado" (change)="alterar(item.$keyRotaPassageiro, item)"/>
+                                                <label for=6+{{item.$keyRotaPassageiro}} >Sábado</label>
+                                              </p>
+                                              <p class="col s12 m3 l3">
+                                                <input type="checkbox" id=7+{{item.$keyRotaPassageiro}} [(ngModel)]="item.domingo" (change)="alterar(item.$keyRotaPassageiro, item)"/>
+                                                <label for=7+{{item.$keyRotaPassageiro}} >Domingo</label>
+                                              </p>                                            
+                                            </div>
+                                        </div>
+                              </div>
+                            </div>  
+                        </li>               
+                    </ul>
+                    <div *ngIf="(listaRotaPassageiros)?.length == 0" class="center-align">
+                        <label>Nenhum registro encontrado.</label>
+                    </div>
+          </div>
+        </div>
+      </div>
+</div>
+        
+    
+      <!-- Modal LOADING -->
+      <div id="loading" class="modal" materialize="modal" style="height:180px;" [materializeParams]="msgParams" [materializeActions]="loading">
+            <div class="modal-content center">
+              <h4 style="padding-bottom:1%;">Carregando</h4>
+              <div  class="preloader-wrapper big active">
+                  <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div><div class="gap-patch">
+                      <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+            
+                  <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div><div class="gap-patch">
+                      <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+            
+                  <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div><div class="gap-patch">
+                      <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+            
+                  <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div><div class="gap-patch">
+                      <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            </div>
+            
+            <!-- Modal ALERT -->
+            <div id="alert" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="alert">
+            <div class="modal-content center no-padding">
+              <div class="row orange lighten-2 white-text title-alert">
+              <h4>{{msgTitulo}}</h4>
+            </div>
+            <div class="row">
+              <p>{{msgCorpo}}</p>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <a class="waves-effect waves-green btn orange lighten-1" (click)="close('ALERT')">OK</a> 
+            </div>
+            </div>
+            
+            <!-- Modal SUCCESS -->
+            <div id="success" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="success">
+            <div class="modal-content center no-padding">
+            <div class="row green lighten-2 white-text title-alert">
+                  <h4>{{msgTitulo}}</h4>
+              </div>
+              <div class="row">
+                  <p>{{msgCorpo}}</p>
+              </div>
+            </div>
+            <div class="modal-footer center">
+            <a class="waves-effect waves-green btn green lighten-1" (click)="close('SUCCESS')">OK</a> 
+            </div>
+            </div>
+            
+            <!-- Modal DANGER -->
+            <div id="danger" class="modal" materialize="modal" [materializeParams]="msgParams" [materializeActions]="danger">
+            <div class="modal-content center no-padding">
+            <div class="row red lighten-2 white-text title-alert">
+              <h4>Exclusão</h4>
+            </div>
+            <div class="row">
+              <p>Deseja excluir esse registro?</p>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <a class="waves-effect waves-green btn btn-flat" (click)="excluir(keyExcluir)">Sim</a> 
+            <a class="waves-effect waves-green btn red lighten-1" (click)="close('DANGER')">Não</a>
+            </div>
+            </div>
+            

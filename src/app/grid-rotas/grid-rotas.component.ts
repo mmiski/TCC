@@ -23,15 +23,6 @@ export class GridRotasComponent {
   success = new EventEmitter<string|MaterializeAction>();
   danger = new EventEmitter<string|MaterializeAction>();  
   loading = new EventEmitter<string|MaterializeAction>();
-  
-  msgParams = [
-    {
-      dismissible: false, // Modal can be dismissed by clicking outside of the modal
-      opacity: 0.8, // Opacity of modal background
-      inDuration: 300, // Transition in duration
-      outDuration: 200, // Transition out duration
-    }
-  ]
 
 
     constructor(public router: Router, public _serviceRota: RotaService, public _serviceAuth: AuthService) {
@@ -51,15 +42,15 @@ export class GridRotasComponent {
       this.close('LOADING');
     }
 
-    cadPontoMapa(rotaKey: string = ""){
+    gridRotaVincPass(rotaKey: string = ""){
       this.show('LOADING');
-      this.router.navigate(['cadPontoMapa', rotaKey]);
+      this.router.navigate(['gridRotaVincPass', rotaKey]);
       this.close('LOADING');
     }
 
-    carregaMapa(key: string = ""){
+    rotaMapa(rotaKey: string = ""){
       this.show('LOADING');
-      this.listaPontos = this._serviceRota.listaPontosMapa(key);
+      this.router.navigate(['rotaMapa', rotaKey]);
       this.close('LOADING');
     }
 

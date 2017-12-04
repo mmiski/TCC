@@ -63,8 +63,9 @@ import { GridAcessoMobileComponent } from './grid-acesso-mobile/grid-acesso-mobi
 import { ListaAcessosComponent } from './lista-acessos/lista-acessos.component';
 import { VisualizaAcessoComponent } from './visualiza-acesso/visualiza-acesso.component';
 import { AcessoMobileService } from './services/acesso-mobile.service';
-import { CadastroPontoMapaComponent } from './cadastro-ponto-mapa/cadastro-ponto-mapa.component';
 import { RotaService } from './services/rota.service';
+import { RotaMapaComponent } from './rota-mapa/rota-mapa.component';
+import { RotaPassageiroService } from './services/rota-passageiro.service';
 
 
 const  config = {
@@ -117,7 +118,7 @@ const  config = {
     GridAcessoMobileComponent,
     ListaAcessosComponent,
     VisualizaAcessoComponent,
-    CadastroPontoMapaComponent
+    RotaMapaComponent
   ],
   imports: [
     BrowserModule,
@@ -135,7 +136,7 @@ const  config = {
   ],
   providers: [AngularFireDatabase, AuthService, UsuarioService, ClienteService, ContatoService, UsuarioMensagemService,
               AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService, MotoristaService, PassageiroService, ResponsavelService, 
-              PassageiroContratoService, PassageiroMensalidadeService, AcessoMobileService, RotaService],
+              PassageiroContratoService, PassageiroMensalidadeService, AcessoMobileService, RotaService, RotaPassageiroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

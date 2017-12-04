@@ -17,18 +17,6 @@ export class RotaService {
 
   }
 
-  deletarPonto(keyPonto: string = "", keyRota: string = ""){
-    return this.afDataBase.list(`/Clientes/${this.key}/Rotas/${keyRota}/PontosMapa`).remove(keyPonto);
-  }
-
-  adicionarPonto(keyRota: string = "", posicao: Posicao){
-    return this.afDataBase.list(`/Clientes/${this.key}/Rotas/${keyRota}/PontosMapa`).push(posicao);
-  }
-
-  alterarPonto(keyPonto: string = "", keyRota: string = "", ponto: Posicao){
-    return this.afDataBase.list(`/Clientes/${this.key}/Rotas/${keyRota}/PontosMapa`).update(keyPonto,ponto);
-  }
-
   getDados(key: string){
     return this.afDataBase.list(`/Clientes/${this.key}/Rotas/${key}`);
   }
@@ -39,10 +27,6 @@ export class RotaService {
       orderByChild: 'nome'
       }
       })
-  }
-
-  listaPontosMapa(key: string): FirebaseListObservable<any>{
-    return this.afDataBase.list(`/Clientes/${this.key}/Rotas/${key}/PontosMapa`)
   }
   
   alterar(key: string, rota: Rota){
@@ -57,13 +41,13 @@ export class RotaService {
     return this.lista().remove(key);
   }
 
-  isDuplicado(valor: string = "", sentido: string = ""){
+  isDuplicado(valor: string = ""){
     return new Promise((resolve, reject) => {
       let flag = false;
 
       this.afDataBase.list(`/Clientes/${this.key}/Rotas`).subscribe((dados) => {
         dados.forEach(element => {
-            if (element.descricao == valor && element.sentido == sentido) {
+            if (element.descricao == valor) {
                     reject(new Error("Rota já cadastrada."));                     
             }
         });  
