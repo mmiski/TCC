@@ -1,6 +1,6 @@
 <div class="row container">
   <div class="col s12 center">
-    <h4>Bem-Vindo(a) a Fantástica ferramenta</h4>
+    <h4>Bem-Vindo(a) ao</h4>
     <h4 class="teal-text">VANNZ</h4>
   </div>  
 </div>
@@ -8,68 +8,19 @@
   <div class="divider"></div>
 </div>
 
-<div class="row">
-    <div class="container section red">
-        <ul class="collection with-header">
-            <li class="collection-header center grey lighten-4"><h4>Atenção</h4></li>
-            <li class="collection-item grey lighten-4">Versão: 1.0(BETA TESTE)</li>
-            <li class="collection-item grey lighten-4">Notas da Versão: 
-                <ul class="collection">               
-                    <li class="collection-item">
-                        Plataforma esta com os cadastros principais funcionando corretamente. Contudo os menus de Gerenciamento de Usuario, Rotas e Vinculo de Responsaveis, Mensalidades e Contratos
-                        estão inativos por uma mudança nas rotinas, em breve será atualizado.
-                    </li>
-                  </ul>
-            </li>
-          </ul>
-    </div>
-  </div>
 
-<div class="row">
-  <div class="container section teal">
-      <ul class="collection with-header">
-          <li class="collection-header center grey lighten-4"><h4>Informações da Plataforma</h4></li>
-          <li class="collection-item grey lighten-4">Versão: 0.01(BETA TESTE)</li>
-          <li class="collection-item grey lighten-4">Notas da Versão: 
-              <ul class="collection">               
-                  <li class="collection-item">
-                      Plataforma no estado atual disponibiliza apenas uma demonstração visual, porém com login, logout, alteração na configuração do usuário e dados da empresa funcionais.
-                  </li>
-                </ul>
-          </li>
-          <li class="collection-item grey lighten-4">Versão: 0.02(BETA TESTE)</li>
-          <li class="collection-item grey lighten-4">Notas da Versão: 
-              <ul class="collection">               
-                  <li class="collection-item">
-                      Implementado modals de Loading, Alert, Success e Danger.
-                  </li>
-                  <li class="collection-item">
-                      Implementado validação de campo e tratamento de erros para Cadastro de Login, Login, Configuração de Usuario, Dados da Empresa.
-                  </li>
-                  <li class="collection-item">
-                     Implementada nova tela para Contato e nova forma para o usuario enviar mensagem para equipe.
-                  </li>
-                  <li class="collection-item">
-                      Corrigida rotina para Excluir Usuario.
-                   </li>
-                </ul>
-          </li>
-          <li class="collection-item grey lighten-4">Versão: 0.5(BETA TESTE)</li>
-          <li class="collection-item grey lighten-4">Notas da Versão: 
-              <ul class="collection">               
-                  <li class="collection-item">
-                      Todos os Cadastros funcionando.
-                  </li>                
-                </ul>
-          </li>
-          <li class="collection-item grey lighten-4">Versão: 0.9(BETA TESTE)</li>
-          <li class="collection-item grey lighten-4">Notas da Versão: 
-              <ul class="collection">               
-                  <li class="collection-item">
-                      Inativado menu para trocar a senha do usuario, motivos pela mudança da rotina.
-                  </li>                
-                </ul>
-          </li>
-        </ul>
-  </div>
-</div>
+    <div  *ngFor="let item of lstVersoes | async" class="row container">
+        <div class="col s12 m2 center">
+            <p><i class="material-icons left">today</i>{{item.data}}</p>
+        </div>
+        <div class="col s12 m10">
+            <span>Versão: {{item.versao}}</span>
+            <div class="card">
+                <div [ngClass]="{'atencao': item.status == 1, 'padrao': item.status == 0}" class=" card-content">                   
+                <p>{{item.descricao}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

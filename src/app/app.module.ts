@@ -66,6 +66,7 @@ import { AcessoMobileService } from './services/acesso-mobile.service';
 import { RotaService } from './services/rota.service';
 import { RotaMapaComponent } from './rota-mapa/rota-mapa.component';
 import { RotaPassageiroService } from './services/rota-passageiro.service';
+import { AuthGuard } from './auth.guard';
 
 
 const  config = {
@@ -136,7 +137,7 @@ const  config = {
   ],
   providers: [AngularFireDatabase, AuthService, UsuarioService, ClienteService, ContatoService, UsuarioMensagemService,
               AreaAtuacaoService, ModeloContratoService, PlanoMensalidadeService, VeiculoService, MotoristaService, PassageiroService, ResponsavelService, 
-              PassageiroContratoService, PassageiroMensalidadeService, AcessoMobileService, RotaService, RotaPassageiroService],
+              PassageiroContratoService, PassageiroMensalidadeService, AcessoMobileService, RotaService, RotaPassageiroService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -27,10 +27,6 @@ export class GridRotasComponent {
 
     constructor(public router: Router, public _serviceRota: RotaService, public _serviceAuth: AuthService) {
 
-      if (!this._serviceAuth.afAuth.auth.currentUser) {
-        this.router.navigate(['site']);
-      }
-
       this._serviceRota.key = _serviceAuth.usuario.identificacaoCliente;
       this.listaRotas = this._serviceRota.lista();
 
