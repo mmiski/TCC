@@ -83,13 +83,29 @@ constructor(public router: Router, public _serviceMotorista: MotoristaService, p
     if (key) {
       this.key = key;
         this._serviceMotorista.getDados(key).subscribe(dados => {
-          this.motorista.cpf = dados[0].$value;
-          this.motorista.dataEmissao = dados[1].$value;
-          this.motorista.dataNascimento = dados[2].$value;
-          this.motorista.dataVencimento = dados[3].$value;
-          this.motorista.nome = dados[4].$value;
-          this.motorista.nRegistro = dados[5].$value;
-          this.motorista.telefone = dados[6].$value;
+          dados.forEach(pass => {
+            if (pass.$key == 'cpf') {
+              this.motorista.cpf = pass.$value; 
+            }
+            else if (pass.$key == 'dataNascimento') {
+              this.motorista.dataNascimento = pass.$value; 
+            }
+            else if (pass.$key == 'dataEmissao') {
+              this.motorista.dataEmissao = pass.$value; 
+            }
+            else if (pass.$key == 'dataVencimento') {
+              this.motorista.dataVencimento = pass.$value; 
+            }
+            else if (pass.$key == 'nRegistro') {
+              this.motorista.nRegistro = pass.$value; 
+            }
+            else if (pass.$key == 'nome') {
+              this.motorista.nome = pass.$value; 
+            }
+            else if (pass.$key == 'telefone') {
+              this.motorista.telefone = pass.$value; 
+            }
+          });
         });
     }
 });
